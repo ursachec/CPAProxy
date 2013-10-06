@@ -70,7 +70,7 @@ After you have been notified that a CPAProxyManager setup has been completed, yo
 
 ## System Requirements
 
-CPAProxy supports iOS 5.0+ and the architectures __armv7__, __armv7s__ and __i386__.
+CPAProxy supports iOS 5.0+ and the architectures __armv7__, __armv7s__, __arm64__ and __i386__.
 
 ## Installation
 
@@ -82,14 +82,12 @@ CPAProxy supports iOS 5.0+ and the architectures __armv7__, __armv7s__ and __i38
  5. Under *"Build Phases"* select *"Link Binary with Libraries"* and add __libCPAProxy.a__ and __libz.dylib__.
  6. Under *"Build Settings"* search for *"Other Linker Flags"* and add a new entry with the value __-ObjC__.
  7. Under *"Build Settings"* search for *"Header Search Paths"* and add a new entry with the value __External/CPAProxy__ and select __non-recursive__.
- 8. And finally, also under *"Build Settings"*, search for *"Valid Architectures"* and make sure they're the same as the ones supported by CPAProxy's dependencies (for version 0.1.0, those would be __armv7__ and __armv7s__).
 
  The CPAProxy dependencies are prebuilt to allow a fast initial installation. For actual releases, you should build the dependecies yourself by running __build-all.sh__ under the *script* folder.
 
 ## Caveats
 
 - Security implications of running Tor on iOS seem to be unknown so far, so CPAProxy is not recommended to be used in applications that want to guarantee the anonymity of users
-- Currently supported architectures only include i386, armv7, armv7s, but there are plans to make armv6 and arm64 available
 - This product is produced independently from the Tor® anonymity software and carries no guarantee from The Tor Project about quality, suitability or anything else
 - This project is still in the early stages of development, so things will be broken and not function correctly here and there 
 
