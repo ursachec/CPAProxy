@@ -17,7 +17,7 @@ then
 fi
 
 # Platforms to build for (changing this may break the build)
-PLATFORMS="iPhoneSimulator iPhoneOS-V7 iPhoneOS-V7s"
+PLATFORMS="iPhoneSimulator iPhoneOS-V7 iPhoneOS-V7s iPhoneOS-V64"
 
 export OPENSSL_VERSION="1.0.0c"
 
@@ -38,7 +38,11 @@ fi
 for PLATFORM in ${PLATFORMS}
 do
   ROOTDIR="${TOPDIR}/${PLATFORM}-${SDK}"
-  if [ "${PLATFORM}" == "iPhoneOS-V7s" ]
+  if [ "${PLATFORM}" == "iPhoneOS-V64" ]
+  then
+    PLATFORM="iphoneos"
+    ARCH="arm64"
+  elif [ "${PLATFORM}" == "iPhoneOS-V7s" ]
   then
     PLATFORM="iphoneos"
     ARCH="armv7s"
@@ -46,10 +50,6 @@ do
   then
     PLATFORM="iphoneos"
     ARCH="armv7"
-  elif [ "${PLATFORM}" == "iPhoneOS-V6" ]
-  then
-    PLATFORM="iphoneos"
-    ARCH="armv6"
   else
   	PLATFORM="macosx"
     ARCH="i386"
@@ -110,7 +110,7 @@ for BIN in ${BINS[@]}; do
   FILE_ARCH_PATHS=( "${BUILT_ARCHS[@]/#/${BUILT_DIR}/}" )
   FILE_ARCH_PATHS=( "${FILE_ARCH_PATHS[@]/%//${BIN}}" )
 
-  lipo ${FILE_ARCH_PATHS[@]} -create -output "${FINAL_BUILT_DIR}/${BIN}"
+  xcrun -sdk iphoneos lipo ${FILE_ARCH_PATHS[@]} -create -output "${FINAL_BUILT_DIR}/${BIN}"
 done
 
 # Copy torrc and geoip to the final directory
