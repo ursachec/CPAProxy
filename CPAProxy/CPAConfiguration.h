@@ -1,0 +1,76 @@
+//  CPAConfiguration.h
+//
+//  Copyright (c) 2013 Claudiu-Vlad Ursache.
+//  See LICENCE for licensing information
+//
+
+#import <Foundation/Foundation.h>
+
+/**
+`CPAConfiguration` handles data used used by `CPAThread` and `CPAProxyManager`. It provides information like the temporary directory to be used for storing the Tor clients's data, control port, SOCKS port and paths to torrc and geoip.
+ 
+*/
+
+@interface CPAConfiguration : NSObject
+
+/**
+ Creates and returns a `CPAConfiguration` with the specified torrc and geoip paths.
+ 
+ @param Path to a torrc file.
+ @param Path to a geoip file.
+ @return A newly initialized `CPAConfiguration`.
+ */
++ (instancetype)configurationWithTorrcPath:(NSString *)torrcPath
+                                 geoipPath:(NSString *)geoipPath;
+
+/**
+ Initializes a `CPAConfiguration` with the specified torrc and geoip paths.
+ 
+ @param torrcPath Path to a torrc file.
+ @param geoipPath Path to a geoip file.
+ @return A newly initialized `CPAConfiguration`.
+ */
+- (instancetype)initWithTorrcPath:(NSString *)torrcPath
+                        geoipPath:(NSString *)geoipPath;
+
+/**
+ The port for the Tor SOCKS proxy.
+ */
+@property (nonatomic, readonly) NSUInteger socksPort;
+
+/**
+ The hostname for the Tor SOCKS proxy.
+ */
+@property (nonatomic, copy, readonly) NSString *socksHost;
+
+/**
+ The control port used by a Tor client.
+ */
+@property (nonatomic, readonly) NSUInteger controlPort;
+
+/**
+ Returns the control auth cookie saved by the Tor client on startup. If the Tor client has not been started, this will be nil.
+ */
+@property (nonatomic, strong, readonly) NSData *torCookieData;
+
+/**
+ Returns the Tor control auth cookie as hex.
+ */
+@property (nonatomic, copy, readonly) NSString *torCookieDataAsHex;
+
+/**
+ Returns the path to the Tor temporary directory.
+ */
+@property (nonatomic, copy, readonly) NSString *torTempDirPath;
+
+/**
+ Returns the path to the torrc file.
+ */
+@property (nonatomic, copy, readwrite) NSString *torrcPath;
+
+/**
+ Returns the path to the geoip file.
+ */
+@property (nonatomic, copy, readwrite) NSString *geoipPath;
+
+@end
