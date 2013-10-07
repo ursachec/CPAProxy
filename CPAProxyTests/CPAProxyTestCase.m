@@ -23,8 +23,6 @@
     self.geoipPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"geoip" ofType:nil];
     XCTAssertNotNil(self.torrcPath, @"The torrc path should not be nil!");
     XCTAssertNotNil(self.geoipPath, @"The geoip path should not be nil!");
-    
-    [Expecta setAsynchronousTestTimeout:5.0f];
 }
 
 - (void)tearDown

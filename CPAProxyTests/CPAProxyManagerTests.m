@@ -11,6 +11,7 @@
 #import "CPAConfiguration.h"
 #import "CPAProxyManager.h"
 #import "CPAProxyManager+TorCommands.h"
+#import "CPAThread.h"
 
 @interface CPAProxyManagerTests : CPAProxyTestCase
 @property (nonatomic, strong, readwrite) CPAProxyManager *proxyManager;
@@ -22,7 +23,9 @@
 - (void)setUp
 {
     [super setUp];
-
+    
+    [Expecta setAsynchronousTestTimeout:30];
+    
     self.configuration = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath];
     self.proxyManager = [CPAProxyManager proxyWithConfiguration:self.configuration];
 }
@@ -31,12 +34,12 @@
 {
     // Put teardown code here; it will be run once, after the last test case.
     [super tearDown];
+    
+    [self.proxyManager.torThread cancel];
 }
 
 - (void)testSuccessfulProxySetup
 {
-    [Expecta setAsynchronousTestTimeout:30];
-    
     __block NSError *blockError = nil;
     __block NSString *blockSocksHost = nil;
     __block NSUInteger blockSocksPort = 0;
