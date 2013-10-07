@@ -42,7 +42,21 @@
 
 - (NSString *)torTempDirPath 
 {
-    return NSTemporaryDirectory();
+    if (_torTempDirPath != nil) {
+        return _torTempDirPath;
+    }
+    
+    // Create a new temporary directory
+    NSError *error = nil;
+    NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
+    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:guid];
+    
+    [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:&error];
+    if (error == nil) {
+        _torTempDirPath = path;
+    }
+    
+    return _torTempDirPath;
 }
 
 - (NSData *)torCookieData
