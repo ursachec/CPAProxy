@@ -18,6 +18,7 @@ const NSTimeInterval CPASocketTimeoutDelay = 3.0f;
 @property (nonatomic, readwrite) CFSocketRef socketRef;
 @property (nonatomic, strong, readwrite) NSTimer *timeoutTimer;
 @property (nonatomic, weak, readwrite) id<CPASocketManagerDelegate> delegate;
+@property (nonatomic, readwrite) BOOL isConnected;
 @end
 
 @implementation CPASocketManager
@@ -68,6 +69,11 @@ const NSTimeInterval CPASocketTimeoutDelay = 3.0f;
     if ([self.delegate respondsToSelector:@selector(socketManagerDidFailToOpenSocket:)]) {
         [self.delegate socketManagerDidFailToOpenSocket:self];
     }
+}
+
+- (void)handleSocketConnected
+{
+    self.isConnected = YES;
 }
 
 - (void)handleSocketWritable
@@ -123,7 +129,7 @@ const NSTimeInterval CPASocketTimeoutDelay = 3.0f;
 	context.info = (__bridge void *)(self);
     
     // Create the socket ref and set callback flags
-    CFOptionFlags callbackFlags = (kCFSocketWriteCallBack|kCFSocketDataCallBack);
+    CFOptionFlags callbackFlags = (kCFSocketConnectCallBack|kCFSocketWriteCallBack|kCFSocketDataCallBack);
     CFSocketRef sRef = CFSocketCreateWithNative(NULL, nativeSocket, callbackFlags, &cpa_socketCallback, &context);
     CFSocketSetSocketFlags(sRef, kCFSocketAutomaticallyReenableReadCallBack);
     
@@ -158,6 +164,9 @@ void cpa_socketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFData
     }
 	
 	switch( callbackType ) {
+        case kCFSocketConnectCallBack:
+            [manager handleSocketConnected];
+            break;
         case kCFSocketDataCallBack: {
             [manager handleSocketData:data];
         } break;

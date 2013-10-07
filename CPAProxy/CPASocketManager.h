@@ -14,6 +14,11 @@
 @interface CPASocketManager : NSObject
 
 /**
+ Returns YES if the socket manager has a connected socket, NO otherwise.
+ */
+@property (nonatomic, readonly) BOOL isConnected;
+
+/**
  Returns the socket manager's delegate.
  */
 @property (nonatomic, readonly, weak) id<CPASocketManagerDelegate> delegate;
