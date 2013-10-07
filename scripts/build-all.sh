@@ -19,6 +19,8 @@ fi
 # Platforms to build for (changing this may break the build)
 PLATFORMS="iPhoneSimulator iPhoneOS-V7 iPhoneOS-V7s iPhoneOS-V64"
 
+export MIN_IOS_VERSION="6.0"
+
 export OPENSSL_VERSION="1.0.0c"
 
 export LIBEVENT_VERSION="2.0.21-stable"
@@ -51,7 +53,7 @@ do
     PLATFORM="iphoneos"
     ARCH="armv7"
   else
-  	PLATFORM="macosx"
+  	PLATFORM="iphonesimulator${SDK}"
     ARCH="i386"
   fi
   rm -rf "${ROOTDIR}"
@@ -83,13 +85,13 @@ do
   # Build the platform dependencies
   ./setup-prerequisites.sh > "${ROOTDIR}-setup-prerequisites.log"
 
-  # # Build OpenSSL
+  # Build OpenSSL
   ./build-openssl.sh > "${ROOTDIR}-openssl.log"
 
-  # # Build libevent
+  # Build libevent
   ./build-libevent.sh > "${ROOTDIR}-libevent.log"
 
-  # # Build tor
+  # Build tor
   ./build-tor.sh > "${ROOTDIR}-tor.log"
   
   # Remove junk
