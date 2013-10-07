@@ -79,9 +79,10 @@ CPAProxy supports iOS 5.0+ and the architectures __armv7__, __armv7s__, __arm64_
  2. In Finder, navigate to *External/CPAProxy* and drag __CPAProxy.xcodeproj__ into your XCode project.
  3. In Finder, navigate to *External/CPAProxy/CPAProxyDependencies* and drag __torrc__ and __geoip__ into your XCode project
  4. In XCode, select your main project and then the __target__ you want to add CPAProxy to.
- 5. Under *"Build Phases"* select *"Link Binary with Libraries"* and add __libCPAProxy.a__ and __libz.dylib__.
- 6. Under *"Build Settings"* search for *"Other Linker Flags"* and add a new entry with the value __-ObjC__.
- 7. Under *"Build Settings"* search for *"Header Search Paths"* and add a new entry with the value __External/CPAProxy__ and select __non-recursive__.
+ 5. Under *"Build Phases"* select *"Target Dependencies"* and add __CPAProxy__.
+ 6. Under *"Build Phases"* select *"Link Binary with Libraries"* and add __libCPAProxy.a__ and __libz.dylib__.
+ 7. Under *"Build Settings"* search for *"Other Linker Flags"* and add a new entry with the value __-ObjC__.
+ 8. Under *"Build Settings"* search for *"Header Search Paths"* and add a new entry with the value __External/CPAProxy__ and select __non-recursive__.
 
  The CPAProxy dependencies are prebuilt to allow a fast initial installation. For actual releases, you should build the dependecies yourself by running __build-all.sh__ under the *script* folder.
 
