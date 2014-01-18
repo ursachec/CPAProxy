@@ -55,7 +55,7 @@
 extern const NSTimeInterval CPASocketTimeoutDelay;
 
 /**
- The CPASocketManagerDelegate defines methods that a delegate of `CPASocketManager` can implement in order to respond to events related to the manager's socket.
+ The CPASocketManagerDelegate defines methods used to respond to events related to the manager's socket.
  */
 @protocol CPASocketManagerDelegate <NSObject>
 

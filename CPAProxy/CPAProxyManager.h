@@ -13,9 +13,9 @@
 /**
  `CPAProxyManager` is a class responsible for coordinating the creation and communication with a Tor client running in a separate thread represented by `CPAThread`. After the Tor client has been started using the `CPAThread` instance, the `CPAProxyManager` uses `CPASocketManager` to send control messages until it has successfully boostraped Tor.
  
- Right after the Tor client has been started, the control message "AUTHENTICATE %control_auth_cookie%" is sent. This uses data from a auth cookie created by Tor in it's temp directory specified by `CPAConfiguration`.
+ Right after starting Tor, the control message "AUTHENTICATE %control_auth_cookie%" is sent. This uses data from a auth cookie created in Tor's temp directory specified by `CPAConfiguration`.
  
- If the authentication has succeded, the `CPAProxyManager` starts sending "GETINFO status/bootstrap-phase" messages to poll for the boostrap progress of the Tor client. When the response "BOOTSTRAP PROGRESS=100" has been received, the client is considered to have been successfully setup and the SOCKS proxy is ready to be used.
+ If the authentication has succeeded, the `CPAProxyManager` starts sending "GETINFO status/bootstrap-phase" messages to poll for the boostrap progress of the Tor client. When the response "BOOTSTRAP PROGRESS=100" has been received, the client is considered to have been successfully setup and the SOCKS proxy is ready to be used.
  */
 
 @interface CPAProxyManager : NSObject
