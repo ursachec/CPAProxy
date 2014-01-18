@@ -108,6 +108,7 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
         NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: @"Torrc or geoip path not set." };
         NSError *error = [[NSError alloc] initWithDomain:CPAErrorDomain code:CPAErrorTorrcOrGeoipPathNotSet userInfo:userInfo];
         [self failWithError:error];
+        return;
     }
     
     // Only start the tor thread if it's not already executing
@@ -115,9 +116,7 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
         [self.torThread start];
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPAProxyDidStartSetupNotification object:self];
-    });
+    [self postNotificationWithName:CPAProxyDidStartSetupNotification];
     
     self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:CPATimeoutDelay
                                                           target:self
@@ -201,9 +200,7 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
         [self.boostrapTimer invalidate];
         [self.timeoutTimer invalidate];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:CPAProxyDidFinishSetupNotification object:self];
-        });
+        [self postNotificationWithName:CPAProxyDidFinishSetupNotification];
         
         NSString *socksHost = self.configuration.socksHost;
         NSUInteger socksPort = self.configuration.socksPort;
@@ -215,13 +212,19 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
 
 #pragma mark - Utilities
 
+- (void)postNotificationWithName:(NSString * const)notificationName
+{
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:weakSelf];
+    });
+}
+
 - (void)failWithError:(NSError *)error
 {
     [self.timeoutTimer invalidate];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:CPAProxyDidFailSetupNotification object:self];
-    });
+    [self postNotificationWithName:CPAProxyDidFailSetupNotification];
     
     if (self.failureBlock) {
         self.failureBlock(error);
