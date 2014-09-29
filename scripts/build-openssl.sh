@@ -30,7 +30,7 @@ pushd "openssl-${OPENSSL_VERSION}"
 
 	export CC="${CLANG} -arch ${ARCH} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION}"
 	export CROSS_TOP="${DEVELOPER}/Platforms/${PLATFORM}.platform/Developer"
-	export CROSS_SDK="${PLATFORM}${SDKVERSION}.sdk"
+	export CROSS_SDK="${PLATFORM}${SDK}.sdk"
 
 	./Configure ${EXTRA_CONFIG} no-shared --openssldir=${ROOTDIR}
 
