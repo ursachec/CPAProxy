@@ -4,7 +4,7 @@ install:
   - gem install cocoapods --no-rdoc --no-ri # Need Cocoapods >= 0.34.1
   - export ARCHS="i386"   # Only build dependencies for i386 to speed things up
   - bash ./scripts/build-all.sh
-  - pod install --verbose
+  - pod install
 
 script:
   - xctool -workspace CPAProxy.xcworkspace -scheme CPAProxyTests -sdk iphonesimulator7.1 -arch i386 test
