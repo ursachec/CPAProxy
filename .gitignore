@@ -18,3 +18,5 @@ profile
 
 CPAProxyDependencies/
 Pods/
+scripts/build/
+scripts/built/

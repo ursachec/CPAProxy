@@ -135,16 +135,19 @@ BINS+=(libcurve25519_donna.a libor-crypto.a libtor.a libor-event.a libor.a)
 
 NUMBER_OF_BUILT_ARCHS=${#BUILT_ARCHS[@]}
 
-if [ "${NUMBER_OF_BUILT_ARCHS}" == "1" ]; then
-  echo "Only ${NUMBER_OF_BUILT_ARCHS} architectures built (${BUILT_ARCHS}), skipping lipo."
-else
-  for BIN in ${BINS[@]}; do
-    FILE_ARCH_PATHS=( "${BUILT_ARCHS[@]/#/${BUILT_DIR}/}" )
-    FILE_ARCH_PATHS=( "${FILE_ARCH_PATHS[@]/%//${BIN}}" )
 
+for BIN in ${BINS[@]}; do
+  FILE_ARCH_PATHS=( "${BUILT_ARCHS[@]/#/${BUILT_DIR}/}" )
+  FILE_ARCH_PATHS=( "${FILE_ARCH_PATHS[@]/%//${BIN}}" )
+  if [ "${NUMBER_OF_BUILT_ARCHS}" == "1" ]; then
+    for FILE_ARCH_PATH in ${FILE_ARCH_PATHS[@]}; do
+      echo "${BIN} only built for (${BUILT_ARCHS}), skipping lipo and copying to ${FINAL_BUILT_DIR}/${BIN}"
+      cp "${FILE_ARCH_PATH}" "${FINAL_BUILT_DIR}/${BIN}"
+    done
+  else
     xcrun -sdk iphoneos lipo ${FILE_ARCH_PATHS[@]} -create -output "${FINAL_BUILT_DIR}/${BIN}"
-  done
-fi
+  fi
+done
 
 # Copy torrc to the final directory
 cp "torrc" "${FINAL_BUILT_DIR}/"
