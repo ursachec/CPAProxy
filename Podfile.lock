@@ -1,0 +1,17 @@
+PODS:
+  - CPAProxy (1.0.0)
+  - Expecta (0.3.1)
+
+DEPENDENCIES:
+  - CPAProxy (from `./CPAProxy.podspec`)
+  - Expecta (~> 0.3)
+
+EXTERNAL SOURCES:
+  CPAProxy:
+    :path: ./CPAProxy.podspec
+
+SPEC CHECKSUMS:
+  CPAProxy: 6a90ca85dcf10ec5479da6fe9eea53a228b9bab9
+  Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
+
+COCOAPODS: 0.34.1

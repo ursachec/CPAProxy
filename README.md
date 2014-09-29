@@ -13,8 +13,10 @@ CPAProxy is an Objective-C library that eases the use of Tor on iOS. It provides
 
 ```objc
 // Get resource paths for the torrc and geoip files from the main bundle
-NSString *torrcPath = [[NSBundle mainBundle] pathForResource:@"torrc" ofType:nil];
-NSString *geoipPath = [[NSBundle mainBundle] pathForResource:@"geoip" ofType:nil];
+NSURL *cpaProxyBundleURL = [[NSBundle mainBundle] URLForResource:@"CPAProxy" withExtension:@"bundle"];
+NSBundle *cpaProxyBundle = [NSBundle bundleWithURL:cpaProxyBundleURL];
+NSString *torrcPath = [cpaProxyBundle pathForResource:@"torrc" ofType:nil];
+NSString *geoipPath = [cpaProxyBundle pathForResource:@"geoip" ofType:nil];
 
 // Initialize a CPAProxyManager
 CPAConfiguration *configuration = [CPAConfiguration configurationWithTorrcPath:torrcPath geoipPath:geoipPath];
@@ -70,21 +72,22 @@ After you have been notified that a CPAProxyManager setup has been completed, yo
 
 ## System Requirements
 
-CPAProxy supports iOS 5.0+ and the architectures __armv7__, __armv7s__, __arm64__ and __i386__.
+CPAProxy supports iOS 7.0+ and the architectures __armv7__, __armv7s__, __arm64__, __i386__, __x86_64__.
 
 ## Installation
 
- 1. Get the source code by adding CPAProxy as a git submodule:
-```git submodule add https://github.com/ursachec/CPAProxy.git External/CPAProxy```
- 2. In Finder, navigate to *External/CPAProxy* and drag __CPAProxy.xcodeproj__ into your XCode project.
- 3. In Finder, navigate to *External/CPAProxy/CPAProxyDependencies* and drag __torrc__ and __geoip__ into your XCode project
- 4. In XCode, select your main project and then the __target__ you want to add CPAProxy to.
- 5. Under *"Build Phases"* select *"Target Dependencies"* and add __CPAProxy__.
- 6. Under *"Build Phases"* select *"Link Binary with Libraries"* and add __libCPAProxy.a__ and __libz.dylib__.
- 7. Under *"Build Settings"* search for *"Other Linker Flags"* and add a new entry with the value __-ObjC__.
- 8. Under *"Build Settings"* search for *"Header Search Paths"* and add a new entry with the value __External/CPAProxy__ and select __non-recursive__.
+The [Cocoapods](http://cocoapods.org) podspec hasn't been submitted yet, but you can still use `CPAProxy.podspec` in the meantime. Just put this line in your `Podfile`:
 
- The CPAProxy dependencies are prebuilt to allow a fast initial installation. For actual releases, you should build the dependecies yourself by running __build-all.sh__ under the *script* folder.
+    pod 'CPAProxy', :git => 'https://github.com/chrisballinger/CPAProxy.git'
+
+The dependencies OpenSSL, libevent, and Tor should be built automatically via `build-all.sh` located in the scripts directory.
+
+### Dependency Versions
+
+* [OpenSSL](https://www.openssl.org) v1.0.1i - 06-Aug-2014
+* [libevent](http://libevent.org) v2.0.21-stable - 2012-11-18
+* [Tor](https://www.torproject.org) v0.2.5.8-rc - 23-Sep-2014
+
 
 ## Caveats
 

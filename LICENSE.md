@@ -17,3 +17,78 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+--
+
+ENCRYPTION NOTICE / APP DISTRIBUTION NOTES
+
+This software uses strong cryptography and may it fall under certain
+export/import and/or use restrictions in some other parts of the world.
+BEFORE using any encryption software, please check your country's laws,
+regulations and policies concerning the import, possession, or use,
+and re-export of encryption software, to see if this is permitted.
+See http://www.wassenaar.org/ for more information.
+
+This source package does not directly contain encryption software. Please see
+the OpenSSL, libevent, and Tor license portions for links to the encryption-containing
+portions of this application. Distributions of this source package
+(and only this source package, without external dependencies) may not be
+considered encryption software depending on the regulations of your jurisdiction.
+
+Distribution of binary versions of this application may be subject to
+further export/import and/or use restrictions. (iOS developers: see the
+"My application uses a public domain library (openssh)..." question in the
+"World Wide Trade Compliance for the App Store" page on the Apple iTunes Connect
+FAQs[3] site. Also note the "I intend to distribute my app only in the United
+States and Canada..." question on that FAQ page.)
+
+    [3]: https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/wa/jumpTo?page=faqs
+    
+--
+
+OpenSSL is not bundled in the source tree of this application, but is required
+to compile the library. NOTE: Binary forms of this application are subject
+to the license and must reproduce the copyright notices and disclaimers
+located in the full license (link below).
+
+OpenSSL is available under the OpenSSL License License & Original SSLeay License:
+
+Copyright (c) 1998-2011 The OpenSSL Project.
+
+Full license available at:
+
+https://www.openssl.org/source/license.html
+
+--
+
+Libevent is not bundled in the source tree of this application, but is required
+to compile the library. NOTE: Binary forms of this application are subject
+to the license and must reproduce the copyright notices and disclaimers
+located in the full license (link below).
+
+Libevent is available for use under the following license, commonly known
+as the 3-clause (or "modified") BSD license:
+
+Copyright (c) 2000-2007 Niels Provos <provos@citi.umich.edu>
+Copyright (c) 2007-2010 Niels Provos and Nick Mathewson
+
+Full license available at:
+
+http://libevent.org/LICENSE.txt
+
+--
+
+Tor is not bundled in the source tree of this application, but is required
+to compile the library. NOTE: Binary forms of this application are subject
+to the license and must reproduce the copyright notices and disclaimers
+located in the full license (link below).
+
+Tor is available under a BSD-style license:
+
+Copyright (c) 2001-2004, Roger Dingledine
+Copyright (c) 2004-2006, Roger Dingledine, Nick Mathewson
+Copyright (c) 2007-2013, The Tor Project, Inc.
+
+Full license available at:
+
+https://gitweb.torproject.org/tor.git?a=blob_plain;hb=HEAD;f=LICENSE

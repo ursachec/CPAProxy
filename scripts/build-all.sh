@@ -63,6 +63,9 @@ fi
 export FINAL_BUILT_DIR="${TOPDIR}/../CPAProxyDependencies"
 if [ ! -d "${FINAL_BUILT_DIR}" ]; then
   mkdir -p "${FINAL_BUILT_DIR}"
+else
+  echo "Final product directory CPAProxyDependencies found, skipping build..."
+  exit 0
 fi
 
 cd ${BUILD_DIR}
@@ -128,7 +131,7 @@ cd ../
 # Combine binaries of different architectures results
 BINS=(libcrypto.a libssl.a)
 BINS+=(libevent_core.a libevent_pthreads.a libevent_extra.a libevent_openssl.a libevent.a)
-BINS+=(libor-crypto.a libtor.a libor-event.a libor.a)
+BINS+=(libcurve25519_donna.a libor-crypto.a libtor.a libor-event.a libor.a)
 
 NUMBER_OF_BUILT_ARCHS=${#BUILT_ARCHS[@]}
 
