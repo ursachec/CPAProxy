@@ -24,7 +24,7 @@
 {
     [super setUp];
     
-    [Expecta setAsynchronousTestTimeout:30];
+    [Expecta setAsynchronousTestTimeout:60 * 5]; // 5 minutes. Sometimes Tor takes a long time to bootstrap
     
     self.configuration = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath];
     self.proxyManager = [CPAProxyManager proxyWithConfiguration:self.configuration];
