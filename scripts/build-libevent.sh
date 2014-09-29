@@ -1,35 +1,36 @@
 #!/bin/bash
+set -e
 
 if [ ! -e "libevent-${LIBEVENT_VERSION}.tar.gz" ]; then
-	curl -LO "https://github.com/downloads/libevent/libevent/libevent-${LIBEVENT_VERSION}.tar.gz"
+	curl -LO "https://github.com/downloads/libevent/libevent/libevent-${LIBEVENT_VERSION}.tar.gz"  --retry 5
 fi
 
 # Extract source
 rm -rf "libevent-${LIBEVENT_VERSION}"
-tar zxvf "libevent-${LIBEVENT_VERSION}.tar.gz"
+tar zxf "libevent-${LIBEVENT_VERSION}.tar.gz"
 
 pushd "libevent-${LIBEVENT_VERSION}"
 
-   CC="${GCC}"
-   LDFLAGS="-L${ARCH_BUILT_DIR}"
-   CFLAGS=" -arch ${ARCH} -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
-   CPPFLAGS=" -arch ${ARCH} -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
+   CC="${CLANG}"
+   LDFLAGS="-L${ARCH_BUILT_DIR} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION}"
+   CFLAGS=" -arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
+   CPPFLAGS=" -arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
 
-	if [ "${ARCH}" == "i386" ];
+   if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ];
    	then
-		HOST_FLAG=""
+		EXTRA_CONFIG=""
 	else
-		HOST_FLAG="--host=arm-apple-darwin11"
+		EXTRA_CONFIG="--host=arm-apple-darwin"
 	fi
 
-   ./configure --disable-shared --enable-static --disable-debug-mode ${HOST_FLAG} \
+   ./configure --disable-shared --enable-static --disable-debug-mode ${EXTRA_CONFIG} \
    --prefix="${ROOTDIR}" \
-   CC="${GCC} " \
+   CC="${CLANG} " \
    LDFLAGS="${LDFLAGS}" \
    CFLAGS="${CFLAGS}" \
    CPPLAGS="${CPPFLAGS}"
 
-   make -j2
+   make
    make install
 
    # Copy the build results        
@@ -38,7 +39,7 @@ pushd "libevent-${LIBEVENT_VERSION}"
    cp "${ROOTDIR}/lib/libevent_extra.a" "${ARCH_BUILT_DIR}"
    cp "${ROOTDIR}/lib/libevent_openssl.a" "${ARCH_BUILT_DIR}"
    cp "${ROOTDIR}/lib/libevent_pthreads.a" "${ARCH_BUILT_DIR}"
-   cp -R "${ROOTDIR}/include/*" "${ARCH_BUILT_HEADERS_DIR}"
+   cp -R ${ROOTDIR}/include/* "${ARCH_BUILT_HEADERS_DIR}"
 
 popd
 

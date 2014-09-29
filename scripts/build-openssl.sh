@@ -1,24 +1,45 @@
 #!/bin/bash
+set -e
 
 # Download source
 if [ ! -e "openssl-${OPENSSL_VERSION}.tar.gz" ]; then
-  curl -O "http://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
+  curl -O "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"  --retry 5
 fi
 
 # Extract source
 rm -rf "openssl-${OPENSSL_VERSION}"
-tar zxvf "openssl-${OPENSSL_VERSION}.tar.gz"
+tar zxf "openssl-${OPENSSL_VERSION}.tar.gz"
 
 # Build
 pushd "openssl-${OPENSSL_VERSION}"
 
-	./Configure BSD-generic32 no-asm --openssldir=${ROOTDIR}
+	if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ]; then
+		if [ "${ARCH}" == "x86_64" ]; then
+			EXTRA_CONFIG="darwin64-x86_64-cc enable-ec_nistp_64_gcc_128"
+		else
+			EXTRA_CONFIG="darwin-i386-cc"
+		fi
+	else
+		sed -ie "s!static volatile sig_atomic_t intr_signal;!static volatile intr_signal;!" "crypto/ui/ui_openssl.c"
+		if [ "${ARCH}" == "arm64" ]; then
+			EXTRA_CONFIG="iphoneos-cross enable-ec_nistp_64_gcc_128"
+		else
+			EXTRA_CONFIG="iphoneos-cross"
+		fi
+	fi
 
-	CC="${GCC} -arch ${ARCH} -miphoneos-version-min=${MIN_IOS_VERSION}"
-	LDFLAGS=""
-	CFLAGS="-isysroot ${SDK_PATH} -miphoneos-version-min=${MIN_IOS_VERSION}"
+	export CC="${CLANG} -arch ${ARCH} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION}"
+	export CROSS_TOP="${DEVELOPER}/Platforms/${PLATFORM}.platform/Developer"
+	export CROSS_SDK="${PLATFORM}${SDKVERSION}.sdk"
 
-	make CC="${CC}" CFLAG="${CFLAGS}" SHARED_LDFLAGS="${LDFLAGS}"
+	./Configure ${EXTRA_CONFIG} no-shared --openssldir=${ROOTDIR}
+
+	# Fix build when cross-compiling for iOS simulator
+	if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ]; then
+		sed -ie "s!^CFLAG=!CFLAG=-isysroot ${CROSS_TOP}/SDKs/${CROSS_SDK} !" "Makefile"
+	fi
+
+	make
 	make install
 
 	cp "${ROOTDIR}/lib/libcrypto.a" "${ARCH_BUILT_DIR}"

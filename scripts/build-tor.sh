@@ -1,43 +1,43 @@
 #!/bin/bash
+set -e
 
 # Download source
 if [ ! -e "tor-${TOR_VERSION}.tar.gz" ]; then
-  curl -O "https://www.torproject.org/dist/tor-${TOR_VERSION}.tar.gz"
+  curl -O "https://www.torproject.org/dist/tor-${TOR_VERSION}.tar.gz" --retry 5
 fi
 
 # Extract source
 rm -rf "tor-${TOR_VERSION}"
-tar zxvf "tor-${TOR_VERSION}.tar.gz"
+tar zxf "tor-${TOR_VERSION}.tar.gz"
 
 pushd "tor-${TOR_VERSION}"
 
 	# Apply patches
-	patch -p3 < "${TOPDIR}/patch-tor-nsenviron.diff"
-	patch -p3 < "${TOPDIR}/patch-tor-ptrace.diff"
+	patch -p3 < "${TOPDIR}/patches/tor-nsenviron.diff"
+	patch -p3 < "${TOPDIR}/patches/tor-ptrace.diff"
 
-	LDFLAGS="-L${ARCH_BUILT_DIR}"
-	CFLAGS="-arch ${ARCH} -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
-	CPPFLAGS="-arch ${ARCH} -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
+	LDFLAGS="-L${ARCH_BUILT_DIR} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION}"
+	CFLAGS="-arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
+	CPPFLAGS="-arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
 
-	if [ "${ARCH}" == "i386" ];
-	then
-	  HOST_FLAG=""
-	else
-	  HOST_FLAG="--host=arm-apple-darwin11 --target=arm-apple-darwin11 --disable-gcc-hardening --disable-linker-hardening"
-	fi
+	if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ]; then
+        EXTRA_CONFIG=""
+    else
+        EXTRA_CONFIG="--host=arm-apple-darwin"
+    fi
 
-	./configure --enable-static-openssl --enable-static-libevent --enable-static-zlib ${HOST_FLAG} \
+	./configure --enable-static-openssl --enable-static-libevent --enable-static-zlib ${EXTRA_CONFIG} \
 	--prefix="${ROOTDIR}" \
 	--with-openssl-dir="${ARCH_BUILT_DIR}" \
 	--with-libevent-dir="${ARCH_BUILT_DIR}" \
 	--with-zlib-dir="${ARCH_BUILT_DIR}" \
-	--disable-asciidoc \
-	CC="${GCC}" \
+	--disable-asciidoc --disable-transparent --disable-tool-name-check \
+	CC="${CLANG}" \
 	LDFLAGS="${LDFLAGS}" \
 	CFLAGS="${CFLAGS}" \
 	CPPFLAGS="${CPPFLAGS}"
 
-	make -j2
+	make
 
 	# Copy the build results
 	cp "src/common/libor-crypto.a" "${ARCH_BUILT_DIR}"
@@ -46,8 +46,11 @@ pushd "tor-${TOR_VERSION}"
 	cp "src/or/libtor.a" "${ARCH_BUILT_DIR}"
 
 	# Copy the micro-revision.i file that defines the Tor version
-	cp "src/or/micro-revision.i" "${ARCH_BUILT_HEADERS_DIR}/"
+	cp "micro-revision.i" "${ARCH_BUILT_HEADERS_DIR}/"
 
+	# Copy the geoip files
+	cp "src/config/geoip" "${FINAL_BUILT_DIR}/"
+	cp "src/config/geoip6" "${FINAL_BUILT_DIR}/"
 popd
 
 # Clean up
