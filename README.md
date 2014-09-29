@@ -1,6 +1,8 @@
-![CPAProxy logo](http://i.imgur.com/PiF7CWK.png?1)
+![CPAProxy logo](https://i.imgur.com/PiF7CWK.png)
 
-CPAProxy is an Objective-C library that eases the use of Tor on iOS. It provides APIs to setup and communicate with a Tor client running on a separate thread of an application's main process.
+[![Build Status](https://travis-ci.org/chrisballinger/CPAProxy.svg)](https://travis-ci.org/chrisballinger/CPAProxy)
+
+[CPAProxy](https://github.com/ursachec/CPAProxy) is an Objective-C library that eases the use of Tor on iOS. It provides APIs to setup and communicate with a Tor client running on a separate thread of an application's main process.
 
 ## How to get started
 
@@ -11,7 +13,7 @@ CPAProxy is an Objective-C library that eases the use of Tor on iOS. It provides
 
 ### ⨀ First steps
 
-```objc
+```obj-c
 // Get resource paths for the torrc and geoip files from the main bundle
 NSURL *cpaProxyBundleURL = [[NSBundle mainBundle] URLForResource:@"CPAProxy" withExtension:@"bundle"];
 NSBundle *cpaProxyBundle = [NSBundle bundleWithURL:cpaProxyBundleURL];
@@ -32,7 +34,7 @@ Torrc is a configuration file used by the Tor process and is documented in lengt
 
 ### ⨀  Running Tor
 
-```objc
+```obj-c
 [self.cpaProxyManager setupWithSuccess:^(NSString *SOCKSHost, NSUInteger SOCKSPort) {
 
     // Use the Tor SOCKS Proxy hostname and port
@@ -45,7 +47,7 @@ After you have initialized an instance of CPAProxyManager, call `-setupWithSucce
 
 ### ⨀  Sending a request over Tor with NSURLSessionDataTask
 
-```
+```obj-c
 
 - (void)handleCPAProxySetupWithSOCKSHost:(NSString *)SOCKSHost SOCKSPort:(NSUInteger)SOCKSPort
 {
@@ -68,7 +70,7 @@ After you have initialized an instance of CPAProxyManager, call `-setupWithSucce
 
 ```
 
-After you have been notified that a CPAProxyManager setup has been completed, you can use the SOCKS proxy to anonymize your requests. For example, you could create an ephemeral *NSURLSessionConfiguration*, set *kCFStreamPropertySOCKSProxyHost* and *kCFStreamPropertySOCKSProxyPort* on its *connectionProxyDictionary*, and use *NSURLSessions* with the configuration to send *NSURLSessionTasks* over Tor.
+After you have been notified that a CPAProxyManager setup has been completed, you can use the SOCKS proxy to anonymize your requests. For example, you could create an ephemeral `NSURLSessionConfiguration`, set `kCFStreamPropertySOCKSProxyHost` and `kCFStreamPropertySOCKSProxyPort` on its `connectionProxyDictionary`, and use `NSURLSessions` with the configuration to send `NSURLSessionTasks` over Tor.
 
 ## System Requirements
 

@@ -1,0 +1,9 @@
+language: objective-c
+
+install:
+  - export ARCHS="i386"
+  - bash ./scripts/build-all.sh
+  - pod install
+
+script:
+  - xctool -workspace CPAProxy.xcworkspace -scheme CPAProxyTests -sdk iphonesimulator7.1 -arch i386 test
