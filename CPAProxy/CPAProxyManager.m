@@ -32,14 +32,6 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
     CPAErrorTorSetupTimedOut,
 };
 
-typedef NS_ENUM(NSUInteger, CPAStatus) {
-    CPAStatusClosed = 0,
-    CPAStatusConnecting,
-    CPAStatusAuthenticated,
-    CPAStatusBootstrapDone,
-    CPAStatusOpen
-};
-
 @interface CPAProxyManager () <CPASocketManagerDelegate>
 @property (nonatomic, strong, readwrite) CPASocketManager *socketManager;
 @property (nonatomic, strong, readwrite) CPAConfiguration *configuration;
