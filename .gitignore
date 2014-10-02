@@ -9,8 +9,14 @@ build/*
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-*.xcworkspace
+project.xcworkspace
 !default.xcworkspace
 xcuserdata
 profile
 *.moved-aside
+*.xccheckout
+
+CPAProxyDependencies/
+Pods/
+scripts/build/
+scripts/built/

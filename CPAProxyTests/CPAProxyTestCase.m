@@ -18,9 +18,11 @@
 - (void)setUp
 {
     [super setUp];
-    
-    self.torrcPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"torrc" ofType:nil];
-    self.geoipPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"geoip" ofType:nil];
+    NSURL *cpaProxyBundleURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"CPAProxy" withExtension:@"bundle"];
+    XCTAssertNotNil(cpaProxyBundleURL, @"cpaProxyBundleURL should not be nil!");
+    NSBundle *cpaProxyBundle = [NSBundle bundleWithURL:cpaProxyBundleURL];
+    self.torrcPath = [cpaProxyBundle pathForResource:@"torrc" ofType:nil];
+    self.geoipPath = [cpaProxyBundle pathForResource:@"geoip" ofType:nil];
     XCTAssertNotNil(self.torrcPath, @"The torrc path should not be nil!");
     XCTAssertNotNil(self.geoipPath, @"The geoip path should not be nil!");
 }
