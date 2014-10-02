@@ -10,9 +10,6 @@
 #import "CPAProxyManager+TorCommands.h"
 #import "CPASocketManager.h"
 
-typedef void (^CPASuccessBlock)(NSString *socksHost, NSUInteger socksPort);
-typedef void (^CPAFailureBlock)(NSError *error);
-
 NSString * const CPAProxyDidStartSetupNotification = @"com.cpaproxy.setup.start";
 NSString * const CPAProxyDidFailSetupNotification = @"com.cpaproxy.setup.fail";
 NSString * const CPAProxyDidFinishSetupNotification = @"com.cpaproxy.setup.finish";
@@ -47,8 +44,8 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
 
 @property (nonatomic, strong, readwrite) NSTimer *boostrapTimer;
 @property (nonatomic, strong, readwrite) NSTimer *timeoutTimer;
-@property (nonatomic, copy, readwrite) CPASuccessBlock successBlock;
-@property (nonatomic, copy, readwrite) CPAFailureBlock failureBlock;
+@property (nonatomic, copy, readwrite) CPACompletionBlock completionBlock;
+@property (nonatomic, copy, readwrite) CPAProgressBlock progressBlock;
 
 @property (nonatomic, readwrite) CPAStatus status;
 @end
@@ -91,16 +88,16 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
 
 #pragma mark - 
 
-- (void)setupWithSuccess:(CPASuccessBlock)success
-                 failure:(CPAFailureBlock)failure
+- (void)setupWithCompletion:(CPACompletionBlock)completion
+                   progress:(CPAProgressBlock)progress
 {
     if (self.status != CPAStatusClosed) {
         return;
     }
     self.status = CPAStatusConnecting;
     
-    self.successBlock = success;
-    self.failureBlock = failure;
+    self.completionBlock = completion;
+    self.progressBlock = progress;
     
     if (self.configuration.torrcPath == nil
         || self.configuration.geoipPath == nil) {
@@ -192,6 +189,11 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
 - (void)handleInitialBoostrapProgressResponse:(NSString *)response
 {
     NSInteger progress = [self cpa_boostrapProgressForResponse:response];
+    
+    if (self.progressBlock) {
+        NSString *summaryString = [self cpa_boostrapSummaryForResponse:response];
+        self.progressBlock(progress,summaryString);
+    }
 
     if (progress == CPABoostrapProgressPercentageDone) {
         
@@ -204,8 +206,8 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
         
         NSString *socksHost = self.configuration.socksHost;
         NSUInteger socksPort = self.configuration.socksPort;
-        if (self.successBlock) {
-            self.successBlock(socksHost, socksPort);
+        if (self.completionBlock) {
+            self.completionBlock(socksHost, socksPort, nil);
         }
     }
 }
@@ -226,8 +228,8 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
     
     [self postNotificationWithName:CPAProxyDidFailSetupNotification];
     
-    if (self.failureBlock) {
-        self.failureBlock(error);
+    if (self.completionBlock) {
+        self.completionBlock(nil,0,error);
     }
 }
 

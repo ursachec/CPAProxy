@@ -40,6 +40,20 @@
     return progess;
 }
 
+- (NSString *)cpa_boostrapSummaryForResponse:(NSString *)response
+{
+    NSString *progressString = @"SUMMARY=";
+    NSString *summaryString = nil;
+    
+    NSScanner *scanner = [NSScanner scannerWithString:response];
+    scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithCharactersInString:@"\""];
+    [scanner scanUpToString:progressString intoString:NULL];
+    
+    [scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:NULL];
+    [scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:&summaryString];
+    return summaryString;
+}
+
 - (BOOL)cpa_isAuthenticatedForResponse:(NSString *)response
 {
     if ([response rangeOfString:@"250 OK"].location != NSNotFound) {
