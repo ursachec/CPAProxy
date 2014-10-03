@@ -26,7 +26,7 @@
     
     [Expecta setAsynchronousTestTimeout:60 * 5]; // 5 minutes. Sometimes Tor takes a long time to bootstrap
     
-    self.configuration = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath];
+    self.configuration = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:nil];
     self.proxyManager = [CPAProxyManager proxyWithConfiguration:self.configuration];
 }
 
@@ -54,6 +54,25 @@
     expect(blockError).will.beNil();
     expect(blockSocksHost).willNot.beNil();
     expect(blockSocksPort).willNot.equal(0);
+}
+
+- (void)testTorDataDirectory
+{
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    
+    CPAConfiguration *config = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:documentsDirectory];
+    
+    expect(config.torDataDirectoryPath).willNot.beNil();
+    expect(config.torDataDirectoryPath).willNot.equal(documentsDirectory);
+    
+    NSString *directory = [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"com.cpaproxy"];
+    
+    config = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:directory];
+    expect(config.torDataDirectoryPath).willNot.beNil();
+    expect(config.torDataDirectoryPath).will.equal(directory);
+    
+    config = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:nil];
+    expect(config.torDataDirectoryPath).willNot.beNil();
 }
 
 @end
