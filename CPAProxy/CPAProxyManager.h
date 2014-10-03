@@ -13,6 +13,14 @@
 typedef void (^CPACompletionBlock)(NSString *socksHost, NSUInteger socksPort, NSError *error);
 typedef void (^CPAProgressBlock)(NSInteger progress, NSString *summaryString);
 
+typedef NS_ENUM(NSUInteger, CPAStatus) {
+    CPAStatusClosed = 0,
+    CPAStatusConnecting,
+    CPAStatusAuthenticated,
+    CPAStatusBootstrapDone,
+    CPAStatusOpen
+};
+
 /**
  `CPAProxyManager` is a class responsible for coordinating the creation and communication with a Tor client running in a separate thread represented by `CPAThread`. After the Tor client has been started using the `CPAThread` instance, the `CPAProxyManager` uses `CPASocketManager` to send control messages until it has successfully boostraped Tor.
  
@@ -32,6 +40,11 @@ typedef void (^CPAProgressBlock)(NSInteger progress, NSString *summaryString);
  The configuration object being used by this instance of `CPAProxyManager`. This is usually set at initialization.
  */
 @property (nonatomic, strong, readonly) CPAConfiguration *configuration;
+
+/**
+ Convenience method that returns the configuration's SOCKS port
+ */
+@property (nonatomic, readonly) CPAStatus status;
 
 /**
  Convenience method that returns the configuration's SOCKS host
