@@ -10,8 +10,8 @@
 @class CPASocketManager;
 @class CPAThread;
 
-typedef void (^CPACompletionBlock)(NSString *socksHost, NSUInteger socksPort, NSError *error);
-typedef void (^CPAProgressBlock)(NSInteger progress, NSString *summaryString);
+typedef void (^CPABootstrapCompletionBlock)(NSString *socksHost, NSUInteger socksPort, NSError *error);
+typedef void (^CPABootstrapProgressBlock)(NSInteger progress, NSString *summaryString);
 
 /**
  `CPAProxyManager` is a class responsible for coordinating the creation and communication with a Tor client running in a separate thread represented by `CPAThread`. After the Tor client has been started using the `CPAThread` instance, the `CPAProxyManager` uses `CPASocketManager` to send control messages until it has successfully boostraped Tor.
