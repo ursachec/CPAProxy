@@ -9,24 +9,30 @@
 @interface CPAConfiguration ()
 @property (nonatomic, readwrite) NSUInteger controlPort;
 @property (nonatomic, readwrite) NSUInteger socksPort;
-@property (nonatomic, copy, readwrite) NSString *torTempDirPath;
+@property (nonatomic, copy, readwrite) NSString *torDataDirectoryPath;
 @end
 
 @implementation CPAConfiguration
 
 + (instancetype)configurationWithTorrcPath:(NSString *)torrcPath
                                  geoipPath:(NSString *)geoipPath
+                      torDataDirectoryPath:(NSString *)torDataDirectoryPath
 {
-    return [[CPAConfiguration alloc] initWithTorrcPath:torrcPath geoipPath:geoipPath];
+    return [[CPAConfiguration alloc] initWithTorrcPath:torrcPath
+                                             geoipPath:geoipPath
+                                  torDataDirectoryPath:torDataDirectoryPath];
 }
 
 - (instancetype)init
 {
-    return [self initWithTorrcPath:nil geoipPath:nil];
+    return [self initWithTorrcPath:nil
+                         geoipPath:nil
+              torDataDirectoryPath:nil];
 }
 
 - (instancetype)initWithTorrcPath:(NSString *)torrcPath
                         geoipPath:(NSString *)geoipPath
+             torDataDirectoryPath:(NSString *)torDataDirectoryPath
 {
     self = [super init];
     if(!self) return nil;
@@ -37,31 +43,72 @@
     self.torrcPath = torrcPath;
     self.geoipPath = geoipPath;
     
+    [self setupTorDirectoryWithPath:torDataDirectoryPath];
+    
     return self;
 }
 
-- (NSString *)torTempDirPath 
+- (NSString *)torDataDirectoryPath
 {
-    if (_torTempDirPath != nil) {
-        return _torTempDirPath;
+    if (_torDataDirectoryPath != nil) {
+        return _torDataDirectoryPath;
     }
     
     // Create a new temporary directory
-    NSError *error = nil;
     NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
     NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:guid];
     
-    [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:&error];
-    if (error == nil) {
-        _torTempDirPath = path;
+    [self setupTorDirectoryWithPath:path];
+    
+    return _torDataDirectoryPath;
+}
+
+- (BOOL)setupTorDirectoryWithPath:(NSString *)path
+{
+    //Cannot be documents directory for back reasons
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    if ([path isEqualToString:documentsDirectory]) {
+        return NO;
     }
     
-    return _torTempDirPath;
+    BOOL isDirectory = NO;
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
+    
+    if (!fileExists) {
+        NSError *error = nil;
+        [self createTorTemporaryDirectoryAtPath:path error:&error];
+        if (!error) {
+            isDirectory = YES;
+            fileExists = YES;
+        }
+    }
+    
+    if (fileExists && isDirectory) {
+        if ([self excludeDirectoryFromBackup:path error:nil]) {
+            self.torDataDirectoryPath = path;
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL)createTorTemporaryDirectoryAtPath:(NSString *)path error:(NSError **)error
+{
+    return [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:error];
+}
+
+- (BOOL)excludeDirectoryFromBackup:(NSString *)path error:(NSError **)error
+{
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
+        return [[NSURL fileURLWithPath:path isDirectory:YES] setResourceValue: [NSNumber numberWithBool: YES]
+                                                             forKey: NSURLIsExcludedFromBackupKey error:error];
+    }
+    return NO;
 }
 
 - (NSData *)torCookieData
 {
-    NSString *control_auth_cookie = [self.torTempDirPath stringByAppendingPathComponent:@"control_auth_cookie"];
+    NSString *control_auth_cookie = [self.torDataDirectoryPath stringByAppendingPathComponent:@"control_auth_cookie"];
     NSData *cookie = [[NSData alloc] initWithContentsOfFile:control_auth_cookie];
     return cookie;
 }
