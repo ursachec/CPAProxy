@@ -10,8 +10,8 @@
 @class CPASocketManager;
 @class CPAThread;
 
-typedef void (^CPACompletionBlock)(NSString *socksHost, NSUInteger socksPort, NSError *error);
-typedef void (^CPAProgressBlock)(NSInteger progress, NSString *summaryString);
+typedef void (^CPABootstrapCompletionBlock)(NSString *socksHost, NSUInteger socksPort, NSError *error);
+typedef void (^CPABootstrapProgressBlock)(NSInteger progress, NSString *summaryString);
 
 typedef NS_ENUM(NSUInteger, CPAStatus) {
     CPAStatusClosed = 0,
