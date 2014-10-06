@@ -29,6 +29,14 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
     CPAErrorTorSetupTimedOut,
 };
 
+// Function definitions to get version numbers of dependencies to avoid including headers
+/** Returns OpenSSL version */
+extern const char *SSLeay_version(int type);
+/** Returns Libevent version */
+extern const char *event_get_version(void);
+/** Returns Tor version */
+extern const char *get_version(void);
+
 @interface CPAProxyManager () <CPASocketManagerDelegate>
 @property (nonatomic, strong, readwrite) CPASocketManager *socketManager;
 @property (nonatomic, strong, readwrite) CPAConfiguration *configuration;
@@ -36,8 +44,8 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 
 @property (nonatomic, strong, readwrite) NSTimer *boostrapTimer;
 @property (nonatomic, strong, readwrite) NSTimer *timeoutTimer;
-@property (nonatomic, copy, readwrite) CPACompletionBlock completionBlock;
-@property (nonatomic, copy, readwrite) CPAProgressBlock progressBlock;
+@property (nonatomic, copy, readwrite) CPABootstrapCompletionBlock completionBlock;
+@property (nonatomic, copy, readwrite) CPABootstrapProgressBlock progressBlock;
 
 @property (nonatomic, readwrite) CPAStatus status;
 @end
@@ -80,8 +88,8 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 
 #pragma mark - 
 
-- (void)setupWithCompletion:(CPACompletionBlock)completion
-                   progress:(CPAProgressBlock)progress
+- (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
+                   progress:(CPABootstrapProgressBlock)progress
 {
     if (self.status != CPAStatusClosed) {
         return;
@@ -240,6 +248,21 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 - (NSUInteger)SOCKSPort
 {
     return self.configuration.socksPort;
+}
+
++ (NSString *) opensslVersion
+{
+    return [NSString stringWithUTF8String:SSLeay_version(0)];
+}
+
++ (NSString *) libeventVersion
+{
+    return [NSString stringWithUTF8String:event_get_version()];
+}
+
++ (NSString *) torVersion
+{
+    return [NSString stringWithUTF8String:get_version()];
 }
 
 @end
