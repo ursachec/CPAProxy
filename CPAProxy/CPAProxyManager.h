@@ -10,8 +10,8 @@
 @class CPASocketManager;
 @class CPAThread;
 
-typedef void (^CPACompletionBlock)(NSString *socksHost, NSUInteger socksPort, NSError *error);
-typedef void (^CPAProgressBlock)(NSInteger progress, NSString *summaryString);
+typedef void (^CPABootstrapCompletionBlock)(NSString *socksHost, NSUInteger socksPort, NSError *error);
+typedef void (^CPABootstrapProgressBlock)(NSInteger progress, NSString *summaryString);
 
 typedef NS_ENUM(NSUInteger, CPAStatus) {
     CPAStatusClosed = 0,
@@ -82,8 +82,8 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
  @param success The success block containing the hostname and port of the usable Tor SOCKS proxy.
  @param failure The failure block containing an error describing what went wrong.
  */
-- (void)setupWithCompletion:(CPACompletionBlock)completion
-                   progress:(CPAProgressBlock)progress;
+- (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
+                   progress:(CPABootstrapProgressBlock)progress;
 
 @end
 
