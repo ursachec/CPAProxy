@@ -43,17 +43,21 @@
     __block NSError *blockError = nil;
     __block NSString *blockSocksHost = nil;
     __block NSUInteger blockSocksPort = 0;
+    __block NSInteger progressInt = 0;
     
-    [self.proxyManager setupWithSuccess:^(NSString *socksHost, NSUInteger socksPort) {
+    [self.proxyManager setupWithCompletion:^(NSString *socksHost, NSUInteger socksPort, NSError *error) {
         blockSocksHost = socksHost;
         blockSocksPort = socksPort;
-    } failure:^(NSError *error) {
         blockError = error;
+    } progress:^(NSInteger progress, NSString *summaryString) {
+        expect(summaryString).willNot.beNil();
+        progressInt = progress;
     }];
     
     expect(blockError).will.beNil();
     expect(blockSocksHost).willNot.beNil();
     expect(blockSocksPort).willNot.equal(0);
+    expect(progressInt).willNot.equal(0);
 }
 
 @end

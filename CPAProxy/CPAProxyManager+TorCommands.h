@@ -32,6 +32,14 @@
 - (NSInteger)cpa_boostrapProgressForResponse:(NSString *)response;
 
 /**
+ Parses a `get boostrap info` response and returns the summary string.
+ 
+ @param response The response to an `get boostrap info` message.
+ @return A string representing the boostrap summary of the Tor client.
+ */
+- (NSString *)cpa_boostrapSummaryForResponse:(NSString *)response;
+
+/**
  Parses a response from an authenticate message and returns if the authentication was successfull or not.
  
  @param response The response to an authenticate message.
