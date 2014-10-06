@@ -69,8 +69,8 @@ typedef void (^CPABootstrapProgressBlock)(NSInteger progress, NSString *summaryS
  @param success The success block containing the hostname and port of the usable Tor SOCKS proxy.
  @param failure The failure block containing an error describing what went wrong.
  */
-- (void)setupWithCompletion:(CPACompletionBlock)completion
-                   progress:(CPAProgressBlock)progress;
+- (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
+                   progress:(CPABootstrapProgressBlock)progress;
 
 @end
 

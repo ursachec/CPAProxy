@@ -44,8 +44,8 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
 
 @property (nonatomic, strong, readwrite) NSTimer *boostrapTimer;
 @property (nonatomic, strong, readwrite) NSTimer *timeoutTimer;
-@property (nonatomic, copy, readwrite) CPACompletionBlock completionBlock;
-@property (nonatomic, copy, readwrite) CPAProgressBlock progressBlock;
+@property (nonatomic, copy, readwrite) CPABootstrapCompletionBlock completionBlock;
+@property (nonatomic, copy, readwrite) CPABootstrapProgressBlock progressBlock;
 
 @property (nonatomic, readwrite) CPAStatus status;
 @end
@@ -88,8 +88,8 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
 
 #pragma mark - 
 
-- (void)setupWithCompletion:(CPACompletionBlock)completion
-                   progress:(CPAProgressBlock)progress
+- (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
+                   progress:(CPABootstrapProgressBlock)progress
 {
     if (self.status != CPAStatusClosed) {
         return;
