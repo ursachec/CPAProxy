@@ -34,10 +34,11 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 @property (nonatomic, strong, readwrite) CPAConfiguration *configuration;
 @property (nonatomic, strong, readwrite) CPAThread *torThread;
 
-@property (nonatomic, strong, readwrite) NSTimer *boostrapTimer;
+@property (nonatomic, strong, readwrite) NSTimer *bootstrapTimer;
 @property (nonatomic, strong, readwrite) NSTimer *timeoutTimer;
 @property (nonatomic, copy, readwrite) CPABootstrapCompletionBlock completionBlock;
 @property (nonatomic, copy, readwrite) CPABootstrapProgressBlock progressBlock;
+@property (nonatomic) dispatch_queue_t callbackQueue;
 
 @property (nonatomic, readwrite) CPAStatus status;
 @end
@@ -83,6 +84,13 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 - (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
                    progress:(CPABootstrapProgressBlock)progress
 {
+    return [self setupWithCompletion:completion progress:progress callbackQueue:NULL];
+}
+
+- (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
+                   progress:(CPABootstrapProgressBlock)progress
+              callbackQueue:(dispatch_queue_t)completionQueue
+{
     if (self.status != CPAStatusClosed) {
         return;
     }
@@ -90,6 +98,10 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
     
     self.completionBlock = completion;
     self.progressBlock = progress;
+    self.callbackQueue = completionQueue;
+    if (!self.callbackQueue) {
+        self.callbackQueue = dispatch_get_main_queue();
+    }
     
     if (self.configuration.torrcPath == nil
         || self.configuration.geoipPath == nil) {
@@ -107,11 +119,14 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
     
     [self postNotificationWithName:CPAProxyDidStartSetupNotification];
     
-    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:CPATimeoutDelay
-                                                          target:self
-                                                        selector:@selector(handleTimeout)
-                                                        userInfo:nil
-                                                         repeats:NO];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:CPATimeoutDelay
+                                                             target:self
+                                                           selector:@selector(handleTimeout)
+                                                           userInfo:nil
+                                                            repeats:NO];
+    });
+    
     
     // This is a pretty ungly hack but it will have to do for the moment.
     // Wait for a constant amount of time after starting the main Tor client before opening a socket
@@ -125,7 +140,7 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
         return;
     }
         
-    [self.socketManager connectToHost:self.configuration.socksHost port:self.configuration.controlPort];
+    [self.socketManager connectToHost:self.configuration.socksHost port:self.configuration.controlPort error:nil];
 }
 
 #pragma mark - CPASocketManagerDelegate methods
@@ -164,12 +179,15 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
         self.status = CPAStatusAuthenticated;
         
         // Ask for the boostrap progress until it's done
-        SEL boostrapInfoSel = @selector(cpa_sendGetBoostrapInfo);
-        self.boostrapTimer = [NSTimer scheduledTimerWithTimeInterval:CPAGetBoostrapProgressInterval
-                                                              target:self
-                                                            selector:boostrapInfoSel
-                                                            userInfo:nil
-                                                             repeats:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            SEL bootstrapInfoSel = @selector(cpa_sendGetBoostrapInfo);
+            self.bootstrapTimer = [NSTimer scheduledTimerWithTimeInterval:CPAGetBoostrapProgressInterval
+                                                                   target:self
+                                                                 selector:bootstrapInfoSel
+                                                                 userInfo:nil
+                                                                  repeats:YES];
+        });
+        
     } else {
         NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: @"Failed to authenticate to Tor. The control_auth_cookie in Tor's temporary directory may contain a wrong value." };
         NSError *error = [[NSError alloc] initWithDomain:CPAErrorDomain code:CPAErrorTorAuthenticationFailed userInfo:userInfo];
@@ -184,14 +202,18 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
     
     if (self.progressBlock) {
         NSString *summaryString = [self cpa_boostrapSummaryForResponse:response];
-        self.progressBlock(progress,summaryString);
+        CPAProxyManager *welf = self;
+        dispatch_async(self.callbackQueue, ^{
+            welf.progressBlock(progress,summaryString);
+        });
+        
     }
 
     if (progress == CPABoostrapProgressPercentageDone) {
         
         self.status = CPAStatusBootstrapDone;
         
-        [self.boostrapTimer invalidate];
+        [self.bootstrapTimer invalidate];
         [self.timeoutTimer invalidate];
         
         [self postNotificationWithName:CPAProxyDidFinishSetupNotification];
@@ -199,7 +221,11 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
         NSString *socksHost = self.configuration.socksHost;
         NSUInteger socksPort = self.configuration.socksPort;
         if (self.completionBlock) {
-            self.completionBlock(socksHost, socksPort, nil);
+            CPAProxyManager *welf = self;
+            dispatch_async(self.callbackQueue, ^{
+                welf.completionBlock(socksHost, socksPort, nil);
+            });
+            
         }
     }
 }
@@ -217,11 +243,16 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 - (void)failWithError:(NSError *)error
 {
     [self.timeoutTimer invalidate];
+    [self.bootstrapTimer invalidate];
     
     [self postNotificationWithName:CPAProxyDidFailSetupNotification];
     
     if (self.completionBlock) {
-        self.completionBlock(nil,0,error);
+        CPAProxyManager *welf = self;
+        dispatch_async(self.callbackQueue, ^{
+            welf.completionBlock(nil,0,error);
+        });
+        
     }
 }
 

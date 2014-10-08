@@ -6,69 +6,74 @@
 
 #import "CPASocketManager.h"
 
-#include <netdb.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
+#import "GCDAsyncSocket+CPAProxy.h"
 
 const NSTimeInterval CPASocketTimeoutDelay = 3.0f;
 
-@interface CPASocketManager ()
-@property (nonatomic, readwrite) CFSocketRef socketRef;
+@interface CPASocketManager () <GCDAsyncSocketDelegate>
+
 @property (nonatomic, strong, readwrite) NSTimer *timeoutTimer;
 @property (nonatomic, weak, readwrite) id<CPASocketManagerDelegate> delegate;
 @property (nonatomic, readwrite) BOOL isConnected;
+@property (nonatomic, strong, readwrite) GCDAsyncSocket *socket;
+@property (nonatomic) dispatch_queue_t socketQueue;
+@property (nonatomic) dispatch_queue_t delegateQueue;
 @end
 
 @implementation CPASocketManager
 
 - (instancetype)initWithDelegate:(id<CPASocketManagerDelegate>)delegate
 {
-    self = [super init];
-    if(!self) return nil;
+    return [self initWithDelegate:delegate delegateQueue:NULL];
+}
+
+- (instancetype)initWithDelegate:(id<CPASocketManagerDelegate>)delegate delegateQueue:(dispatch_queue_t)delegateQueue
+{
+    return [self initWithDelegate:delegate delegateQueue:delegateQueue socketQueue:NULL];
+}
+
+- (instancetype)initWithDelegate:(id<CPASocketManagerDelegate>)delegate delegateQueue:(dispatch_queue_t)delegateQueue socketQueue:(dispatch_queue_t)socketQueue
+{
+    if(self = [super init]) {
+        
+        if(!delegateQueue) {
+            delegateQueue = dispatch_get_main_queue();
+        }
+        
+        self.delegateQueue = delegateQueue;
+        
+        self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self
+                                                 delegateQueue:dispatch_queue_create([@"GCDAsyncSocket-delegate" UTF8String], NULL)
+                                                   socketQueue:socketQueue];
+        self.delegate = delegate;
+    }
     
-    self.delegate = delegate;
+    
     
     return self;
 }
 
-- (void)dealloc
+- (void)connectToHost:(NSString *)host port:(NSUInteger)port error:(NSError **)error;
 {
-    CFSocketInvalidate(self.socketRef);
-    CFRelease(self.socketRef);
-    self.socketRef = NULL;
-}
-
-- (void)connectToHost:(NSString *)host port:(NSUInteger)port
-{
-    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:CPASocketTimeoutDelay
-                                                         target:self 
-                                                       selector:@selector(handleSocketTimeout) 
-                                                       userInfo:self 
-                                                        repeats:NO];
+    [self.socket connectToHost:host onPort:port error:error];
     
-    self.socketRef = [self socketRefWithHost:host port:port];
 }
 
 - (void)writeString:(NSString *)string encoding:(NSStringEncoding)encoding
 {
-    if (nil == self.socketRef) {
-        return;
-    }
-    
-    NSData *data = [string dataUsingEncoding:encoding];    
-    CFSocketError serr = CFSocketSendData(self.socketRef, NULL, (__bridge CFDataRef)data, 0);
-    if (serr == kCFSocketError) {
-        return;
-    }
+    [self.socket cpa_writeString:string withEncoding:encoding timeout:CPASocketTimeoutDelay tag:0];
+    [self.socket readDataWithTimeout:-1 tag:0];
 }
 
 - (void)handleSocketTimeout
 {
     if ([self.delegate respondsToSelector:@selector(socketManagerDidFailToOpenSocket:)]) {
-        [self.delegate socketManagerDidFailToOpenSocket:self];
+        CPASocketManager *welf = self;
+        dispatch_async(self.delegateQueue, ^{
+            [welf.delegate socketManagerDidFailToOpenSocket:welf];
+        });
     }
+    
 }
 
 - (void)handleSocketConnected
@@ -76,108 +81,38 @@ const NSTimeInterval CPASocketTimeoutDelay = 3.0f;
     self.isConnected = YES;
 }
 
-- (void)handleSocketWritable
-{
-    CFSocketDisableCallBacks(self.socketRef, kCFSocketWriteCallBack);
-    
-    [self.timeoutTimer invalidate];
-    
-    if ([self.delegate respondsToSelector:@selector(socketManagerDidOpenSocket:)]) {
-        [self.delegate socketManagerDidOpenSocket:self];
-    }
-}
-
 - (void)handleSocketDataAsString:(NSString *)string
 {
     if ([self.delegate respondsToSelector:@selector(socketManager:didReceiveResponse:)]) {
-        [self.delegate performSelector:@selector(socketManager:didReceiveResponse:) withObject:self withObject:string];
+        CPASocketManager *welf = self;
+        dispatch_async(self.delegateQueue, ^{
+            [welf.delegate performSelector:@selector(socketManager:didReceiveResponse:) withObject:welf withObject:string];
+        });
     }
+    
 }
 
-- (void)handleSocketData:(const void *)data
+#pragma - mark GCDAsyncSocketDelegate Methods
+
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
-    CFIndex nBytes = CFDataGetLength(data);
-    if (nBytes <= 0) {
-        return;
+    [self.timeoutTimer invalidate];
+    [self handleSocketConnected];
+    [self.socket readDataWithTimeout:-1 tag:0];
+    
+    if ([self.delegate respondsToSelector:@selector(socketManagerDidOpenSocket:)]) {
+        CPASocketManager *welf = self;
+        dispatch_async(self.delegateQueue, ^{
+            [welf.delegate socketManagerDidOpenSocket:welf];
+        });
     }
-    
-    UInt8 *buffer = malloc(nBytes);
-    CFDataRef dataRef = (CFDataRef) data;
-    CFDataGetBytes(dataRef, CFRangeMake(0, nBytes), buffer);
-    
-    NSString *s = [[NSString alloc] initWithBytes:buffer length:nBytes encoding:NSASCIIStringEncoding];
-    [self handleSocketDataAsString:s];
-    
-    free(buffer);
 }
 
-- (CFSocketRef)socketRefWithHost:(NSString *)host port:(NSUInteger)port
-{    
-    // Retrieve host information
-    const char *hostName = [host UTF8String];
-	struct hostent *socketHost = gethostbyname(hostName);
-	if( !socketHost ) {
-		return nil;
-    }
-    
-    // Create native socket and set additional flags
-    CFSocketNativeHandle nativeSocket = socket(AF_INET, SOCK_STREAM, 0);
-    
-    // Create the socket context and include self as info
-    CFSocketContext context;
-    bzero(&context, sizeof(context));
-	context.info = (__bridge void *)(self);
-    
-    // Create the socket ref and set callback flags
-    CFOptionFlags callbackFlags = (kCFSocketConnectCallBack|kCFSocketWriteCallBack|kCFSocketDataCallBack);
-    CFSocketRef sRef = CFSocketCreateWithNative(NULL, nativeSocket, callbackFlags, &cpa_socketCallback, &context);
-    CFSocketSetSocketFlags(sRef, kCFSocketAutomaticallyReenableReadCallBack);
-    
-    // Setup socket address
-    struct sockaddr_in saddr;
-	bzero(&saddr, sizeof(saddr));
-	bcopy((char *)socketHost->h_addr, (char *)&saddr.sin_addr, socketHost->h_length);
-	saddr.sin_family = PF_INET;
-	saddr.sin_port = htons(port);
-    saddr.sin_len = sizeof(saddr);
-    
-    // Connect the socket
-    NSData *saddrData = [NSData dataWithBytes:&saddr length:sizeof(saddr)];
-    CFSocketError socketError = CFSocketConnectToAddress(sRef, (__bridge CFDataRef) saddrData, -1);
-    if( socketError != kCFSocketSuccess ) {
-		return nil;
-	}
-    
-    // Add the runloop source to the socket
-    CFRunLoopSourceRef source = CFSocketCreateRunLoopSource(NULL, sRef, 1);
-    CFRunLoopAddSource(CFRunLoopGetCurrent(), source, kCFRunLoopDefaultMode);
-    CFRelease(source);	
-    
-    return sRef;
-}
-
-void cpa_socketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef address, const void *data, void *info)
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-	CPASocketManager *manager = (__bridge CPASocketManager *)info;
-	if( !manager ) {
-		return;
-    }
-	
-	switch( callbackType ) {
-        case kCFSocketConnectCallBack:
-            [manager handleSocketConnected];
-            break;
-        case kCFSocketDataCallBack: {
-            [manager handleSocketData:data];
-        } break;
-            
-		case kCFSocketWriteCallBack: {
-            [manager handleSocketWritable];
-        } break;
-            
-		default:
-			break;
-	}
+    NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    [self handleSocketDataAsString:response];
 }
 
 @end
