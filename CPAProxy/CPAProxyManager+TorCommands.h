@@ -5,6 +5,7 @@
 //
 
 #import "CPAProxyManager.h"
+#import "CPAProxyCommand.h"
 
 /**
  This category adds methods to `CPAProxyManager` to send Tor control requests and process the responses.
@@ -16,35 +17,18 @@
  
  The authentication message needs to be sent before any other control commands can be accepted.
  */
-- (void)cpa_sendAuthenticate;
+- (void)cpa_sendAuthenticateWihtCompletion:(CPAProxyCommandResponseBlock)completion;
 
 /**
  Writes a `get boostrap info` message on Tor's control socket. It has the format "GETINFO status/bootstrap-phase" and the response includes the status of the boostrap stage.
  */
-- (void)cpa_sendGetBoostrapInfo;
+- (void)cpa_sendGetBoostrapInfoWithCompletion:(CPAProxyCommandResponseBlock)completion;
+
 
 /**
- Parses a `get boostrap info` response and returns the percentage completed.
- 
- @param response The response to an `get boostrap info` message.
- @return An integer between 0 and 100 representing the boostrap progress of the Tor client.
+ 'Request the server to inform the client about interesting events' any events not listed will be turned off
+ sending nil or an empty array will turn off all events reporting
  */
-- (NSInteger)cpa_boostrapProgressForResponse:(NSString *)response;
-
-/**
- Parses a `get boostrap info` response and returns the summary string.
- 
- @param response The response to an `get boostrap info` message.
- @return A string representing the boostrap summary of the Tor client.
- */
-- (NSString *)cpa_boostrapSummaryForResponse:(NSString *)response;
-
-/**
- Parses a response from an authenticate message and returns if the authentication was successfull or not.
- 
- @param response The response to an authenticate message.
- @return YES if the authenticate response was positive, otherwise NO.
- */
-- (BOOL)cpa_isAuthenticatedForResponse:(NSString *)response;
+- (void)cpa_setEvents:(NSArray *)eventsArray extended:(BOOL)extended completion:(CPAProxyCommandResponseBlock)completion;
 
 @end

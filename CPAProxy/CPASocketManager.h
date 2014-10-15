@@ -6,6 +6,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class CPAProxyCommand;
+
 @protocol CPASocketManagerDelegate;
 
 /**
@@ -68,7 +70,7 @@
  @param string The string to be written to the socket.
  @param encoding The encoding of the string.
  */
-- (void)writeString:(NSString *)string encoding:(NSStringEncoding)encoding;
+- (void)sendCommand:(CPAProxyCommand *)command;
 
 @end
 
@@ -82,6 +84,7 @@ extern const NSTimeInterval CPASocketTimeoutDelay;
  */
 @protocol CPASocketManagerDelegate <NSObject>
 
+@required
 /**
  This method is called when a `CASocketManager` has successfully created and connected a socket to the host and port specified by `-connectToHost:port:`.
  
@@ -101,5 +104,5 @@ extern const NSTimeInterval CPASocketTimeoutDelay;
  
   @see -writeString:encoding:
  */
-- (void)socketManager:(CPASocketManager *)manager didReceiveResponse:(NSString *)response;
+- (void)socketManager:(CPASocketManager *)manager didReceiveResponse:(NSString *)response forCommand:(CPAProxyCommand *)command;
 @end

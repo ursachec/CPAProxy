@@ -7,8 +7,11 @@
 #import "CPAProxyManager.h"
 #import "CPAThread.h"
 #import "CPAConfiguration.h"
-#import "CPAProxyManager+TorCommands.h"
 #import "CPASocketManager.h"
+#import "CPAProxyManager+TorCommands.h"
+#import "CPAProxyTorCommands.h"
+#import "CPAProxyResponseParser.h"
+#import "CPAProxyTorCommandConstants.h"
 
 NSString * const CPAProxyDidStartSetupNotification = @"com.cpaproxy.setup.start";
 NSString * const CPAProxyDidFailSetupNotification = @"com.cpaproxy.setup.fail";
@@ -29,6 +32,12 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
     CPAErrorTorSetupTimedOut,
 };
 
+typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
+    CPAControlPortStatusClosed = 0,
+    CPAControlPortStatusConnecting,
+    CPAControlPortStatusAuthenticated
+};
+
 @interface CPAProxyManager () <CPASocketManagerDelegate>
 @property (nonatomic, strong, readwrite) CPASocketManager *socketManager;
 @property (nonatomic, strong, readwrite) CPAConfiguration *configuration;
@@ -39,8 +48,10 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 @property (nonatomic, copy, readwrite) CPABootstrapCompletionBlock completionBlock;
 @property (nonatomic, copy, readwrite) CPABootstrapProgressBlock progressBlock;
 @property (nonatomic) dispatch_queue_t callbackQueue;
+@property (nonatomic) dispatch_queue_t workQueue;
 
 @property (nonatomic, readwrite) CPAStatus status;
+@property (nonatomic, readwrite) CPAControlPortStatus controlPortStatus;
 @end
 
 @implementation CPAProxyManager
@@ -65,10 +76,14 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
     
     self.socketManager = [[CPASocketManager alloc] initWithDelegate:self];
     
+    self.controlPortStatus = CPAControlPortStatusClosed;
     self.status = CPAStatusClosed;
     
     self.configuration = configuration;
     self.torThread = torThread;
+    
+    NSString *label = [NSString stringWithFormat:@"%@.work.%p", [self class], self];
+    self.workQueue = dispatch_queue_create([label UTF8String], 0);
     
     return self;
 }
@@ -91,9 +106,10 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
                    progress:(CPABootstrapProgressBlock)progress
               callbackQueue:(dispatch_queue_t)completionQueue
 {
-    if (self.status != CPAStatusClosed) {
+    if (self.controlPortStatus != CPAControlPortStatusClosed) {
         return;
     }
+    self.controlPortStatus = CPAControlPortStatusConnecting;
     self.status = CPAStatusConnecting;
     
     self.completionBlock = completion;
@@ -136,7 +152,7 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 
 - (void)connectSocket
 {
-    if (self.status != CPAStatusConnecting) {
+    if (self.controlPortStatus != CPAControlPortStatusConnecting) {
         return;
     }
         
@@ -145,24 +161,35 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 
 #pragma mark - CPASocketManagerDelegate methods
 
-- (void)socketManager:(CPASocketManager *)manager didReceiveResponse:(NSString *)response
+- (void)socketManager:(CPASocketManager *)manager didReceiveResponse:(NSString *)response forCommand:(CPAProxyCommand *)command
 {
-    if(self.status == CPAStatusConnecting) {
-        [self handleInitialAuthenticateResponse:response];
-    } else if(self.status == CPAStatusAuthenticated) {
-        [self handleInitialBoostrapProgressResponse:response];
+    if (command.responseBlock) {
+        dispatch_async(self.workQueue, ^{
+            command.responseBlock(response,nil);
+        });
+    }
+    
+    if ([CPAProxyResponseParser responseTypeForResponse:response] == CPAResonpseTypeAsynchronous) {
+        [self handleAsyncReponse:response];
     }
 }
 
 - (void)socketManagerDidOpenSocket:(CPASocketManager *)manager
 {
-    if(self.status == CPAStatusConnecting) {
-        [self cpa_sendAuthenticate];
+    if(self.controlPortStatus == CPAStatusConnecting) {
+        [self cpa_sendAuthenticateWihtCompletion:^(NSString *responseString, NSError *error) {
+            [self handleInitialAuthenticateResponse:responseString];
+        }];
+        [self cpa_setEvents:@[kCPAProxyEventStatusClient] extended:NO completion:^(NSString *responseString, NSError *error) {
+            NSLog(@"%@",responseString);
+        }];
     }
 }
 
 - (void)socketManagerDidFailToOpenSocket:(CPASocketManager *)manager
-{        
+{
+    self.controlPortStatus = CPAControlPortStatusClosed;
+    
     NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: @"Failed to connect to socket" };
     NSError *error = [[NSError alloc] initWithDomain:CPAErrorDomain code:CPAErrorSocketOpenFailed userInfo:userInfo];
     [self failWithError:error];
@@ -170,23 +197,27 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 
 #pragma mark - Handle Tor control responses
 
+- (void)handleAsyncReponse:(NSString *)response
+{
+    if ([response containsString:kCPAProxyEventStatusClient]) {
+        [self handleStatusClientAsyncResponse:response];
+    }
+}
+
+- (void)handleStatusClientAsyncResponse:(NSString *)response
+{
+    if ([response containsString:@"BOOTSTRAP"]) {
+        [self handleInitialBoostrapProgressResponse:response];
+    }
+}
+
 - (void)handleInitialAuthenticateResponse:(NSString *)response
 {
-    BOOL authenticated = [self cpa_isAuthenticatedForResponse:response];
+    CPAResonpseType responseType = [CPAProxyResponseParser responseTypeForResponse:response];
     
-    if (authenticated) {
+    if (responseType == CPAResonpseTypeSucess) {
         
-        self.status = CPAStatusAuthenticated;
-        
-        // Ask for the boostrap progress until it's done
-        dispatch_async(dispatch_get_main_queue(), ^{
-            SEL bootstrapInfoSel = @selector(cpa_sendGetBoostrapInfo);
-            self.bootstrapTimer = [NSTimer scheduledTimerWithTimeInterval:CPAGetBoostrapProgressInterval
-                                                                   target:self
-                                                                 selector:bootstrapInfoSel
-                                                                 userInfo:nil
-                                                                  repeats:YES];
-        });
+        self.controlPortStatus = CPAControlPortStatusAuthenticated;
         
     } else {
         NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: @"Failed to authenticate to Tor. The control_auth_cookie in Tor's temporary directory may contain a wrong value." };
@@ -198,20 +229,21 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 
 - (void)handleInitialBoostrapProgressResponse:(NSString *)response
 {
-    NSInteger progress = [self cpa_boostrapProgressForResponse:response];
+    NSInteger progress = [CPAProxyResponseParser boostrapProgressForResponse:response];
     
     if (self.progressBlock) {
-        NSString *summaryString = [self cpa_boostrapSummaryForResponse:response];
-        CPAProxyManager *welf = self;
+        NSString *summaryString = [CPAProxyResponseParser boostrapSummaryForResponse:response];
+        __weak typeof(self)weakSelf = self;
         dispatch_async(self.callbackQueue, ^{
-            welf.progressBlock(progress,summaryString);
+            __strong typeof(weakSelf)strongSelf = weakSelf;
+            strongSelf.progressBlock(progress,summaryString);
         });
         
     }
 
     if (progress == CPABoostrapProgressPercentageDone) {
         
-        self.status = CPAStatusBootstrapDone;
+        self.status = CPAStatusOpen;
         
         [self.bootstrapTimer invalidate];
         [self.timeoutTimer invalidate];
@@ -221,9 +253,10 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
         NSString *socksHost = self.configuration.socksHost;
         NSUInteger socksPort = self.configuration.socksPort;
         if (self.completionBlock) {
-            CPAProxyManager *welf = self;
+            __weak typeof(self)weakSelf = self;
             dispatch_async(self.callbackQueue, ^{
-                welf.completionBlock(socksHost, socksPort, nil);
+                __strong typeof(weakSelf)strongSelf = weakSelf;
+                strongSelf.completionBlock(socksHost, socksPort, nil);
             });
             
         }
@@ -248,9 +281,10 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
     [self postNotificationWithName:CPAProxyDidFailSetupNotification];
     
     if (self.completionBlock) {
-        CPAProxyManager *welf = self;
+        __weak typeof(self)weakSelf = self;
         dispatch_async(self.callbackQueue, ^{
-            welf.completionBlock(nil,0,error);
+            __strong typeof(weakSelf)strongSelf = weakSelf;
+            strongSelf.completionBlock(nil,0,error);
         });
         
     }

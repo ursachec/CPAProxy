@@ -13,11 +13,10 @@
 typedef void (^CPABootstrapCompletionBlock)(NSString *socksHost, NSUInteger socksPort, NSError *error);
 typedef void (^CPABootstrapProgressBlock)(NSInteger progress, NSString *summaryString);
 
+//Tor connnection states
 typedef NS_ENUM(NSUInteger, CPAStatus) {
     CPAStatusClosed = 0,
     CPAStatusConnecting,
-    CPAStatusAuthenticated,
-    CPAStatusBootstrapDone,
     CPAStatusOpen
 };
 
@@ -45,6 +44,8 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
  Convenience method that returns the configuration's SOCKS port
  */
 @property (nonatomic, readonly) CPAStatus status;
+
+@property (nonatomic, readonly) BOOL isConnected;
 
 /**
  Convenience method that returns the configuration's SOCKS host

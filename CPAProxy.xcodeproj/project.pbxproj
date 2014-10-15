@@ -1,820 +1,408 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>1E84B383E92801B67AFA0650</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>2EB2B34B81E314359FF1B0B7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-CPAProxyTests.debug.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5418E2F01802ACF700C293E4</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>5418E35E1802B65D00C293E4</string>
-				<string>5418E3681802BB4400C293E4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>5418E2F11802ACF700C293E4</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>5418E36C1802BDF600C293E4</string>
-				<string>5418E36A1802BCD000C293E4</string>
-				<string>5418E2F51802ACF700C293E4</string>
-				<string>5418E2F71802ACF700C293E4</string>
-				<string>5418E2F61802ACF700C293E4</string>
-				<string>A2439C680413C8B914A98417</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>5418E2F21802ACF700C293E4</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>5418E2FD1802ACF700C293E4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>5418E2F31802ACF700C293E4</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>5418E3031802ACF700C293E4</string>
-			<key>buildPhases</key>
-			<array>
-				<string>E953ECC189BB3C30D30253A3</string>
-				<string>5418E2F01802ACF700C293E4</string>
-				<string>5418E2F11802ACF700C293E4</string>
-				<string>5418E2F21802ACF700C293E4</string>
-				<string>5418E3571802B12500C293E4</string>
-				<string>1E84B383E92801B67AFA0650</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>CPAProxyTests</string>
-			<key>productName</key>
-			<string>CPAProxyTests</string>
-			<key>productReference</key>
-			<string>5418E2F41802ACF700C293E4</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>5418E2F41802ACF700C293E4</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>CPAProxyTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>5418E2F51802ACF700C293E4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>542FFE5E1800C9B5003B83B7</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5418E2F61802ACF700C293E4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>542FFE501800C9B5003B83B7</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5418E2F71802ACF700C293E4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>542FFE611800C9B5003B83B7</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5418E2F81802ACF700C293E4</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>5418E35C1802B65D00C293E4</string>
-				<string>5418E35D1802B65D00C293E4</string>
-				<string>5418E3671802BB4400C293E4</string>
-				<string>5418E2F91802ACF700C293E4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>CPAProxyTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5418E2F91802ACF700C293E4</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>5418E2FA1802ACF700C293E4</string>
-				<string>5418E2FB1802ACF700C293E4</string>
-				<string>5418E3001802ACF700C293E4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5418E2FA1802ACF700C293E4</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>CPAProxyTests-Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5418E2FB1802ACF700C293E4</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>5418E2FC1802ACF700C293E4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5418E2FC1802ACF700C293E4</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>name</key>
-			<string>en</string>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5418E2FD1802ACF700C293E4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5418E2FB1802ACF700C293E4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5418E3001802ACF700C293E4</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CPAProxyTests-Prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5418E3031802ACF700C293E4</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>5418E3041802ACF700C293E4</string>
-				<string>5418E3051802ACF700C293E4</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>5418E3041802ACF700C293E4</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>2EB2B34B81E314359FF1B0B7</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>CPAProxyTests/CPAProxyTests-Prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>HEADER_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include</string>
-					<string>"CPAProxy/"</string>
-					<string>"External/expecta/src"/**</string>
-					<string>"External/specta/src"/**</string>
-				</array>
-				<key>INFOPLIST_FILE</key>
-				<string>CPAProxyTests/CPAProxyTests-Info.plist</string>
-				<key>OTHER_LDFLAGS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>-framework</string>
-					<string>XCTest</string>
-					<string>-ObjC</string>
-				</array>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>5418E3051802ACF700C293E4</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>F125A121F75E29F98CB286B3</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>CPAProxyTests/CPAProxyTests-Prefix.pch</string>
-				<key>HEADER_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include</string>
-					<string>"CPAProxy/"</string>
-					<string>"External/expecta/src"/**</string>
-					<string>"External/specta/src"/**</string>
-				</array>
-				<key>INFOPLIST_FILE</key>
-				<string>CPAProxyTests/CPAProxyTests-Info.plist</string>
-				<key>OTHER_LDFLAGS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>-framework</string>
-					<string>XCTest</string>
-					<string>-ObjC</string>
-				</array>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>5418E3571802B12500C293E4</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>
-echo "HELLO!"
-echo "$(SOURCE_ROOT)/../External/specta/src"</string>
-		</dict>
-		<key>5418E35C1802B65D00C293E4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CPAProxyTestCase.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5418E35D1802B65D00C293E4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CPAProxyTestCase.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5418E35E1802B65D00C293E4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5418E35D1802B65D00C293E4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5418E3671802BB4400C293E4</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CPAProxyManagerTests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5418E3681802BB4400C293E4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5418E3671802BB4400C293E4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5418E36A1802BCD000C293E4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>542FFEA11800CA65003B83B7</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5418E36B1802BDF600C293E4</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>SenTestingKit.framework</string>
-			<key>path</key>
-			<string>Library/Frameworks/SenTestingKit.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>5418E36C1802BDF600C293E4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5418E36B1802BDF600C293E4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>542FFE441800C9B5003B83B7</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>5418E2F81802ACF700C293E4</string>
-				<string>542FFE4F1800C9B5003B83B7</string>
-				<string>542FFE4E1800C9B5003B83B7</string>
-				<string>D779F35CDCEE03F62D4D8988</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>542FFE451800C9B5003B83B7</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastUpgradeCheck</key>
-				<string>0600</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>CPAProxy</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>5418E2F31802ACF700C293E4</key>
-					<dict>
-						<key>TestTargetID</key>
-						<string>542FFE4C1800C9B5003B83B7</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>542FFE481800C9B5003B83B7</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>542FFE441800C9B5003B83B7</string>
-			<key>productRefGroup</key>
-			<string>542FFE4E1800C9B5003B83B7</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>5418E2F31802ACF700C293E4</string>
-			</array>
-		</dict>
-		<key>542FFE481800C9B5003B83B7</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>542FFE6E1800C9B5003B83B7</string>
-				<string>542FFE6F1800C9B5003B83B7</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>542FFE4E1800C9B5003B83B7</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>5418E2F41802ACF700C293E4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>542FFE4F1800C9B5003B83B7</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>5418E36B1802BDF600C293E4</string>
-				<string>542FFEA11800CA65003B83B7</string>
-				<string>542FFE501800C9B5003B83B7</string>
-				<string>542FFE5E1800C9B5003B83B7</string>
-				<string>542FFE611800C9B5003B83B7</string>
-				<string>867D6E00FEEF6865A18D25AC</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>542FFE501800C9B5003B83B7</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>542FFE5E1800C9B5003B83B7</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>XCTest.framework</string>
-			<key>path</key>
-			<string>Library/Frameworks/XCTest.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>542FFE611800C9B5003B83B7</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>UIKit.framework</string>
-			<key>path</key>
-			<string>Library/Frameworks/UIKit.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>542FFE6E1800C9B5003B83B7</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.0</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>542FFE6F1800C9B5003B83B7</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.0</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>542FFEA11800CA65003B83B7</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>compiled.mach-o.dylib</string>
-			<key>name</key>
-			<string>libz.dylib</string>
-			<key>path</key>
-			<string>usr/lib/libz.dylib</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>867D6E00FEEF6865A18D25AC</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-CPAProxyTests.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>A2439C680413C8B914A98417</key>
-		<dict>
-			<key>fileRef</key>
-			<string>867D6E00FEEF6865A18D25AC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D779F35CDCEE03F62D4D8988</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>2EB2B34B81E314359FF1B0B7</string>
-				<string>F125A121F75E29F98CB286B3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E953ECC189BB3C30D30253A3</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>F125A121F75E29F98CB286B3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-CPAProxyTests.release.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>542FFE451800C9B5003B83B7</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5418E2F51802ACF700C293E4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542FFE5E1800C9B5003B83B7 /* XCTest.framework */; };
+		5418E2F61802ACF700C293E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542FFE501800C9B5003B83B7 /* Foundation.framework */; };
+		5418E2F71802ACF700C293E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542FFE611800C9B5003B83B7 /* UIKit.framework */; };
+		5418E2FD1802ACF700C293E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5418E2FB1802ACF700C293E4 /* InfoPlist.strings */; };
+		5418E35E1802B65D00C293E4 /* CPAProxyTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */; };
+		5418E3681802BB4400C293E4 /* CPAProxyManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */; };
+		5418E36A1802BCD000C293E4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 542FFEA11800CA65003B83B7 /* libz.dylib */; };
+		5418E36C1802BDF600C293E4 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5418E36B1802BDF600C293E4 /* SenTestingKit.framework */; };
+		A2439C680413C8B914A98417 /* libPods-CPAProxyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867D6E00FEEF6865A18D25AC /* libPods-CPAProxyTests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2EB2B34B81E314359FF1B0B7 /* Pods-CPAProxyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5418E2F41802ACF700C293E4 /* CPAProxyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPAProxyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5418E2FA1802ACF700C293E4 /* CPAProxyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CPAProxyTests-Info.plist"; sourceTree = "<group>"; };
+		5418E2FC1802ACF700C293E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5418E3001802ACF700C293E4 /* CPAProxyTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPAProxyTests-Prefix.pch"; sourceTree = "<group>"; };
+		5418E35C1802B65D00C293E4 /* CPAProxyTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAProxyTestCase.h; sourceTree = "<group>"; };
+		5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAProxyTestCase.m; sourceTree = "<group>"; };
+		5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAProxyManagerTests.m; sourceTree = "<group>"; };
+		5418E36B1802BDF600C293E4 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		542FFE501800C9B5003B83B7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		542FFE5E1800C9B5003B83B7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		542FFE611800C9B5003B83B7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		542FFEA11800CA65003B83B7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		867D6E00FEEF6865A18D25AC /* libPods-CPAProxyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CPAProxyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F125A121F75E29F98CB286B3 /* Pods-CPAProxyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5418E2F11802ACF700C293E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5418E36C1802BDF600C293E4 /* SenTestingKit.framework in Frameworks */,
+				5418E36A1802BCD000C293E4 /* libz.dylib in Frameworks */,
+				5418E2F51802ACF700C293E4 /* XCTest.framework in Frameworks */,
+				5418E2F71802ACF700C293E4 /* UIKit.framework in Frameworks */,
+				5418E2F61802ACF700C293E4 /* Foundation.framework in Frameworks */,
+				A2439C680413C8B914A98417 /* libPods-CPAProxyTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5418E2F81802ACF700C293E4 /* CPAProxyTests */ = {
+			isa = PBXGroup;
+			children = (
+				5418E35C1802B65D00C293E4 /* CPAProxyTestCase.h */,
+				5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */,
+				5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */,
+				5418E2F91802ACF700C293E4 /* Supporting Files */,
+			);
+			path = CPAProxyTests;
+			sourceTree = "<group>";
+		};
+		5418E2F91802ACF700C293E4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5418E2FA1802ACF700C293E4 /* CPAProxyTests-Info.plist */,
+				5418E2FB1802ACF700C293E4 /* InfoPlist.strings */,
+				5418E3001802ACF700C293E4 /* CPAProxyTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		542FFE441800C9B5003B83B7 = {
+			isa = PBXGroup;
+			children = (
+				5418E2F81802ACF700C293E4 /* CPAProxyTests */,
+				542FFE4F1800C9B5003B83B7 /* Frameworks */,
+				542FFE4E1800C9B5003B83B7 /* Products */,
+				D779F35CDCEE03F62D4D8988 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		542FFE4E1800C9B5003B83B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5418E2F41802ACF700C293E4 /* CPAProxyTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		542FFE4F1800C9B5003B83B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5418E36B1802BDF600C293E4 /* SenTestingKit.framework */,
+				542FFEA11800CA65003B83B7 /* libz.dylib */,
+				542FFE501800C9B5003B83B7 /* Foundation.framework */,
+				542FFE5E1800C9B5003B83B7 /* XCTest.framework */,
+				542FFE611800C9B5003B83B7 /* UIKit.framework */,
+				867D6E00FEEF6865A18D25AC /* libPods-CPAProxyTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D779F35CDCEE03F62D4D8988 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2EB2B34B81E314359FF1B0B7 /* Pods-CPAProxyTests.debug.xcconfig */,
+				F125A121F75E29F98CB286B3 /* Pods-CPAProxyTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5418E2F31802ACF700C293E4 /* CPAProxyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5418E3031802ACF700C293E4 /* Build configuration list for PBXNativeTarget "CPAProxyTests" */;
+			buildPhases = (
+				E953ECC189BB3C30D30253A3 /* Check Pods Manifest.lock */,
+				5418E2F01802ACF700C293E4 /* Sources */,
+				5418E2F11802ACF700C293E4 /* Frameworks */,
+				5418E2F21802ACF700C293E4 /* Resources */,
+				5418E3571802B12500C293E4 /* ShellScript */,
+				1E84B383E92801B67AFA0650 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CPAProxyTests;
+			productName = CPAProxyTests;
+			productReference = 5418E2F41802ACF700C293E4 /* CPAProxyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		542FFE451800C9B5003B83B7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = CPAProxy;
+				TargetAttributes = {
+					5418E2F31802ACF700C293E4 = {
+						TestTargetID = 542FFE4C1800C9B5003B83B7;
+					};
+				};
+			};
+			buildConfigurationList = 542FFE481800C9B5003B83B7 /* Build configuration list for PBXProject "CPAProxy" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 542FFE441800C9B5003B83B7;
+			productRefGroup = 542FFE4E1800C9B5003B83B7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5418E2F31802ACF700C293E4 /* CPAProxyTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5418E2F21802ACF700C293E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5418E2FD1802ACF700C293E4 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1E84B383E92801B67AFA0650 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5418E3571802B12500C293E4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\necho \"HELLO!\"\necho \"$(SOURCE_ROOT)/../External/specta/src\"";
+		};
+		E953ECC189BB3C30D30253A3 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5418E2F01802ACF700C293E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5418E35E1802B65D00C293E4 /* CPAProxyTestCase.m in Sources */,
+				5418E3681802BB4400C293E4 /* CPAProxyManagerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5418E2FB1802ACF700C293E4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5418E2FC1802ACF700C293E4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5418E3041802ACF700C293E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2EB2B34B81E314359FF1B0B7 /* Pods-CPAProxyTests.debug.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CPAProxyTests/CPAProxyTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"CPAProxy/\"",
+					"\"External/expecta/src\"/**",
+					"\"External/specta/src\"/**",
+				);
+				INFOPLIST_FILE = "CPAProxyTests/CPAProxyTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		5418E3051802ACF700C293E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F125A121F75E29F98CB286B3 /* Pods-CPAProxyTests.release.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CPAProxyTests/CPAProxyTests-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"CPAProxy/\"",
+					"\"External/expecta/src\"/**",
+					"\"External/specta/src\"/**",
+				);
+				INFOPLIST_FILE = "CPAProxyTests/CPAProxyTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		542FFE6E1800C9B5003B83B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		542FFE6F1800C9B5003B83B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5418E3031802ACF700C293E4 /* Build configuration list for PBXNativeTarget "CPAProxyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5418E3041802ACF700C293E4 /* Debug */,
+				5418E3051802ACF700C293E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		542FFE481800C9B5003B83B7 /* Build configuration list for PBXProject "CPAProxy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				542FFE6E1800C9B5003B83B7 /* Debug */,
+				542FFE6F1800C9B5003B83B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 542FFE451800C9B5003B83B7 /* Project object */;
+}
