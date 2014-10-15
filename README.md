@@ -1,6 +1,6 @@
 ![CPAProxy logo](https://i.imgur.com/PiF7CWK.png)
 
-[![Build Status](https://travis-ci.org/chrisballinger/CPAProxy.svg)](https://travis-ci.org/chrisballinger/CPAProxy)
+[![Build Status](https://travis-ci.org/ursachec/CPAProxy.svg?branch=master)](https://travis-ci.org/ursachec/CPAProxy)
 
 [CPAProxy](https://github.com/ursachec/CPAProxy) is an Objective-C library that eases the use of Tor on iOS. It provides APIs to setup and communicate with a Tor client running on a separate thread of an application's main process.
 
@@ -80,7 +80,7 @@ CPAProxy supports iOS 7.0+ and the architectures __armv7__, __armv7s__, __arm64_
 
 The [Cocoapods](http://cocoapods.org) podspec hasn't been submitted yet, but you can still use `CPAProxy.podspec` in the meantime. Just put this line in your `Podfile`:
 
-    pod 'CPAProxy', :git => 'https://github.com/chrisballinger/CPAProxy.git'
+    pod 'CPAProxy', :git => 'https://github.com/ursachec/CPAProxy.git'
 
 The dependencies OpenSSL, libevent, and Tor should be built automatically via `build-all.sh` located in the scripts directory.
 
