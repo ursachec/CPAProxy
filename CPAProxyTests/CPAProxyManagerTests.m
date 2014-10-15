@@ -26,7 +26,7 @@
     
     [Expecta setAsynchronousTestTimeout:60 * 5]; // 5 minutes. Sometimes Tor takes a long time to bootstrap
     
-    self.configuration = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath];
+    self.configuration = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:nil];
     self.proxyManager = [CPAProxyManager proxyWithConfiguration:self.configuration];
 }
 
@@ -43,17 +43,40 @@
     __block NSError *blockError = nil;
     __block NSString *blockSocksHost = nil;
     __block NSUInteger blockSocksPort = 0;
+    __block NSInteger progressInt = 0;
     
-    [self.proxyManager setupWithSuccess:^(NSString *socksHost, NSUInteger socksPort) {
+    [self.proxyManager setupWithCompletion:^(NSString *socksHost, NSUInteger socksPort, NSError *error) {
         blockSocksHost = socksHost;
         blockSocksPort = socksPort;
-    } failure:^(NSError *error) {
         blockError = error;
+    } progress:^(NSInteger progress, NSString *summaryString) {
+        expect(summaryString).willNot.beNil();
+        progressInt = progress;
     }];
     
     expect(blockError).will.beNil();
     expect(blockSocksHost).willNot.beNil();
     expect(blockSocksPort).willNot.equal(0);
+    expect(progressInt).willNot.equal(0);
+}
+
+- (void)testTorDataDirectory
+{
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    
+    CPAConfiguration *config = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:documentsDirectory];
+    
+    expect(config.torDataDirectoryPath).willNot.beNil();
+    expect(config.torDataDirectoryPath).willNot.equal(documentsDirectory);
+    
+    NSString *directory = [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"com.cpaproxy"];
+    
+    config = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:directory];
+    expect(config.torDataDirectoryPath).willNot.beNil();
+    expect(config.torDataDirectoryPath).will.equal(directory);
+    
+    config = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:nil];
+    expect(config.torDataDirectoryPath).willNot.beNil();
 }
 
 @end

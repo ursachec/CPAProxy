@@ -10,12 +10,14 @@
 @class CPASocketManager;
 @class CPAThread;
 
+typedef void (^CPABootstrapCompletionBlock)(NSString *socksHost, NSUInteger socksPort, NSError *error);
+typedef void (^CPABootstrapProgressBlock)(NSInteger progress, NSString *summaryString);
+
 typedef NS_ENUM(NSUInteger, CPAStatus) {
     CPAStatusClosed = 0,
     CPAStatusConnecting,
     CPAStatusAuthenticated,
     CPAStatusBootstrapDone,
-    CPAStatusOpen
 };
 
 /**
@@ -39,7 +41,7 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
 @property (nonatomic, strong, readonly) CPAConfiguration *configuration;
 
 /**
- Convenience method that returns the configuration's SOCKS port
+ Returns bootstrap connection status of Tor
  */
 @property (nonatomic, readonly) CPAStatus status;
 
@@ -79,8 +81,23 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
  @param success The success block containing the hostname and port of the usable Tor SOCKS proxy.
  @param failure The failure block containing an error describing what went wrong.
  */
-- (void)setupWithSuccess:(void (^)(NSString *socksHost, NSUInteger socksPort))success
-                 failure:(void (^)(NSError *error))failure;
+- (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
+                   progress:(CPABootstrapProgressBlock)progress;
+
+/**
+ @return Current version string for OpenSSL https://www.openssl.org
+ */
++ (NSString*) opensslVersion;
+
+/**
+ @return Current version string for Tor https://www.torproject.org
+ */
++ (NSString*) torVersion;
+
+/**
+ @return Current version string for Libevent http://libevent.org
+ */
++ (NSString*) libeventVersion;
 
 @end
 

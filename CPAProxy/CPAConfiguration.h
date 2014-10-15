@@ -18,20 +18,24 @@
  
  @param Path to a torrc file.
  @param Path to a geoip file.
+ @param Path to directory to be used as teh tor data directory if set to nil then a directory is created in the system temporary directory
  @return A newly initialized `CPAConfiguration`.
  */
 + (instancetype)configurationWithTorrcPath:(NSString *)torrcPath
-                                 geoipPath:(NSString *)geoipPath;
+                                 geoipPath:(NSString *)geoipPath
+                      torDataDirectoryPath:(NSString *)torDataDirectoryPath;
 
 /**
  Initializes a `CPAConfiguration` with the specified torrc and geoip paths.
  
  @param torrcPath Path to a torrc file.
  @param geoipPath Path to a geoip file.
+ @param Path to directory to be used as teh tor data directory if set to nil then a directory is created in the system temporary directory
  @return A newly initialized `CPAConfiguration`.
  */
 - (instancetype)initWithTorrcPath:(NSString *)torrcPath
-                        geoipPath:(NSString *)geoipPath;
+                        geoipPath:(NSString *)geoipPath
+             torDataDirectoryPath:(NSString *)torDataDirectoryPath;
 
 /**
  The port for the Tor SOCKS proxy.
@@ -59,9 +63,9 @@
 @property (nonatomic, copy, readonly) NSString *torCookieDataAsHex;
 
 /**
- Returns the path to the Tor temporary directory.
+ Returns the path to the Tor data directory.
  */
-@property (nonatomic, copy, readonly) NSString *torTempDirPath;
+@property (nonatomic, copy, readonly) NSString *torDataDirectoryPath;
 
 /**
  Returns the path to the torrc file.

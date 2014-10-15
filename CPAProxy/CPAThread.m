@@ -46,7 +46,7 @@ const char *kTorArgsValueLogLevel = "notice stderr";
 
 - (void)main
 {
-    NSString *dataDir = self.configuration.torTempDirPath;
+    NSString *dataDir = self.configuration.torDataDirectoryPath;
     NSString *torrcPath = self.configuration.torrcPath;
     NSString *geoipPath = self.configuration.geoipPath;
     NSString *controlPort = [NSString stringWithFormat:@"%lu", (unsigned long)self.configuration.controlPort];

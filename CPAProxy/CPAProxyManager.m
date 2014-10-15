@@ -10,9 +10,6 @@
 #import "CPAProxyManager+TorCommands.h"
 #import "CPASocketManager.h"
 
-typedef void (^CPASuccessBlock)(NSString *socksHost, NSUInteger socksPort);
-typedef void (^CPAFailureBlock)(NSError *error);
-
 NSString * const CPAProxyDidStartSetupNotification = @"com.cpaproxy.setup.start";
 NSString * const CPAProxyDidFailSetupNotification = @"com.cpaproxy.setup.fail";
 NSString * const CPAProxyDidFinishSetupNotification = @"com.cpaproxy.setup.finish";
@@ -32,6 +29,14 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
     CPAErrorTorSetupTimedOut,
 };
 
+// Function definitions to get version numbers of dependencies to avoid including headers
+/** Returns OpenSSL version */
+extern const char *SSLeay_version(int type);
+/** Returns Libevent version */
+extern const char *event_get_version(void);
+/** Returns Tor version */
+extern const char *get_version(void);
+
 @interface CPAProxyManager () <CPASocketManagerDelegate>
 @property (nonatomic, strong, readwrite) CPASocketManager *socketManager;
 @property (nonatomic, strong, readwrite) CPAConfiguration *configuration;
@@ -39,8 +44,8 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 
 @property (nonatomic, strong, readwrite) NSTimer *boostrapTimer;
 @property (nonatomic, strong, readwrite) NSTimer *timeoutTimer;
-@property (nonatomic, copy, readwrite) CPASuccessBlock successBlock;
-@property (nonatomic, copy, readwrite) CPAFailureBlock failureBlock;
+@property (nonatomic, copy, readwrite) CPABootstrapCompletionBlock completionBlock;
+@property (nonatomic, copy, readwrite) CPABootstrapProgressBlock progressBlock;
 
 @property (nonatomic, readwrite) CPAStatus status;
 @end
@@ -83,16 +88,16 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 
 #pragma mark - 
 
-- (void)setupWithSuccess:(CPASuccessBlock)success
-                 failure:(CPAFailureBlock)failure
+- (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
+                   progress:(CPABootstrapProgressBlock)progress
 {
     if (self.status != CPAStatusClosed) {
         return;
     }
     self.status = CPAStatusConnecting;
     
-    self.successBlock = success;
-    self.failureBlock = failure;
+    self.completionBlock = completion;
+    self.progressBlock = progress;
     
     if (self.configuration.torrcPath == nil
         || self.configuration.geoipPath == nil) {
@@ -184,6 +189,11 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 - (void)handleInitialBoostrapProgressResponse:(NSString *)response
 {
     NSInteger progress = [self cpa_boostrapProgressForResponse:response];
+    
+    if (self.progressBlock) {
+        NSString *summaryString = [self cpa_boostrapSummaryForResponse:response];
+        self.progressBlock(progress,summaryString);
+    }
 
     if (progress == CPABoostrapProgressPercentageDone) {
         
@@ -196,8 +206,8 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
         
         NSString *socksHost = self.configuration.socksHost;
         NSUInteger socksPort = self.configuration.socksPort;
-        if (self.successBlock) {
-            self.successBlock(socksHost, socksPort);
+        if (self.completionBlock) {
+            self.completionBlock(socksHost, socksPort, nil);
         }
     }
 }
@@ -218,8 +228,8 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
     
     [self postNotificationWithName:CPAProxyDidFailSetupNotification];
     
-    if (self.failureBlock) {
-        self.failureBlock(error);
+    if (self.completionBlock) {
+        self.completionBlock(nil,0,error);
     }
 }
 
@@ -238,6 +248,21 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 - (NSUInteger)SOCKSPort
 {
     return self.configuration.socksPort;
+}
+
++ (NSString *) opensslVersion
+{
+    return [NSString stringWithUTF8String:SSLeay_version(0)];
+}
+
++ (NSString *) libeventVersion
+{
+    return [NSString stringWithUTF8String:event_get_version()];
+}
+
++ (NSString *) torVersion
+{
+    return [NSString stringWithUTF8String:get_version()];
 }
 
 @end
