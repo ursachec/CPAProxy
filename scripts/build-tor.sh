@@ -3,7 +3,7 @@ set -e
 
 # Download source
 if [ ! -e "tor-${TOR_VERSION}.tar.gz" ]; then
-  curl -O "https://www.torproject.org/dist/tor-${TOR_VERSION}.tar.gz" --retry 5
+  curl -O "https://dist.torproject.org/tor-${TOR_VERSION}.tar.gz" --retry 5
 fi
 
 # Extract source
