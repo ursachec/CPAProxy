@@ -2,10 +2,9 @@ language: objective-c
 
 install:
   - gem install cocoapods --no-rdoc --no-ri # Need Cocoapods >= 0.34.1
-  - gem install xcpretty --no-rdoc --no-ri
   - export ARCHS="i386"   # Only build dependencies for i386 to speed things up
   - bash ./scripts/build-all.sh
   - pod install
 
 script:
-  - set -o pipefail && xcodebuild -workspace CPAProxy.xcworkspace -scheme CPAProxyTests -sdk iphonesimulator8.0 -arch i386 test | xcpretty -c
+  - xcodebuild -workspace CPAProxy.xcworkspace -scheme CPAProxyTests -sdk iphonesimulator8.0 -arch i386 test

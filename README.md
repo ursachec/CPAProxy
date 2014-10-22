@@ -86,9 +86,9 @@ The dependencies OpenSSL, libevent, and Tor should be built automatically via `b
 
 ### Dependency Versions
 
-* [OpenSSL](https://www.openssl.org) v1.0.1i - 06-Aug-2014
+* [OpenSSL](https://www.openssl.org) v1.0.1j - 15-Oct-2014
 * [libevent](http://libevent.org) v2.0.21-stable - 2012-11-18
-* [Tor](https://www.torproject.org) v0.2.5.8-rc - 23-Sep-2014
+* [Tor](https://www.torproject.org) v0.2.5.9-rc - 20-Oct-2014
 
 
 ## Caveats
