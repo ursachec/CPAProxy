@@ -8,4 +8,8 @@ install:
   - pod install
 
 script:
+<<<<<<< HEAD
   - set -o pipefail && xcodebuild -workspace CPAProxy.xcworkspace -scheme CPAProxyTests -sdk iphonesimulator8.0 -arch i386 test | xcpretty -c
+=======
+  - xcodebuild -workspace CPAProxy.xcworkspace -scheme CPAProxyTests -sdk iphonesimulator8.0 -arch i386 test
+>>>>>>> upstream
