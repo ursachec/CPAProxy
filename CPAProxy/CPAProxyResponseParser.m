@@ -19,7 +19,7 @@
     return statusCode;
 }
 
-+ (CPAResonpseType)responseTypeForResponse:(NSString *)response
++ (CPAResponseType)responseTypeForResponse:(NSString *)response
 {
     NSInteger statusCode = [self statusCodeForResponse:response];
     if (!statusCode == 0) {
@@ -28,29 +28,29 @@
         
         switch (signifcantDigit) {
             case 2:
-                return CPAResonpseTypeSucess;
+                return CPAResponseTypeSuccess;
                 break;
             case 4:
-                return CPAResonpseTypeTemporaryNegative;
+                return CPAResponseTypeTemporaryNegative;
                 break;
             case 5:
-                return CPAResonpseTypePermanentNegative;
+                return CPAResponseTypePermanentNegative;
                 break;
             case 6:
-                return CPAResonpseTypeAsynchronous;
+                return CPAResponseTypeAsynchronous;
                 break;
                 
             default:
-                return CPAResonpseTypeUnkown;
+                return CPAResponseTypeUnknown;
                 break;
         }
     }
     else {
-        return CPAResonpseTypeUnkown;
+        return CPAResponseTypeUnknown;
     }
 }
 
-+ (NSInteger)boostrapProgressForResponse:(NSString *)response
++ (NSInteger)bootstrapProgressForResponse:(NSString *)response
 {
     NSString *progressString = @"BOOTSTRAP PROGRESS=";
     NSInteger progess = 0;
@@ -66,7 +66,7 @@
     return progess;
 }
 
-+ (NSString *)boostrapSummaryForResponse:(NSString *)response
++ (NSString *)bootstrapSummaryForResponse:(NSString *)response
 {
     NSString *progressString = @"SUMMARY=";
     NSString *summaryString = nil;

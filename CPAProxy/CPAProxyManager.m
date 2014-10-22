@@ -20,10 +20,10 @@ NSString * const CPAProxyDidFinishSetupNotification = @"com.cpaproxy.setup.finis
 NSString * const CPAErrorDomain = @"CPAErrorDomain";
 
 const NSTimeInterval CPAConnectToTorSocketDelay = 0.5;
-const NSTimeInterval CPAGetBoostrapProgressInterval = 2.0;
+const NSTimeInterval CPAGetBootstrapProgressInterval = 2.0;
 const NSTimeInterval CPATimeoutDelay = 25;
 
-const NSInteger CPABoostrapProgressPercentageDone = 100;
+const NSInteger CPABootstrapProgressPercentageDone = 100;
 
 typedef NS_ENUM(NSUInteger, CPAErrors) {
     CPAErrorTorrcOrGeoipPathNotSet = 0,
@@ -31,6 +31,14 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
     CPAErrorSocketOpenFailed,
     CPAErrorTorSetupTimedOut,
 };
+
+// Function definitions to get version numbers of dependencies to avoid including headers
+/** Returns OpenSSL version */
+extern const char *SSLeay_version(int type);
+/** Returns Libevent version */
+extern const char *event_get_version(void);
+/** Returns Tor version */
+extern const char *get_version(void);
 
 typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     CPAControlPortStatusClosed = 0,
@@ -164,12 +172,16 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 - (void)socketManager:(CPASocketManager *)manager didReceiveResponse:(NSString *)response forCommand:(CPAProxyCommand *)command
 {
     if (command.responseBlock) {
-        dispatch_async(self.workQueue, ^{
+        dispatch_queue_t queue = dispatch_get_main_queue();
+        if (command.responseQueue) {
+            queue = command.responseQueue;
+        }
+        dispatch_async(queue, ^{
             command.responseBlock(response,nil);
         });
     }
     
-    if ([CPAProxyResponseParser responseTypeForResponse:response] == CPAResonpseTypeAsynchronous) {
+    if ([CPAProxyResponseParser responseTypeForResponse:response] == CPAResponseTypeAsynchronous) {
         [self handleAsyncReponse:response];
     }
 }
@@ -177,12 +189,12 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 - (void)socketManagerDidOpenSocket:(CPASocketManager *)manager
 {
     if(self.controlPortStatus == CPAStatusConnecting) {
-        [self cpa_sendAuthenticateWihtCompletion:^(NSString *responseString, NSError *error) {
+        [self cpa_sendAuthenticateWithCompletion:^(NSString *responseString, NSError *error) {
             [self handleInitialAuthenticateResponse:responseString];
-        }];
+        } completionQueue:self.workQueue];
         [self cpa_setEvents:@[kCPAProxyEventStatusClient] extended:NO completion:^(NSString *responseString, NSError *error) {
             NSLog(@"%@",responseString);
-        }];
+        } completionQueue:self.workQueue];
     }
 }
 
@@ -207,15 +219,15 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 - (void)handleStatusClientAsyncResponse:(NSString *)response
 {
     if ([response containsString:@"BOOTSTRAP"]) {
-        [self handleInitialBoostrapProgressResponse:response];
+        [self handleInitialBootstrapProgressResponse:response];
     }
 }
 
 - (void)handleInitialAuthenticateResponse:(NSString *)response
 {
-    CPAResonpseType responseType = [CPAProxyResponseParser responseTypeForResponse:response];
+    CPAResponseType responseType = [CPAProxyResponseParser responseTypeForResponse:response];
     
-    if (responseType == CPAResonpseTypeSucess) {
+    if (responseType == CPAResponseTypeSuccess) {
         
         self.controlPortStatus = CPAControlPortStatusAuthenticated;
         
@@ -227,12 +239,12 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     }
 }
 
-- (void)handleInitialBoostrapProgressResponse:(NSString *)response
+- (void)handleInitialBootstrapProgressResponse:(NSString *)response
 {
-    NSInteger progress = [CPAProxyResponseParser boostrapProgressForResponse:response];
+    NSInteger progress = [CPAProxyResponseParser bootstrapProgressForResponse:response];
     
     if (self.progressBlock) {
-        NSString *summaryString = [CPAProxyResponseParser boostrapSummaryForResponse:response];
+        NSString *summaryString = [CPAProxyResponseParser bootstrapSummaryForResponse:response];
         __weak typeof(self)weakSelf = self;
         dispatch_async(self.callbackQueue, ^{
             __strong typeof(weakSelf)strongSelf = weakSelf;
@@ -241,7 +253,7 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
         
     }
 
-    if (progress == CPABoostrapProgressPercentageDone) {
+    if (progress == CPABootstrapProgressPercentageDone) {
         
         self.status = CPAStatusOpen;
         
@@ -305,6 +317,21 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 - (NSUInteger)SOCKSPort
 {
     return self.configuration.socksPort;
+}
+
++ (NSString *) opensslVersion
+{
+    return [NSString stringWithUTF8String:SSLeay_version(0)];
+}
+
++ (NSString *) libeventVersion
+{
+    return [NSString stringWithUTF8String:event_get_version()];
+}
+
++ (NSString *) torVersion
+{
+    return [NSString stringWithUTF8String:get_version()];
 }
 
 @end

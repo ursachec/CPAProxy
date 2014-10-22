@@ -100,7 +100,7 @@ extern const NSTimeInterval CPASocketTimeoutDelay;
 - (void)socketManagerDidFailToOpenSocket:(CPASocketManager *)manager;
 
 /**
- This method is called when data has been read from the socket as a response to -writeString:encoding:
+ This method is called when data has been read from the socket as a response to -writeString:encoding: or asyncrounous responses
  
   @see -writeString:encoding:
  */

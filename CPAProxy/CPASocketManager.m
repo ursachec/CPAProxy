@@ -147,10 +147,10 @@ const long CPASocketWriteTag = 110;
  **/
 - (void)handleResponse:(NSString *)response
 {
-    CPAResonpseType responseType = [CPAProxyResponseParser responseTypeForResponse:response];
+    CPAResponseType responseType = [CPAProxyResponseParser responseTypeForResponse:response];
     CPAProxyCommand *command = nil;
     
-    if (responseType != CPAResonpseTypeAsynchronous || responseType != CPAResonpseTypeUnkown) {
+    if (responseType != CPAResponseTypeAsynchronous || responseType != CPAResponseTypeUnknown) {
         command = [self commandAtIndex:0];
         [self removeCommandAtIndex:0];
     }

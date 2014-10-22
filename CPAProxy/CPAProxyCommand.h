@@ -14,26 +14,31 @@ typedef void (^CPAProxyCommandResponseBlock)(NSString *responseString, NSError *
 
 @property (nonatomic, strong) NSString *commandString;
 @property (nonatomic, strong) CPAProxyCommandResponseBlock responseBlock;
+@property (nonatomic, strong) dispatch_queue_t responseQueue;
 @property (nonatomic, strong) id tag;
 
 - (instancetype)initWithCommandString:(NSString *)commandString;
 
 - (instancetype)initWithCommandString:(NSString *)commandString
+                                  tag:(id)tag
                         responseBlock:(CPAProxyCommandResponseBlock)responseBlock;
 
 - (instancetype)initWithCommandString:(NSString *)commandString
                                   tag:(id)tag
-                        responseBlock:(CPAProxyCommandResponseBlock)responseBlock;
+                        responseBlock:(CPAProxyCommandResponseBlock)responseBlock
+                        responseQueue:(dispatch_queue_t)responseQueue;
 
 
 + (instancetype)commandWithCommandString:(NSString *)commandString;
 
 + (instancetype)commandWithCommandString:(NSString *)commandString
+                                     tag:(id)tag
                            responseBlock:(CPAProxyCommandResponseBlock)responseBlock;
 
 + (instancetype)commandWithCommandString:(NSString *)commandString
                                      tag:(id)tag
-                           responseBlock:(CPAProxyCommandResponseBlock)responseBlock;
+                           responseBlock:(CPAProxyCommandResponseBlock)responseBlock
+                           responseQueue:(dispatch_queue_t)responseQueue;
 
 
 
