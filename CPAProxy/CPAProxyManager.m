@@ -211,14 +211,14 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 
 - (void)handleAsyncReponse:(NSString *)response
 {
-    if ([response containsString:kCPAProxyEventStatusClient]) {
+    if ([response rangeOfString:kCPAProxyEventStatusClient].location != NSNotFound) {
         [self handleStatusClientAsyncResponse:response];
     }
 }
 
 - (void)handleStatusClientAsyncResponse:(NSString *)response
 {
-    if ([response containsString:@"BOOTSTRAP"]) {
+    if ([response rangeOfString:@"BOOTSTRAP"].location != NSNotFound) {
         [self handleInitialBootstrapProgressResponse:response];
     }
 }

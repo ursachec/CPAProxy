@@ -194,7 +194,7 @@ const long CPASocketWriteTag = 110;
     /**
      If string contains CRLF then break it up into indpendent lines
      **/
-    if ([string containsString:kCPAProxyCRLF]) {
+    if ([string rangeOfString:kCPAProxyCRLF].location != NSNotFound) {
         NSArray *components = [string componentsSeparatedByString:kCPAProxyCRLF];
         
         [components enumerateObjectsUsingBlock:^(NSString *lineString, NSUInteger idx, BOOL *stop) {
