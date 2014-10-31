@@ -42,7 +42,7 @@ fi
 export MIN_IOS_VERSION="7.0"
 export OPENSSL_VERSION="1.0.1j"
 export LIBEVENT_VERSION="2.0.21-stable"
-export TOR_VERSION="0.2.5.9-rc"
+export TOR_VERSION="0.2.5.10"
 
 BUILT_ARCHS=()
 DEVELOPER=`xcode-select --print-path`
