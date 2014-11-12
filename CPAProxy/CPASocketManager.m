@@ -6,69 +6,134 @@
 
 #import "CPASocketManager.h"
 
-#include <netdb.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
+#import "GCDAsyncSocket+CPAProxy.h"
+#import "CPAProxyCommand.h"
+#import "CPAProxyTorCommandConstants.h"
+#import "CPAProxyResponseParser.h"
 
-const NSTimeInterval CPASocketTimeoutDelay = 3.0f;
+const NSTimeInterval CPASocketTimeoutDelay = 3;
+const NSTimeInterval CPASocketReadTimeout = -1;
+const long CPASocketDidConnectReadTag = 101;
+const long CPASocketDidReadReadTag = 102;
+const long CPASocketDidWriteReadTag = 102;
+const long CPASocketWriteTag = 110;
 
-@interface CPASocketManager ()
-@property (nonatomic, readwrite) CFSocketRef socketRef;
+@interface CPASocketManager () <GCDAsyncSocketDelegate>
+
 @property (nonatomic, strong, readwrite) NSTimer *timeoutTimer;
 @property (nonatomic, weak, readwrite) id<CPASocketManagerDelegate> delegate;
 @property (nonatomic, readwrite) BOOL isConnected;
+@property (nonatomic, strong, readwrite) GCDAsyncSocket *socket;
+@property (nonatomic, strong) NSMutableArray *waitingCommands;
+@property (nonatomic) dispatch_queue_t socketQueue;
+@property (nonatomic) dispatch_queue_t delegateQueue;
+@property (nonatomic) dispatch_queue_t isolationQueue;
+@property (nonatomic) dispatch_queue_t workQueue;
+
+@property (nonatomic, strong) NSMutableString *multiLineResponseString;
+
 @end
 
 @implementation CPASocketManager
 
 - (instancetype)initWithDelegate:(id<CPASocketManagerDelegate>)delegate
 {
-    self = [super init];
-    if(!self) return nil;
-    
-    self.delegate = delegate;
+    return [self initWithDelegate:delegate delegateQueue:NULL];
+}
+
+- (instancetype)initWithDelegate:(id<CPASocketManagerDelegate>)delegate delegateQueue:(dispatch_queue_t)delegateQueue
+{
+    return [self initWithDelegate:delegate delegateQueue:delegateQueue socketQueue:NULL];
+}
+
+- (instancetype)initWithDelegate:(id<CPASocketManagerDelegate>)delegate delegateQueue:(dispatch_queue_t)delegateQueue socketQueue:(dispatch_queue_t)socketQueue
+{
+    if(self = [super init]) {
+        
+        if(!delegateQueue) {
+            delegateQueue = dispatch_get_main_queue();
+        }
+        
+        self.delegateQueue = delegateQueue;
+        
+        NSString *isolationLabel = [NSString stringWithFormat:@"%@.isolation.%p", [self class], self];
+        self.isolationQueue = dispatch_queue_create([isolationLabel UTF8String], DISPATCH_QUEUE_CONCURRENT);
+        
+        NSString *workLabel = [NSString stringWithFormat:@"%@.work.%p", [self class], self];
+        self.workQueue = dispatch_queue_create([workLabel UTF8String], DISPATCH_QUEUE_SERIAL);
+        
+        self.waitingCommands = [NSMutableArray new];
+        
+        self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self
+                                                 delegateQueue:dispatch_queue_create([@"GCDAsyncSocket-delegate" UTF8String], NULL)
+                                                   socketQueue:socketQueue];
+        self.delegate = delegate;
+    }
     
     return self;
 }
 
-- (void)dealloc
+#pragma - mark waitingList Isolation
+
+- (void)addWaitingCommandToList:(CPAProxyCommand *)command
 {
-    CFSocketInvalidate(self.socketRef);
-    CFRelease(self.socketRef);
-    self.socketRef = NULL;
+    if (command) {
+        dispatch_barrier_async(self.isolationQueue, ^{
+            [self.waitingCommands addObject:command];
+        });
+    }
 }
 
-- (void)connectToHost:(NSString *)host port:(NSUInteger)port
+- (CPAProxyCommand *)commandAtIndex:(NSUInteger)index
 {
-    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:CPASocketTimeoutDelay
-                                                         target:self 
-                                                       selector:@selector(handleSocketTimeout) 
-                                                       userInfo:self 
-                                                        repeats:NO];
-    
-    self.socketRef = [self socketRefWithHost:host port:port];
+    __block CPAProxyCommand *command = nil;
+    dispatch_sync(self.isolationQueue, ^{
+        if(index < [self.waitingCommands count]) {
+            command = self.waitingCommands[index];
+        }
+    });
+    return command;
+}
+
+- (void)removeCommandAtIndex:(NSUInteger)index
+{
+    dispatch_barrier_async(self.isolationQueue, ^{
+        if (index < [self.waitingCommands count]) {
+            [self.waitingCommands removeObjectAtIndex:index];
+        }
+    });
+}
+
+ #pragma - mark Public Methods
+
+- (void)connectToHost:(NSString *)host port:(NSUInteger)port error:(NSError **)error;
+{
+    [self.socket connectToHost:host onPort:port error:error];
+}
+
+- (void)sendCommand:(CPAProxyCommand *)command
+{
+    if([command.commandString length]) {
+        [self addWaitingCommandToList:command];
+        [self writeString:command.commandString encoding:NSUTF8StringEncoding];
+    }
 }
 
 - (void)writeString:(NSString *)string encoding:(NSStringEncoding)encoding
 {
-    if (nil == self.socketRef) {
-        return;
-    }
-    
-    NSData *data = [string dataUsingEncoding:encoding];    
-    CFSocketError serr = CFSocketSendData(self.socketRef, NULL, (__bridge CFDataRef)data, 0);
-    if (serr == kCFSocketError) {
-        return;
-    }
+    [self.socket cpa_writeString:string withEncoding:encoding timeout:CPASocketTimeoutDelay tag:CPASocketWriteTag];
+    [self.socket readDataWithTimeout:CPASocketReadTimeout tag:CPASocketDidWriteReadTag];
 }
+
+#pragma - mark handle socket
 
 - (void)handleSocketTimeout
 {
-    if ([self.delegate respondsToSelector:@selector(socketManagerDidFailToOpenSocket:)]) {
-        [self.delegate socketManagerDidFailToOpenSocket:self];
-    }
+    __weak typeof(self)weakSelf = self;
+    dispatch_async(self.delegateQueue, ^{
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf.delegate socketManagerDidFailToOpenSocket:strongSelf];
+    });
 }
 
 - (void)handleSocketConnected
@@ -76,108 +141,93 @@ const NSTimeInterval CPASocketTimeoutDelay = 3.0f;
     self.isConnected = YES;
 }
 
-- (void)handleSocketWritable
+/**
+ Responses in this case should have all CRLF removed.
+ Responses should have exactly one status code.
+ **/
+- (void)handleResponse:(NSString *)response
 {
-    CFSocketDisableCallBacks(self.socketRef, kCFSocketWriteCallBack);
+    CPAResponseType responseType = [CPAProxyResponseParser responseTypeForResponse:response];
+    CPAProxyCommand *command = nil;
     
-    [self.timeoutTimer invalidate];
+    if (responseType != CPAResponseTypeAsynchronous || responseType != CPAResponseTypeUnknown) {
+        command = [self commandAtIndex:0];
+        [self removeCommandAtIndex:0];
+    }
     
-    if ([self.delegate respondsToSelector:@selector(socketManagerDidOpenSocket:)]) {
-        [self.delegate socketManagerDidOpenSocket:self];
+    __weak typeof(self)weakSelf = self;
+    dispatch_async(self.delegateQueue, ^{
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf.delegate socketManager:strongSelf didReceiveResponse:response forCommand:command];
+    });
+}
+
+- (void)handleSocketLineString:(NSString *)lineString
+{
+    if (![lineString length]) {
+        return;
+    }
+    
+    /**
+     '.' denotes end of multiline response so the mutable string we've built is completed.
+     Otherwise if there is a mutable string being built keep on adding to it.
+     If The string length is greater than 3 and the 4th character is '+' that means it is the start of a multiline response (may need to check for status numbers in the beginning).
+     Otherwise normal one line response
+     **/
+    if ([lineString isEqualToString:@"."] && [self.multiLineResponseString length]) {
+        [self handleResponse:[self.multiLineResponseString copy]];
+        self.multiLineResponseString = nil;
+    }
+    else if ([self.multiLineResponseString length]) {
+        [self.multiLineResponseString appendFormat:@"\n%@",lineString];
+    }
+    else if ([lineString length] > 3 && [[lineString substringWithRange:NSMakeRange(3, 1)] isEqualToString:@"+"]) {
+        self.multiLineResponseString = [lineString mutableCopy];
+    }
+    else {
+        [self handleResponse:lineString];
     }
 }
 
 - (void)handleSocketDataAsString:(NSString *)string
 {
-    if ([self.delegate respondsToSelector:@selector(socketManager:didReceiveResponse:)]) {
-        [self.delegate performSelector:@selector(socketManager:didReceiveResponse:) withObject:self withObject:string];
-    }
-}
-
-- (void)handleSocketData:(const void *)data
-{
-    CFIndex nBytes = CFDataGetLength(data);
-    if (nBytes <= 0) {
-        return;
-    }
-    
-    UInt8 *buffer = malloc(nBytes);
-    CFDataRef dataRef = (CFDataRef) data;
-    CFDataGetBytes(dataRef, CFRangeMake(0, nBytes), buffer);
-    
-    NSString *s = [[NSString alloc] initWithBytes:buffer length:nBytes encoding:NSASCIIStringEncoding];
-    [self handleSocketDataAsString:s];
-    
-    free(buffer);
-}
-
-- (CFSocketRef)socketRefWithHost:(NSString *)host port:(NSUInteger)port
-{    
-    // Retrieve host information
-    const char *hostName = [host UTF8String];
-	struct hostent *socketHost = gethostbyname(hostName);
-	if( !socketHost ) {
-		return nil;
-    }
-    
-    // Create native socket and set additional flags
-    CFSocketNativeHandle nativeSocket = socket(AF_INET, SOCK_STREAM, 0);
-    
-    // Create the socket context and include self as info
-    CFSocketContext context;
-    bzero(&context, sizeof(context));
-	context.info = (__bridge void *)(self);
-    
-    // Create the socket ref and set callback flags
-    CFOptionFlags callbackFlags = (kCFSocketConnectCallBack|kCFSocketWriteCallBack|kCFSocketDataCallBack);
-    CFSocketRef sRef = CFSocketCreateWithNative(NULL, nativeSocket, callbackFlags, &cpa_socketCallback, &context);
-    CFSocketSetSocketFlags(sRef, kCFSocketAutomaticallyReenableReadCallBack);
-    
-    // Setup socket address
-    struct sockaddr_in saddr;
-	bzero(&saddr, sizeof(saddr));
-	bcopy((char *)socketHost->h_addr, (char *)&saddr.sin_addr, socketHost->h_length);
-	saddr.sin_family = PF_INET;
-	saddr.sin_port = htons(port);
-    saddr.sin_len = sizeof(saddr);
-    
-    // Connect the socket
-    NSData *saddrData = [NSData dataWithBytes:&saddr length:sizeof(saddr)];
-    CFSocketError socketError = CFSocketConnectToAddress(sRef, (__bridge CFDataRef) saddrData, -1);
-    if( socketError != kCFSocketSuccess ) {
-		return nil;
-	}
-    
-    // Add the runloop source to the socket
-    CFRunLoopSourceRef source = CFSocketCreateRunLoopSource(NULL, sRef, 1);
-    CFRunLoopAddSource(CFRunLoopGetCurrent(), source, kCFRunLoopDefaultMode);
-    CFRelease(source);	
-    
-    return sRef;
-}
-
-void cpa_socketCallback(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef address, const void *data, void *info)
-{
-	CPASocketManager *manager = (__bridge CPASocketManager *)info;
-	if( !manager ) {
-		return;
-    }
-	
-	switch( callbackType ) {
-        case kCFSocketConnectCallBack:
-            [manager handleSocketConnected];
-            break;
-        case kCFSocketDataCallBack: {
-            [manager handleSocketData:data];
-        } break;
+    /**
+     If string contains CRLF then break it up into indpendent lines
+     **/
+    if ([string rangeOfString:kCPAProxyCRLF].location != NSNotFound) {
+        NSArray *components = [string componentsSeparatedByString:kCPAProxyCRLF];
+        
+        [components enumerateObjectsUsingBlock:^(NSString *lineString, NSUInteger idx, BOOL *stop) {
             
-		case kCFSocketWriteCallBack: {
-            [manager handleSocketWritable];
-        } break;
-            
-		default:
-			break;
-	}
+            [self handleSocketLineString:lineString];
+        }];
+    } else {
+        [self handleSocketLineString:string];
+    }
+}
+
+#pragma - mark GCDAsyncSocketDelegate Methods
+
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
+{
+    [self.timeoutTimer invalidate];
+    [self handleSocketConnected];
+    [self.socket readDataWithTimeout:CPASocketReadTimeout tag:CPASocketDidConnectReadTag];
+    
+    __weak typeof(self)weakSelf = self;
+    dispatch_async(self.delegateQueue, ^{
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf.delegate socketManagerDidOpenSocket:strongSelf];
+    });
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    dispatch_async(self.workQueue, ^{
+        NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [self handleSocketDataAsString:response];
+    });
+    [self.socket readDataWithTimeout:CPASocketReadTimeout tag:CPASocketDidReadReadTag];
 }
 
 @end

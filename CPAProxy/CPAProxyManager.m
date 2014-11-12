@@ -7,8 +7,11 @@
 #import "CPAProxyManager.h"
 #import "CPAThread.h"
 #import "CPAConfiguration.h"
-#import "CPAProxyManager+TorCommands.h"
 #import "CPASocketManager.h"
+#import "CPAProxyManager+TorCommands.h"
+#import "CPAProxyTorCommands.h"
+#import "CPAProxyResponseParser.h"
+#import "CPAProxyTorCommandConstants.h"
 
 NSString * const CPAProxyDidStartSetupNotification = @"com.cpaproxy.setup.start";
 NSString * const CPAProxyDidFailSetupNotification = @"com.cpaproxy.setup.fail";
@@ -17,10 +20,10 @@ NSString * const CPAProxyDidFinishSetupNotification = @"com.cpaproxy.setup.finis
 NSString * const CPAErrorDomain = @"CPAErrorDomain";
 
 const NSTimeInterval CPAConnectToTorSocketDelay = 0.5;
-const NSTimeInterval CPAGetBoostrapProgressInterval = 2.0;
+const NSTimeInterval CPAGetBootstrapProgressInterval = 2.0;
 const NSTimeInterval CPATimeoutDelay = 25;
 
-const NSInteger CPABoostrapProgressPercentageDone = 100;
+const NSInteger CPABootstrapProgressPercentageDone = 100;
 
 typedef NS_ENUM(NSUInteger, CPAErrors) {
     CPAErrorTorrcOrGeoipPathNotSet = 0,
@@ -37,17 +40,26 @@ extern const char *event_get_version(void);
 /** Returns Tor version */
 extern const char *get_version(void);
 
+typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
+    CPAControlPortStatusClosed = 0,
+    CPAControlPortStatusConnecting,
+    CPAControlPortStatusAuthenticated
+};
+
 @interface CPAProxyManager () <CPASocketManagerDelegate>
 @property (nonatomic, strong, readwrite) CPASocketManager *socketManager;
 @property (nonatomic, strong, readwrite) CPAConfiguration *configuration;
 @property (nonatomic, strong, readwrite) CPAThread *torThread;
 
-@property (nonatomic, strong, readwrite) NSTimer *boostrapTimer;
+@property (nonatomic, strong, readwrite) NSTimer *bootstrapTimer;
 @property (nonatomic, strong, readwrite) NSTimer *timeoutTimer;
 @property (nonatomic, copy, readwrite) CPABootstrapCompletionBlock completionBlock;
 @property (nonatomic, copy, readwrite) CPABootstrapProgressBlock progressBlock;
+@property (nonatomic) dispatch_queue_t callbackQueue;
+@property (nonatomic) dispatch_queue_t workQueue;
 
 @property (nonatomic, readwrite) CPAStatus status;
+@property (nonatomic, readwrite) CPAControlPortStatus controlPortStatus;
 @end
 
 @implementation CPAProxyManager
@@ -72,10 +84,14 @@ extern const char *get_version(void);
     
     self.socketManager = [[CPASocketManager alloc] initWithDelegate:self];
     
+    self.controlPortStatus = CPAControlPortStatusClosed;
     self.status = CPAStatusClosed;
     
     self.configuration = configuration;
     self.torThread = torThread;
+    
+    NSString *label = [NSString stringWithFormat:@"%@.work.%p", [self class], self];
+    self.workQueue = dispatch_queue_create([label UTF8String], 0);
     
     return self;
 }
@@ -91,13 +107,25 @@ extern const char *get_version(void);
 - (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
                    progress:(CPABootstrapProgressBlock)progress
 {
-    if (self.status != CPAStatusClosed) {
+    return [self setupWithCompletion:completion progress:progress callbackQueue:NULL];
+}
+
+- (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
+                   progress:(CPABootstrapProgressBlock)progress
+              callbackQueue:(dispatch_queue_t)completionQueue
+{
+    if (self.controlPortStatus != CPAControlPortStatusClosed) {
         return;
     }
+    self.controlPortStatus = CPAControlPortStatusConnecting;
     self.status = CPAStatusConnecting;
     
     self.completionBlock = completion;
     self.progressBlock = progress;
+    self.callbackQueue = completionQueue;
+    if (!self.callbackQueue) {
+        self.callbackQueue = dispatch_get_main_queue();
+    }
     
     if (self.configuration.torrcPath == nil
         || self.configuration.geoipPath == nil) {
@@ -115,11 +143,14 @@ extern const char *get_version(void);
     
     [self postNotificationWithName:CPAProxyDidStartSetupNotification];
     
-    self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:CPATimeoutDelay
-                                                          target:self
-                                                        selector:@selector(handleTimeout)
-                                                        userInfo:nil
-                                                         repeats:NO];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:CPATimeoutDelay
+                                                             target:self
+                                                           selector:@selector(handleTimeout)
+                                                           userInfo:nil
+                                                            repeats:NO];
+    });
+    
     
     // This is a pretty ungly hack but it will have to do for the moment.
     // Wait for a constant amount of time after starting the main Tor client before opening a socket
@@ -129,33 +160,48 @@ extern const char *get_version(void);
 
 - (void)connectSocket
 {
-    if (self.status != CPAStatusConnecting) {
+    if (self.controlPortStatus != CPAControlPortStatusConnecting) {
         return;
     }
         
-    [self.socketManager connectToHost:self.configuration.socksHost port:self.configuration.controlPort];
+    [self.socketManager connectToHost:self.configuration.socksHost port:self.configuration.controlPort error:nil];
 }
 
 #pragma mark - CPASocketManagerDelegate methods
 
-- (void)socketManager:(CPASocketManager *)manager didReceiveResponse:(NSString *)response
+- (void)socketManager:(CPASocketManager *)manager didReceiveResponse:(NSString *)response forCommand:(CPAProxyCommand *)command
 {
-    if(self.status == CPAStatusConnecting) {
-        [self handleInitialAuthenticateResponse:response];
-    } else if(self.status == CPAStatusAuthenticated) {
-        [self handleInitialBoostrapProgressResponse:response];
+    if (command.responseBlock) {
+        dispatch_queue_t queue = dispatch_get_main_queue();
+        if (command.responseQueue) {
+            queue = command.responseQueue;
+        }
+        dispatch_async(queue, ^{
+            command.responseBlock(response,nil);
+        });
+    }
+    
+    if ([CPAProxyResponseParser responseTypeForResponse:response] == CPAResponseTypeAsynchronous) {
+        [self handleAsyncReponse:response];
     }
 }
 
 - (void)socketManagerDidOpenSocket:(CPASocketManager *)manager
 {
-    if(self.status == CPAStatusConnecting) {
-        [self cpa_sendAuthenticate];
+    if(self.controlPortStatus == CPAStatusConnecting) {
+        [self cpa_sendAuthenticateWithCompletion:^(NSString *responseString, NSError *error) {
+            [self handleInitialAuthenticateResponse:responseString];
+        } completionQueue:self.workQueue];
+        [self cpa_setEvents:@[kCPAProxyEventStatusClient] extended:NO completion:^(NSString *responseString, NSError *error) {
+            NSLog(@"%@",responseString);
+        } completionQueue:self.workQueue];
     }
 }
 
 - (void)socketManagerDidFailToOpenSocket:(CPASocketManager *)manager
-{        
+{
+    self.controlPortStatus = CPAControlPortStatusClosed;
+    
     NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: @"Failed to connect to socket" };
     NSError *error = [[NSError alloc] initWithDomain:CPAErrorDomain code:CPAErrorSocketOpenFailed userInfo:userInfo];
     [self failWithError:error];
@@ -163,21 +209,28 @@ extern const char *get_version(void);
 
 #pragma mark - Handle Tor control responses
 
+- (void)handleAsyncReponse:(NSString *)response
+{
+    if ([response rangeOfString:kCPAProxyEventStatusClient].location != NSNotFound) {
+        [self handleStatusClientAsyncResponse:response];
+    }
+}
+
+- (void)handleStatusClientAsyncResponse:(NSString *)response
+{
+    if ([response rangeOfString:@"BOOTSTRAP"].location != NSNotFound) {
+        [self handleInitialBootstrapProgressResponse:response];
+    }
+}
+
 - (void)handleInitialAuthenticateResponse:(NSString *)response
 {
-    BOOL authenticated = [self cpa_isAuthenticatedForResponse:response];
+    CPAResponseType responseType = [CPAProxyResponseParser responseTypeForResponse:response];
     
-    if (authenticated) {
+    if (responseType == CPAResponseTypeSuccess) {
         
-        self.status = CPAStatusAuthenticated;
+        self.controlPortStatus = CPAControlPortStatusAuthenticated;
         
-        // Ask for the boostrap progress until it's done
-        SEL boostrapInfoSel = @selector(cpa_sendGetBoostrapInfo);
-        self.boostrapTimer = [NSTimer scheduledTimerWithTimeInterval:CPAGetBoostrapProgressInterval
-                                                              target:self
-                                                            selector:boostrapInfoSel
-                                                            userInfo:nil
-                                                             repeats:YES];
     } else {
         NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: @"Failed to authenticate to Tor. The control_auth_cookie in Tor's temporary directory may contain a wrong value." };
         NSError *error = [[NSError alloc] initWithDomain:CPAErrorDomain code:CPAErrorTorAuthenticationFailed userInfo:userInfo];
@@ -186,20 +239,25 @@ extern const char *get_version(void);
     }
 }
 
-- (void)handleInitialBoostrapProgressResponse:(NSString *)response
+- (void)handleInitialBootstrapProgressResponse:(NSString *)response
 {
-    NSInteger progress = [self cpa_boostrapProgressForResponse:response];
+    NSInteger progress = [CPAProxyResponseParser bootstrapProgressForResponse:response];
     
     if (self.progressBlock) {
-        NSString *summaryString = [self cpa_boostrapSummaryForResponse:response];
-        self.progressBlock(progress,summaryString);
+        NSString *summaryString = [CPAProxyResponseParser bootstrapSummaryForResponse:response];
+        __weak typeof(self)weakSelf = self;
+        dispatch_async(self.callbackQueue, ^{
+            __strong typeof(weakSelf)strongSelf = weakSelf;
+            strongSelf.progressBlock(progress,summaryString);
+        });
+        
     }
 
-    if (progress == CPABoostrapProgressPercentageDone) {
+    if (progress == CPABootstrapProgressPercentageDone) {
         
-        self.status = CPAStatusBootstrapDone;
+        self.status = CPAStatusOpen;
         
-        [self.boostrapTimer invalidate];
+        [self.bootstrapTimer invalidate];
         [self.timeoutTimer invalidate];
         
         [self postNotificationWithName:CPAProxyDidFinishSetupNotification];
@@ -207,7 +265,12 @@ extern const char *get_version(void);
         NSString *socksHost = self.configuration.socksHost;
         NSUInteger socksPort = self.configuration.socksPort;
         if (self.completionBlock) {
-            self.completionBlock(socksHost, socksPort, nil);
+            __weak typeof(self)weakSelf = self;
+            dispatch_async(self.callbackQueue, ^{
+                __strong typeof(weakSelf)strongSelf = weakSelf;
+                strongSelf.completionBlock(socksHost, socksPort, nil);
+            });
+            
         }
     }
 }
@@ -225,11 +288,17 @@ extern const char *get_version(void);
 - (void)failWithError:(NSError *)error
 {
     [self.timeoutTimer invalidate];
+    [self.bootstrapTimer invalidate];
     
     [self postNotificationWithName:CPAProxyDidFailSetupNotification];
     
     if (self.completionBlock) {
-        self.completionBlock(nil,0,error);
+        __weak typeof(self)weakSelf = self;
+        dispatch_async(self.callbackQueue, ^{
+            __strong typeof(weakSelf)strongSelf = weakSelf;
+            strongSelf.completionBlock(nil,0,error);
+        });
+        
     }
 }
 

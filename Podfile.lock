@@ -1,5 +1,7 @@
 PODS:
-  - CPAProxy (1.0.0)
+  - CocoaAsyncSocket (7.3.5)
+  - CPAProxy (1.0.0):
+    - CocoaAsyncSocket (~> 7.3)
   - Expecta (0.3.1)
 
 DEPENDENCIES:
@@ -11,7 +13,8 @@ EXTERNAL SOURCES:
     :path: ./CPAProxy.podspec
 
 SPEC CHECKSUMS:
-  CPAProxy: 6a90ca85dcf10ec5479da6fe9eea53a228b9bab9
+  CocoaAsyncSocket: 45bdbbc1c0a5ed0640ff4c42af325ba43a2f099a
+  CPAProxy: 46859765bfe23a93286ab0e86bb53897a887205f
   Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
 
-COCOAPODS: 0.34.1
+COCOAPODS: 0.34.2

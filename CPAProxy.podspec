@@ -11,6 +11,8 @@ Pod::Spec.new do |s|
     bash ./scripts/build-all.sh
   CMD
 
+  s.dependency 'CocoaAsyncSocket', '~> 7.3'
+
   s.platform     = :ios, "7.0"
   s.source_files = "CPAProxy/*.{h,m}", "CPAProxyDependencies/tor_cpaproxy.h"
   s.vendored_libraries  = "CPAProxyDependencies/*.a"

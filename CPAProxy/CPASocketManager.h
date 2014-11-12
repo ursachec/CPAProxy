@@ -6,6 +6,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class CPAProxyCommand;
+
 @protocol CPASocketManagerDelegate;
 
 /**
@@ -32,12 +34,35 @@
 - (instancetype)initWithDelegate:(id<CPASocketManagerDelegate>)delegate;
 
 /**
+ Initializes a `CPASocketManager` with the specified delegate.
+ 
+ @param delegate The delegate responsing to socket events.
+ @param delegateQueue The queue on which delegate methods will be called. If nil defaults to main queue
+ @return A newly initialized `CPASocketManager`
+ */
+- (instancetype)initWithDelegate:(id<CPASocketManagerDelegate>)delegate
+                   delegateQueue:(dispatch_queue_t)delegateQueue;
+
+/**
+ Initializes a `CPASocketManager` with the specified delegate.
+ 
+ @param delegate The delegate responsing to socket events.
+ @param delegateQueue The queue on which delegate methods will be called. If nil defaults to main queue
+ @param socketQueue The queue on which delegate methods will be called. If nil creates queue.
+ @return A newly initialized `CPASocketManager`
+ */
+- (instancetype)initWithDelegate:(id<CPASocketManagerDelegate>)delegate
+                   delegateQueue:(dispatch_queue_t)delegateQueue
+                     socketQueue:(dispatch_queue_t)socketQueue;
+
+/**
  Attempts to create and connect a socket to the specified host and port and calls the delegate method `socketManagerDidOpenSocket:` or `socketManagerDidFailToOpenSocket:` depending on the result.
  
  @param host The hostname to connect to.
  @param port The port to connect to.
+ @param error
  */
-- (void)connectToHost:(NSString *)host port:(NSUInteger)port;
+- (void)connectToHost:(NSString *)host port:(NSUInteger)port error:(NSError **)error;
 
 /**
  Writes a string to the already connected socket. If the socket hasn't been created and connected by calling `connectToHost:port:`, the method returns without doing anything.
@@ -45,7 +70,7 @@
  @param string The string to be written to the socket.
  @param encoding The encoding of the string.
  */
-- (void)writeString:(NSString *)string encoding:(NSStringEncoding)encoding;
+- (void)sendCommand:(CPAProxyCommand *)command;
 
 @end
 
@@ -59,6 +84,7 @@ extern const NSTimeInterval CPASocketTimeoutDelay;
  */
 @protocol CPASocketManagerDelegate <NSObject>
 
+@required
 /**
  This method is called when a `CASocketManager` has successfully created and connected a socket to the host and port specified by `-connectToHost:port:`.
  
@@ -74,9 +100,9 @@ extern const NSTimeInterval CPASocketTimeoutDelay;
 - (void)socketManagerDidFailToOpenSocket:(CPASocketManager *)manager;
 
 /**
- This method is called when data has been read from the socket as a response to -writeString:encoding:
+ This method is called when data has been read from the socket as a response to -writeString:encoding: or asyncrounous responses
  
   @see -writeString:encoding:
  */
-- (void)socketManager:(CPASocketManager *)manager didReceiveResponse:(NSString *)response;
+- (void)socketManager:(CPASocketManager *)manager didReceiveResponse:(NSString *)response forCommand:(CPAProxyCommand *)command;
 @end

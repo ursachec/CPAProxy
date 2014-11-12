@@ -13,19 +13,19 @@
 typedef void (^CPABootstrapCompletionBlock)(NSString *socksHost, NSUInteger socksPort, NSError *error);
 typedef void (^CPABootstrapProgressBlock)(NSInteger progress, NSString *summaryString);
 
+//Tor connnection states
 typedef NS_ENUM(NSUInteger, CPAStatus) {
     CPAStatusClosed = 0,
     CPAStatusConnecting,
-    CPAStatusAuthenticated,
-    CPAStatusBootstrapDone,
+    CPAStatusOpen
 };
 
 /**
- `CPAProxyManager` is a class responsible for coordinating the creation and communication with a Tor client running in a separate thread represented by `CPAThread`. After the Tor client has been started using the `CPAThread` instance, the `CPAProxyManager` uses `CPASocketManager` to send control messages until it has successfully boostraped Tor.
+ `CPAProxyManager` is a class responsible for coordinating the creation and communication with a Tor client running in a separate thread represented by `CPAThread`. After the Tor client has been started using the `CPAThread` instance, the `CPAProxyManager` uses `CPASocketManager` to send control messages until it has successfully bootstrapped Tor.
  
  Right after starting Tor, the control message "AUTHENTICATE %control_auth_cookie%" is sent. This uses data from a auth cookie created in Tor's temp directory specified by `CPAConfiguration`.
  
- If the authentication has succeeded, the `CPAProxyManager` starts sending "GETINFO status/bootstrap-phase" messages to poll for the boostrap progress of the Tor client. When the response "BOOTSTRAP PROGRESS=100" has been received, the client is considered to have been successfully setup and the SOCKS proxy is ready to be used.
+ If the authentication has succeeded, the `CPAProxyManager` starts sending "GETINFO status/bootstrap-phase" messages to poll for the bootstrap progress of the Tor client. When the response "BOOTSTRAP PROGRESS=100" has been received, the client is considered to have been successfully setup and the SOCKS proxy is ready to be used.
  */
 
 @interface CPAProxyManager : NSObject
@@ -44,6 +44,8 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
  Returns bootstrap connection status of Tor
  */
 @property (nonatomic, readonly) CPAStatus status;
+
+@property (nonatomic, readonly) BOOL isConnected;
 
 /**
  Convenience method that returns the configuration's SOCKS host
@@ -76,13 +78,24 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
 - (instancetype)initWithConfiguration:(CPAConfiguration *)configuration;
 
 /**
- Starts running the `CPAThread` wrapping a Tor client, sends authentication and `get boostrap info` messages to the control port and runs the success block with the SOCKS proxy's host and port on success. If anything goes wrong, the failure block is called with an NSError with `CPAErrorDomain`.
+ Starts running the `CPAThread` wrapping a Tor client, sends authentication and `get bootstrap info` messages to the control port and runs the success block with the SOCKS proxy's host and port on success. If anything goes wrong, the failure block is called with an NSError with `CPAErrorDomain`.
  
  @param success The success block containing the hostname and port of the usable Tor SOCKS proxy.
  @param failure The failure block containing an error describing what went wrong.
  */
 - (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
                    progress:(CPABootstrapProgressBlock)progress;
+
+/**
+ Starts running the `CPAThread` wrapping a Tor client, sends authentication and `get bootstrap info` messages to the control port and runs the success block with the SOCKS proxy's host and port on success. If anything goes wrong, the failure block is called with an NSError with `CPAErrorDomain`.
+ 
+ @param success The success block containing the hostname and port of the usable Tor SOCKS proxy.
+ @param failure The failure block containing an error describing what went wrong.
+ @param callbackQueue The Queue on which the blocks will be called on, defaults to main queue
+ */
+- (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
+                   progress:(CPABootstrapProgressBlock)progress
+              callbackQueue:(dispatch_queue_t)completionQueue;
 
 /**
  @return Current version string for OpenSSL https://www.openssl.org

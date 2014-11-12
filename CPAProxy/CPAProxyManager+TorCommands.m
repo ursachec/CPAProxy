@@ -8,58 +8,32 @@
 #import "CPAThread.h"
 #import "CPAConfiguration.h"
 #import "CPASocketManager.h"
+#import "CPAProxyCommand.h"
+#import "CPAProxyTorCommands.h"
+#import "CPAProxyTorCommandConstants.h"
 
 @implementation CPAProxyManager (TorControlAdditions)
 
-- (void)cpa_sendAuthenticate
+- (void)cpa_sendAuthenticateWithCompletion:(CPAProxyCommandResponseBlock)completion completionQueue:(dispatch_queue_t)completionQueue;
 {
-    NSString *torCookieAsHex = self.configuration.torCookieDataAsHex;
-    NSString *authMsg = [NSString stringWithFormat:@"AUTHENTICATE %@\n", torCookieAsHex];
-    [self.socketManager writeString:authMsg encoding:NSUTF8StringEncoding];
+    NSString *torCookieHex = [self.configuration torCookieDataAsHex];
+    NSString *commandString = [CPAProxyTorCommands authenticateCommandWithCookieHexString:torCookieHex];
+    CPAProxyCommand *command = [CPAProxyCommand commandWithCommandString:commandString tag:nil responseBlock:completion responseQueue:completionQueue];
+    [self.socketManager sendCommand:command];
 }
 
-- (void)cpa_sendGetBoostrapInfo
+- (void)cpa_sendGetBootstrapInfoWithCompletion:(CPAProxyCommandResponseBlock)completion completionQueue:(dispatch_queue_t)completionQueue;
 {
-    NSString *msgBootstrapInfo = @"GETINFO status/bootstrap-phase\n"; 
-    [self.socketManager writeString:msgBootstrapInfo encoding:NSUTF8StringEncoding];
+    NSString *commandString = [CPAProxyTorCommands getInfoCommandWithKeyword:kCPAProxyStatusBootstrapPhase];
+    CPAProxyCommand *command = [CPAProxyCommand commandWithCommandString:commandString tag:nil responseBlock:completion responseQueue:completionQueue];
+    [self.socketManager sendCommand:command];
 }
 
-- (NSInteger)cpa_boostrapProgressForResponse:(NSString *)response
-{    
-    NSString *progressString = @"BOOTSTRAP PROGRESS=";
-    NSInteger progess = 0;
-    
-    NSScanner *scanner = [NSScanner scannerWithString:response];
-    [scanner scanUpToString:progressString intoString:NULL];
-    
-    BOOL stringFound = [scanner scanString:progressString intoString:NULL];
-    if (stringFound) {
-        [scanner scanInteger:&progess];
-    }
-    
-    return progess;
-}
-
-- (NSString *)cpa_boostrapSummaryForResponse:(NSString *)response
+- (void)cpa_setEvents:(NSArray *)eventsArray extended:(BOOL)extended completion:(CPAProxyCommandResponseBlock)completion completionQueue:(dispatch_queue_t)completionQueue
 {
-    NSString *progressString = @"SUMMARY=";
-    NSString *summaryString = nil;
-    
-    NSScanner *scanner = [NSScanner scannerWithString:response];
-    scanner.charactersToBeSkipped = [NSCharacterSet characterSetWithCharactersInString:@"\""];
-    [scanner scanUpToString:progressString intoString:NULL];
-    
-    [scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:NULL];
-    [scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:&summaryString];
-    return summaryString;
-}
-
-- (BOOL)cpa_isAuthenticatedForResponse:(NSString *)response
-{
-    if ([response rangeOfString:@"250 OK"].location != NSNotFound) {
-        return YES;
-    }
-    return NO;
+    NSString *commandString = [CPAProxyTorCommands setEventsCommandWithEventsArray:eventsArray extended:extended];
+    CPAProxyCommand *command = [CPAProxyCommand commandWithCommandString:commandString tag:nil responseBlock:completion responseQueue:completionQueue];
+    [self.socketManager sendCommand:command];
 }
 
 
