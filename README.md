@@ -14,16 +14,23 @@
 ### ⨀ First steps
 
 ```obj-c
+// Import the library...
+#include <CPAProxy/CPAProxy.h>
+
 // Get resource paths for the torrc and geoip files from the main bundle
 NSURL *cpaProxyBundleURL = [[NSBundle mainBundle] URLForResource:@"CPAProxy" withExtension:@"bundle"];
 NSBundle *cpaProxyBundle = [NSBundle bundleWithURL:cpaProxyBundleURL];
 NSString *torrcPath = [cpaProxyBundle pathForResource:@"torrc" ofType:nil];
 NSString *geoipPath = [cpaProxyBundle pathForResource:@"geoip" ofType:nil];
 
-// Initialize a CPAProxyManager
-CPAConfiguration *configuration = [CPAConfiguration configurationWithTorrcPath:torrcPath geoipPath:geoipPath];
-self.cpaProxyManager = [CPAProxyManager proxyWithConfiguration:configuration];
+// Place to store Tor caches (non-temp storage improves performance since
+// directory data does not need to be re-loaded each launch)
+NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+NSString *torDataDir = [documentsDirectory stringByAppendingPathComponent:@"tor"];
 
+// Initialize a CPAProxyManager
+CPAConfiguration *configuration = [CPAConfiguration configurationWithTorrcPath:torrcPath geoipPath:geoipPath torDataDirectoryPath:torDataDir];
+CPAProxyManager *cpaProxyManager = [CPAProxyManager proxyWithConfiguration:configuration];
 ```
 
 Before doing anything with *CPAProxy*, you have to create a *CPAConfiguration* and a *CPAProxyManager*.
@@ -35,12 +42,18 @@ Torrc is a configuration file used by the Tor process and is documented in lengt
 ### ⨀  Running Tor
 
 ```obj-c
-[self.cpaProxyManager setupWithSuccess:^(NSString *SOCKSHost, NSUInteger SOCKSPort) {
+[cpaProxyManager setupWithCompletion:^(NSString *socksHost, NSUInteger socksPort, NSError *error) {
+    if (error == nil) {
+        // ... do something with Tor socks hostname & port ...
+        NSLog(@"Connected: host=%@, port=%lu", socksHost, (long)socksPort);
 
-    // Use the Tor SOCKS Proxy hostname and port
-    [self handleCPAProxySetupWithSOCKSHost:SOCKSHost SOCKSPort:SOCKSPort];
-    
-} failure:nil];
+        // ... like this -- see below for implementation ...
+        [self handleCPAProxySetupWithSOCKSHost:socksHost SOCKSPort:socksPort];
+    }
+} progress:^(NSInteger progress, NSString *summaryString) {
+    // ... do something to notify user of tor's initialization progress ...
+    NSLog(@"%li %@", (long)progress, summaryString);
+}];
 ```
 
 After you have initialized an instance of CPAProxyManager, call `-setupWithSuccess:failure:`. This will create a new thread that runs a Tor process using information from the proxy manager's configuration. On success, a SOCKS hostname and port are returned that can be used to proxy requests. In addition to the block callback, you can also listen for the `CPAProxyDidFinishSetupNotification` notification to react to a successful setup.
@@ -53,7 +66,7 @@ After you have initialized an instance of CPAProxyManager, call `-setupWithSucce
 {
     // Create a NSURLSessionConfiguration that uses the newly setup SOCKS proxy
     NSDictionary *proxyDict = @{
-        (NSString *)kCFStreamPropertySOCKSProxyHost : SOCKSHost, 
+        (NSString *)kCFStreamPropertySOCKSProxyHost : SOCKSHost,
         (NSString *)kCFStreamPropertySOCKSProxyPort : @(SOCKSPort)
     };
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
@@ -66,6 +79,8 @@ After you have initialized an instance of CPAProxyManager, call `-setupWithSucce
     NSURL *URL = [NSURL URLWithString:@"https://check.torproject.org"];
     NSURLSessionDataTask *dataTask = [urlSession dataTaskWithURL:URL];
     [dataTask resume];
+    
+    // ...
 }
 
 ```
