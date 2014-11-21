@@ -6,7 +6,6 @@ ExitPolicy reject *:*
 AvoidDiskWrites 1
 HardwareAccel 1
 
-SocksListenAddress 127.0.0.1
 ControlListenAddress 127.0.0.1
 
 CookieAuthentication 1
@@ -14,8 +13,6 @@ CookieAuthentication 1
 ConnLimit 100
 
 UseEntryGuards 1
-TunnelDirConns 1
-PreferTunneledDirConns 1
 
 SafeLogging 1
 
