@@ -77,4 +77,18 @@
  */
 @property (nonatomic, copy, readwrite) NSString *geoipPath;
 
+/**
+ *  Don’t share circuits with streams targetting a different destination port.
+ *  See IsolateDestPort in https://www.torproject.org/docs/tor-manual.html.en for more details.
+ *  Defaults to NO.
+ */
+@property (nonatomic, readwrite) BOOL isolateDestinationPort;
+
+/**
+ *  Don’t share circuits with streams targetting a different destination address.
+ *  See IsolateDestAddr in https://www.torproject.org/docs/tor-manual.html.en for more details.
+ *  Defaults to NO.
+ */
+@property (nonatomic, readwrite) BOOL isolateDestinationAddress;
+
 @end
