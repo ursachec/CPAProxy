@@ -27,13 +27,13 @@ extern NSString *const kCPAProxyEventStatusServer;
 extern NSString *const kCPAProxyEventStatusClient;
 extern NSString *const kCPAProxyEventGuardNodesChanged;
 extern NSString *const kCPAProxyEventNetworkStatusChanged;
-extern NSString *const kCPAPRoxyEvventStreamBandwidth;
+extern NSString *const kCPAPRoxyEventStreamBandwidth;
 extern NSString *const kCPAProxyEventCountryClientStats;
 extern NSString *const kCPAProxyEventNewConsensus;
 extern NSString *const kCPAProxyEventCircuitBuildTimeoutSet;
 extern NSString *const kCPAProxyEventConfigurationChanged;
 extern NSString *const kCPAProxyEventMinorCircutStatus;
-extern NSString *const kCPAProxyEvnetPluggableTransport;
+extern NSString *const kCPAProxyEventPluggableTransport;
 
 extern NSString *const kCPAProxyStatusBootstrapPhase;
 

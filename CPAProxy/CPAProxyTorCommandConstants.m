@@ -33,7 +33,7 @@ NSString *const kCPAProxyEventNewConsensus           = @"NEWCONSENSUS";
 NSString *const kCPAProxyEventCircuitBuildTimeoutSet = @"BUILDTIMEOUT_SET";
 NSString *const kCPAProxyEventConfigurationChanged   = @"CONF_CHANGED";
 NSString *const kCPAProxyEventMinorCircutStatus      = @"CIRC_MINOR";
-NSString *const kCPAProxyEvnetPluggableTransport     = @"TRANSPORT_LAUNCHED";
+NSString *const kCPAProxyEventPluggableTransport     = @"TRANSPORT_LAUNCHED";
 
 
 NSString *const kCPAProxyStatusBootstrapPhase       = @"status/bootstrap-phase";

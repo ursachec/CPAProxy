@@ -198,9 +198,7 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
         [self cpa_sendAuthenticateWithCompletion:^(NSString *responseString, NSError *error) {
             [self handleInitialAuthenticateResponse:responseString];
         } completionQueue:self.workQueue];
-        [self cpa_setEvents:@[kCPAProxyEventStatusClient] extended:NO completion:^(NSString *responseString, NSError *error) {
-            NSLog(@"%@",responseString);
-        } completionQueue:self.workQueue];
+        [self cpa_setEvents:@[kCPAProxyEventStatusClient] extended:NO completion:nil completionQueue:self.workQueue];
     }
 }
 
