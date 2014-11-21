@@ -19,9 +19,8 @@ NSString * const CPAProxyDidFinishSetupNotification = @"com.cpaproxy.setup.finis
 
 NSString * const CPAErrorDomain = @"CPAErrorDomain";
 
-const NSTimeInterval CPAConnectToTorSocketDelay = 0.5;
-const NSTimeInterval CPAGetBootstrapProgressInterval = 2.0;
-const NSTimeInterval CPATimeoutDelay = 25;
+static const NSTimeInterval CPAConnectToTorSocketDelay = 0.5;
+static const NSTimeInterval CPATimeoutDelay = 60 * 3; // Sometimes Tor takes a long time to bootstrap
 
 const NSInteger CPABootstrapProgressPercentageDone = 100;
 
@@ -51,7 +50,6 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 @property (nonatomic, strong, readwrite) CPAConfiguration *configuration;
 @property (nonatomic, strong, readwrite) CPAThread *torThread;
 
-@property (nonatomic, strong, readwrite) NSTimer *bootstrapTimer;
 @property (nonatomic, strong, readwrite) NSTimer *timeoutTimer;
 @property (nonatomic, copy, readwrite) CPABootstrapCompletionBlock completionBlock;
 @property (nonatomic, copy, readwrite) CPABootstrapProgressBlock progressBlock;
@@ -60,9 +58,11 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 
 @property (nonatomic, readwrite) CPAStatus status;
 @property (nonatomic, readwrite) CPAControlPortStatus controlPortStatus;
+@property (nonatomic, readwrite) NSInteger bootstrapProgress;
 @end
 
 @implementation CPAProxyManager
+@dynamic isConnected;
 
 + (instancetype)proxyWithConfiguration:(CPAConfiguration *)configuration
 {
@@ -112,7 +112,7 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 
 - (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
                    progress:(CPABootstrapProgressBlock)progress
-              callbackQueue:(dispatch_queue_t)completionQueue
+              callbackQueue:(dispatch_queue_t)callbackQueue
 {
     if (self.controlPortStatus != CPAControlPortStatusClosed) {
         return;
@@ -122,7 +122,7 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     
     self.completionBlock = completion;
     self.progressBlock = progress;
-    self.callbackQueue = completionQueue;
+    self.callbackQueue = callbackQueue;
     if (!self.callbackQueue) {
         self.callbackQueue = dispatch_get_main_queue();
     }
@@ -143,14 +143,7 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     
     [self postNotificationWithName:CPAProxyDidStartSetupNotification];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:CPATimeoutDelay
-                                                             target:self
-                                                           selector:@selector(handleTimeout)
-                                                           userInfo:nil
-                                                            repeats:NO];
-    });
-    
+    [self resetTimeoutTimer];
     
     // This is a pretty ungly hack but it will have to do for the moment.
     // Wait for a constant amount of time after starting the main Tor client before opening a socket
@@ -165,6 +158,19 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     }
         
     [self.socketManager connectToHost:self.configuration.socksHost port:self.configuration.controlPort error:nil];
+}
+
+- (void) resetTimeoutTimer {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.timeoutTimer) {
+            [self.timeoutTimer invalidate];
+        }
+        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:CPATimeoutDelay
+                                                             target:self
+                                                           selector:@selector(handleTimeout)
+                                                           userInfo:nil
+                                                            repeats:NO];
+    });
 }
 
 #pragma mark - CPASocketManagerDelegate methods
@@ -192,9 +198,7 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
         [self cpa_sendAuthenticateWithCompletion:^(NSString *responseString, NSError *error) {
             [self handleInitialAuthenticateResponse:responseString];
         } completionQueue:self.workQueue];
-        [self cpa_setEvents:@[kCPAProxyEventStatusClient] extended:NO completion:^(NSString *responseString, NSError *error) {
-            NSLog(@"%@",responseString);
-        } completionQueue:self.workQueue];
+        [self cpa_setEvents:@[kCPAProxyEventStatusClient] extended:NO completion:nil completionQueue:self.workQueue];
     }
 }
 
@@ -242,6 +246,10 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 - (void)handleInitialBootstrapProgressResponse:(NSString *)response
 {
     NSInteger progress = [CPAProxyResponseParser bootstrapProgressForResponse:response];
+    if (self.bootstrapProgress != progress) {
+        [self resetTimeoutTimer];
+    }
+    self.bootstrapProgress = progress;
     
     if (self.progressBlock) {
         NSString *summaryString = [CPAProxyResponseParser bootstrapSummaryForResponse:response];
@@ -250,16 +258,11 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
             __strong typeof(weakSelf)strongSelf = weakSelf;
             strongSelf.progressBlock(progress,summaryString);
         });
-        
     }
 
     if (progress == CPABootstrapProgressPercentageDone) {
-        
         self.status = CPAStatusOpen;
-        
-        [self.bootstrapTimer invalidate];
-        [self.timeoutTimer invalidate];
-        
+        [self removeTimeoutTimer];
         [self postNotificationWithName:CPAProxyDidFinishSetupNotification];
         
         NSString *socksHost = self.configuration.socksHost;
@@ -270,26 +273,37 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
                 __strong typeof(weakSelf)strongSelf = weakSelf;
                 strongSelf.completionBlock(socksHost, socksPort, nil);
             });
-            
         }
     }
 }
 
 #pragma mark - Utilities
 
+- (void) removeTimeoutTimer {
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf.timeoutTimer invalidate];
+        strongSelf.timeoutTimer = nil;
+    });
+}
+
+- (BOOL) isConnected {
+    return self.status == CPAStatusOpen;
+}
+
 - (void)postNotificationWithName:(NSString * const)notificationName
 {
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:weakSelf];
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:strongSelf];
     });
 }
 
 - (void)failWithError:(NSError *)error
 {
-    [self.timeoutTimer invalidate];
-    [self.bootstrapTimer invalidate];
-    
+    [self removeTimeoutTimer];
     [self postNotificationWithName:CPAProxyDidFailSetupNotification];
     
     if (self.completionBlock) {
@@ -298,7 +312,6 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
             __strong typeof(weakSelf)strongSelf = weakSelf;
             strongSelf.completionBlock(nil,0,error);
         });
-        
     }
 }
 

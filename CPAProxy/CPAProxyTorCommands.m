@@ -16,6 +16,17 @@
     return [NSString stringWithFormat:@"AUTHENTICATE %@%@",hexString,kCPAProxyCRLF];
 }
 
++ (NSString *)getConfigurationCommandWithKeyword:(NSString *)keyword {
+    return [NSString stringWithFormat:@"GETCONF %@%@",keyword,kCPAProxyCRLF];
+}
+
+/**
+ *  SIGNAL command wrapper
+ */
++ (NSString *)sendSignalCommandWithKeyword:(NSString *)keyword {
+    return [NSString stringWithFormat:@"SIGNAL %@%@",keyword,kCPAProxyCRLF];
+}
+
 + (NSString *)getInfoCommandWithKeyword:(NSString *)keyword
 {
     return [NSString stringWithFormat:@"GETINFO %@%@",keyword,kCPAProxyCRLF];

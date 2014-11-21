@@ -45,6 +45,10 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
  */
 @property (nonatomic, readonly) CPAStatus status;
 
+/**
+ *  Returns whether or not CPAProxyManager thinks Tor is fully connected.
+ *  Shortcut for status == CPAStatusOpen
+ */
 @property (nonatomic, readonly) BOOL isConnected;
 
 /**
@@ -95,7 +99,7 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
  */
 - (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
                    progress:(CPABootstrapProgressBlock)progress
-              callbackQueue:(dispatch_queue_t)completionQueue;
+              callbackQueue:(dispatch_queue_t)callbackQueue;
 
 /**
  @return Current version string for OpenSSL https://www.openssl.org

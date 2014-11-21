@@ -24,40 +24,80 @@
 {
     [super setUp];
     
-    [Expecta setAsynchronousTestTimeout:60 * 5]; // 5 minutes. Sometimes Tor takes a long time to bootstrap
-    
-    self.configuration = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:nil];
-    self.proxyManager = [CPAProxyManager proxyWithConfiguration:self.configuration];
+    [Expecta setAsynchronousTestTimeout:60 * 3]; // 3 minutes. Sometimes Tor takes a long time to bootstrap
 }
 
 - (void)tearDown
 {
-    // Put teardown code here; it will be run once, after the last test case.
-    [super tearDown];
-    
-    [self.proxyManager.torThread cancel];
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [super tearDown];    
 }
 
+/**
+ *  It is currently impossible to run multiple tests that test Tor bootstrap/connection
+ *  because cancelling the Tor thread doesn't result in a clean exist and libevent/kqueue
+ *  will complain when you try to start the next test.
+ *  
+ *  Although not quite idempotent, perhaps a better approach will be to connect only once globally
+ *  and send the HUP signal when a reload is desired in each test.
+ */
 - (void)testSuccessfulProxySetup
 {
+    self.configuration = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:nil];
+    self.configuration.isolateDestinationPort = YES;
+    self.configuration.isolateDestinationAddress = YES;
+    self.proxyManager = [CPAProxyManager proxyWithConfiguration:self.configuration];
+    
+    // The callbackQueue must NOT be the main queue because
+    // Expecta blocks the main queue and the tests will fail
+    dispatch_queue_t callbackQueue = dispatch_queue_create("socks callback queue", 0);
+    
+    __block NSString *socksResponseString = nil;
+    __block NSString *HUPResponseString = nil;
+
     __block NSError *blockError = nil;
     __block NSString *blockSocksHost = nil;
     __block NSUInteger blockSocksPort = 0;
-    __block NSInteger progressInt = 0;
+    __block NSInteger blockProgressInt = 0;
+    __block NSString *blockSummaryString = nil;
+    NSString *expectedSocksPortResponse = [NSString stringWithFormat:@"250 SocksPort=localhost:%lu IsolateDestAddr IsolateDestPort", self.proxyManager.SOCKSPort];
+    NSString *expectedHUPResponse = @"250 OK";
     
     [self.proxyManager setupWithCompletion:^(NSString *socksHost, NSUInteger socksPort, NSError *error) {
         blockSocksHost = socksHost;
         blockSocksPort = socksPort;
         blockError = error;
+        if (!error) {
+            // Test SOCKS port configuration
+            [self.proxyManager cpa_getConfigurationVariable:@"SOCKSPort" completionBlock:^(NSString *responseString, NSError *error) {
+                if (!error) {
+                    socksResponseString = responseString;
+                } else {
+                    NSLog(@"Error with getting socks config: %@", error);
+                }
+                // Test sending a signal
+                [self.proxyManager cpa_sendSignal:@"HUP" completionBlock:^(NSString *responseString, NSError *error) {
+                    HUPResponseString = responseString;
+                    if (error) {
+                        NSLog(@"Error with getting socks config: %@", error);
+                    }
+                } completionQueue:callbackQueue];
+            } completionQueue:callbackQueue];
+        } else {
+            NSLog(@"Error with setup: %@", error);
+        }
     } progress:^(NSInteger progress, NSString *summaryString) {
-        expect(summaryString).willNot.beNil();
-        progressInt = progress;
-    }];
+        blockProgressInt = progress;
+        blockSummaryString = summaryString;
+    } callbackQueue:callbackQueue];
     
+    expect(socksResponseString).will.equal(expectedSocksPortResponse);
+    expect(HUPResponseString).will.equal(expectedHUPResponse);
     expect(blockError).will.beNil();
     expect(blockSocksHost).willNot.beNil();
     expect(blockSocksPort).willNot.equal(0);
-    expect(progressInt).willNot.equal(0);
+    expect(blockProgressInt).willNot.equal(0);
+    expect(blockSummaryString).willNot.beNil();
 }
 
 - (void)testTorDataDirectory

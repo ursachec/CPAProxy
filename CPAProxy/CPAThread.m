@@ -8,6 +8,9 @@
 #import "CPAConfiguration.h"
 #import "tor_cpaproxy.h"
 
+static NSString *const kTorArgsValueIsolateDestPort = @"IsolateDestPort";
+static NSString *const kTorArgsValueIsolateDestAddr = @"IsolateDestAddr";
+
 const char *kTorArgsKeyARG0 = "tor";
 const char *kTorArgsKeyDataDirectory = "DataDirectory";
 const char *kTorArgsKeyControlPort = "ControlPort";
@@ -50,7 +53,13 @@ const char *kTorArgsValueLogLevel = "notice stderr";
     NSString *torrcPath = self.configuration.torrcPath;
     NSString *geoipPath = self.configuration.geoipPath;
     NSString *controlPort = [NSString stringWithFormat:@"%lu", (unsigned long)self.configuration.controlPort];
-    NSString *socksPort = [NSString stringWithFormat:@"%lu", (unsigned long)self.configuration.socksPort];
+    NSMutableString *socksPort = [NSMutableString stringWithFormat:@"localhost:%lu", (unsigned long)self.configuration.socksPort];
+    if (self.configuration.isolateDestinationAddress) {
+        [socksPort appendFormat:@" %@", kTorArgsValueIsolateDestAddr];
+    }
+    if (self.configuration.isolateDestinationPort) {
+        [socksPort appendFormat:@" %@", kTorArgsValueIsolateDestPort];
+    }
     
     const char *argv[] = { 
         kTorArgsKeyARG0, 

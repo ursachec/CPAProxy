@@ -26,6 +26,23 @@
 - (void)cpa_sendGetBootstrapInfoWithCompletion:(CPAProxyCommandResponseBlock)completion
                               completionQueue:(dispatch_queue_t)completionQueue;
 
+/**
+ Request the value of a configuration variable from Tor's control socket.
+ */
+- (void)cpa_getConfigurationVariable:(NSString*)configurationVariable
+                     completionBlock:(CPAProxyCommandResponseBlock)completionBlock
+                     completionQueue:(dispatch_queue_t)completionQueue;
+
+/**
+ * Used to send a SIGNAL to Tor's control socket.
+ * "RELOAD" / "SHUTDOWN" / "DUMP" / "DEBUG" / "HALT" /
+ * "HUP" / "INT" / "USR1" / "USR2" / "TERM" / "NEWNYM" /
+ * "CLEARDNSCACHE"
+ */
+- (void)cpa_sendSignal:(NSString*)signal
+       completionBlock:(CPAProxyCommandResponseBlock)completionBlock
+       completionQueue:(dispatch_queue_t)completionQueue;
+
 
 /**
  'Request the server to inform the client about interesting events' any events not listed will be turned off
