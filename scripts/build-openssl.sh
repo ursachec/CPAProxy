@@ -1,9 +1,34 @@
 #!/bin/bash
 set -e
 
+VERIFYGPG=true
+
 # Download source
 if [ ! -e "openssl-${OPENSSL_VERSION}.tar.gz" ]; then
   curl -O "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"  --retry 5
+fi
+
+# Download GPG signature
+if [ ! -e "openssl-${OPENSSL_VERSION}.tar.gz.asc" ]; then
+  curl -O "http://openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz.asc" --retry 5
+fi
+
+# Verify signature
+if $VERIFYGPG; then
+  if out=$(gpg --status-fd 1 --verify "openssl-${OPENSSL_VERSION}.tar.gz.asc" "openssl-${OPENSSL_VERSION}.tar.gz" 2>/dev/null)
+    echo "$out" | grep -qs "^\[GNUPG:\] VALIDSIG"; then
+      echo "$out" | egrep "GOODSIG|VALIDSIG"
+      echo "Verified OpenSSL GPG signature..."
+    elif echo "$out" | grep -qs "^\[GNUPG:\] BADSIG"; then
+      echo "$out" >&2
+      echo "Invalid signature for OpenSSL!"
+      echo "It might be time to freak out!"
+      exit 1
+    else
+      echo "Couldn't verify OpenSSL signature."
+      echo "Have you imported an OpenSSL public key?"
+      exit 1
+  fi
 fi
 
 # Extract source
