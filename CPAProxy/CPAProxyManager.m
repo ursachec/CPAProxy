@@ -148,7 +148,9 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     // This is a pretty ungly hack but it will have to do for the moment.
     // Wait for a constant amount of time after starting the main Tor client before opening a socket
     // and send an authentication message.
-    [self performSelector:@selector(connectSocket) withObject:nil afterDelay:CPAConnectToTorSocketDelay];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(CPAConnectToTorSocketDelay * NSEC_PER_SEC)), self.workQueue, ^{
+        [self connectSocket];
+    });
 }
 
 - (void)connectSocket
