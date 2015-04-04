@@ -24,7 +24,7 @@
 {
     [super setUp];
     
-    [Expecta setAsynchronousTestTimeout:60 * 3]; // 3 minutes. Sometimes Tor takes a long time to bootstrap
+    //[Expecta setAsynchronousTestTimeout:60 * 3]; // 3 minutes. Sometimes Tor takes a long time to bootstrap
 }
 
 - (void)tearDown
@@ -51,53 +51,40 @@
     // The callbackQueue must NOT be the main queue because
     // Expecta blocks the main queue and the tests will fail
     dispatch_queue_t callbackQueue = dispatch_queue_create("socks callback queue", 0);
-    
-    __block NSString *socksResponseString = nil;
-    __block NSString *HUPResponseString = nil;
 
-    __block NSError *blockError = nil;
-    __block NSString *blockSocksHost = nil;
-    __block NSUInteger blockSocksPort = 0;
-    __block NSInteger blockProgressInt = 0;
-    __block NSString *blockSummaryString = nil;
-    NSString *expectedSocksPortResponse = [NSString stringWithFormat:@"250 SocksPort=localhost:%lu IsolateDestAddr IsolateDestPort", self.proxyManager.SOCKSPort];
-    NSString *expectedHUPResponse = @"250 OK";
+    __block NSString *expectedSocksPortResponse = [NSString stringWithFormat:@"250 SocksPort=localhost:%lu IsolateDestAddr IsolateDestPort", self.proxyManager.SOCKSPort];
+    __block NSString *expectedHUPResponse = @"250 OK";
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"startTorExpectation"];
     
     [self.proxyManager setupWithCompletion:^(NSString *socksHost, NSUInteger socksPort, NSError *error) {
-        blockSocksHost = socksHost;
-        blockSocksPort = socksPort;
-        blockError = error;
+        XCTAssertTrue([socksHost length] > 0, @"No SOCKS host string");
+        XCTAssertTrue(socksPort > 0, @"NO SOCKS port");
+        XCTAssertNil(error, @"Error setting up");
         if (!error) {
             // Test SOCKS port configuration
             [self.proxyManager cpa_getConfigurationVariable:@"SOCKSPort" completionBlock:^(NSString *responseString, NSError *error) {
-                if (!error) {
-                    socksResponseString = responseString;
-                } else {
-                    NSLog(@"Error with getting socks config: %@", error);
-                }
-                // Test sending a signal
+                XCTAssertNil(error, @"Error getting socks config");
+                XCTAssertTrue([responseString isEqualToString:expectedSocksPortResponse], @"Error SOCKS response string");
                 [self.proxyManager cpa_sendSignal:@"HUP" completionBlock:^(NSString *responseString, NSError *error) {
-                    HUPResponseString = responseString;
-                    if (error) {
-                        NSLog(@"Error with getting socks config: %@", error);
-                    }
+                    XCTAssertNil(error, @"Error sedning HUP");
+                    XCTAssertTrue([responseString isEqualToString:expectedHUPResponse], @"Error HUP response string");
+                    [expectation fulfill];
                 } completionQueue:callbackQueue];
             } completionQueue:callbackQueue];
         } else {
-            NSLog(@"Error with setup: %@", error);
+            [expectation fulfill];
         }
     } progress:^(NSInteger progress, NSString *summaryString) {
-        blockProgressInt = progress;
-        blockSummaryString = summaryString;
+        XCTAssertTrue(progress >= 0 && progress <= 100, @"Invalid progress");
+        XCTAssertTrue([summaryString length] > 0, @"No summary String");
     } callbackQueue:callbackQueue];
     
-    expect(socksResponseString).will.equal(expectedSocksPortResponse);
-    expect(HUPResponseString).will.equal(expectedHUPResponse);
-    expect(blockError).will.beNil();
-    expect(blockSocksHost).willNot.beNil();
-    expect(blockSocksPort).willNot.equal(0);
-    expect(blockProgressInt).willNot.equal(0);
-    expect(blockSummaryString).willNot.beNil();
+    [self waitForExpectationsWithTimeout:3*60 handler:^(NSError *error) {
+        if (error) {
+            NSLog(@"Time out Error");
+        }
+    }];
 }
 
 - (void)testTorDataDirectory
@@ -105,18 +92,17 @@
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     
     CPAConfiguration *config = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:documentsDirectory];
-    
-    expect(config.torDataDirectoryPath).willNot.beNil();
-    expect(config.torDataDirectoryPath).willNot.equal(documentsDirectory);
+    XCTAssertTrue([config.torDataDirectoryPath length] > 0,@"No Tor directory path");
+    XCTAssertFalse([config.torDataDirectoryPath isEqualToString:documentsDirectory],@"Tor directory is equal to documents directory");
     
     NSString *directory = [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"com.cpaproxy"];
     
     config = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:directory];
-    expect(config.torDataDirectoryPath).willNot.beNil();
-    expect(config.torDataDirectoryPath).will.equal(directory);
+    XCTAssertTrue([config.torDataDirectoryPath length] > 0, @"No Tor data directory path");
+    XCTAssertTrue([config.torDataDirectoryPath isEqualToString:directory],@"Tor data directory path incorrect");
     
     config = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:nil];
-    expect(config.torDataDirectoryPath).willNot.beNil();
+    XCTAssertTrue([config.torDataDirectoryPath length] > 0,@"NO tor Data directory Path");
 }
 
 @end
