@@ -8,9 +8,6 @@
 
 #import <XCTest/XCTest.h>
 
-#define EXP_SHORTHAND YES
-#import "Expecta.h"
-
 @interface CPAProxyTestCase : XCTestCase
 @property(nonatomic, copy, readonly) NSString *torrcPath;
 @property(nonatomic, copy, readonly) NSString *geoipPath;
