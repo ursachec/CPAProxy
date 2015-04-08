@@ -1,15 +1,17 @@
 #!/bin/bash
 set -e
 
-if [ ! -e "libevent-${LIBEVENT_VERSION}.tar.gz" ]; then
-	curl -LO "https://github.com/downloads/libevent/libevent/libevent-${LIBEVENT_VERSION}.tar.gz"  --retry 5
+ARCHIVE_NAME="libevent-${LIBEVENT_VERSION}"
+
+if [ ! -e "${ARCHIVE_NAME}.tar.gz" ]; then
+	curl -LO "https://downloads.sourceforge.net/project/levent/libevent/libevent-2.0/${ARCHIVE_NAME}.tar.gz"  --retry 5
 fi
 
 # Extract source
-rm -rf "libevent-${LIBEVENT_VERSION}"
-tar zxf "libevent-${LIBEVENT_VERSION}.tar.gz"
+rm -rf "${ARCHIVE_NAME}"
+tar zxf "${ARCHIVE_NAME}.tar.gz"
 
-pushd "libevent-${LIBEVENT_VERSION}"
+pushd "${ARCHIVE_NAME}"
 
    CC="${CLANG}"
    LDFLAGS="-L${ARCH_BUILT_DIR} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION}"
@@ -44,4 +46,4 @@ pushd "libevent-${LIBEVENT_VERSION}"
 popd
 
 # Clean up
-rm -rf "libevent-${LIBEVENT_VERSION}"
+rm -rf "${ARCHIVE_NAME}"
