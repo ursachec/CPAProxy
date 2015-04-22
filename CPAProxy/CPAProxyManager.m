@@ -167,11 +167,7 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     if (self.controlPortStatus != CPAControlPortStatusConnecting) {
         return;
     }
-    NSError *error = nil;
-    [self.socketManager connectToHost:self.configuration.socksHost port:self.configuration.controlPort error:&error];
-    if (error) {
-        NSLog(@"Error");
-    }
+    [self.socketManager connectToHost:self.configuration.socksHost port:self.configuration.controlPort error:nil];
 }
 
 - (void) resetTimeoutTimer {
@@ -212,6 +208,11 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     if(self.controlPortStatus == CPAStatusConnecting) {
         [self cpa_sendAuthenticateWithCompletion:^(NSString *responseString, NSError *error) {
             [self handleInitialAuthenticateResponse:responseString];
+        } completionQueue:self.workQueue];
+        [self cpa_sendGetBootstrapInfoWithCompletion:^(NSString *responseString, NSError *error) {
+            if ([responseString length]) {
+                [self handleInitialBootstrapProgressResponse:responseString];
+            }
         } completionQueue:self.workQueue];
         [self cpa_setEvents:@[kCPAProxyEventStatusClient] extended:NO completion:nil completionQueue:self.workQueue];
     }
@@ -293,6 +294,8 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
             dispatch_async(self.callbackQueue, ^{
                 __strong typeof(weakSelf)strongSelf = weakSelf;
                 strongSelf.completionBlock(socksHost, socksPort, nil);
+                strongSelf.completionBlock = nil;
+                strongSelf.progressBlock = nil;
             });
         }
     }
@@ -332,6 +335,8 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
         dispatch_async(self.callbackQueue, ^{
             __strong typeof(weakSelf)strongSelf = weakSelf;
             strongSelf.completionBlock(nil,0,error);
+            strongSelf.completionBlock = nil;
+            strongSelf.progressBlock = nil;
         });
     }
 }
