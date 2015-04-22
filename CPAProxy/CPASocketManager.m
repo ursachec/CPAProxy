@@ -20,7 +20,6 @@ const long CPASocketWriteTag = 110;
 
 @interface CPASocketManager () <GCDAsyncSocketDelegate>
 
-@property (nonatomic, strong, readwrite) NSTimer *timeoutTimer;
 @property (nonatomic, weak, readwrite) id<CPASocketManagerDelegate> delegate;
 @property (nonatomic, readwrite) BOOL isConnected;
 @property (nonatomic, strong, readwrite) GCDAsyncSocket *socket;
@@ -127,18 +126,28 @@ const long CPASocketWriteTag = 110;
 
 #pragma - mark handle socket
 
-- (void)handleSocketTimeout
-{
-    __weak typeof(self)weakSelf = self;
-    dispatch_async(self.delegateQueue, ^{
-        __strong typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf.delegate socketManagerDidFailToOpenSocket:strongSelf];
-    });
-}
-
 - (void)handleSocketConnected
 {
     self.isConnected = YES;
+    
+    __weak typeof(self)weakSelf = self;
+    dispatch_async(self.delegateQueue, ^{
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf.delegate socketManagerDidOpenSocket:strongSelf];
+    });
+}
+
+- (void)handleSocketDisconnectedWithError:(NSError *)error
+{
+    self.isConnected = NO;
+    
+    if ([self.delegate respondsToSelector:@selector(socketManager:didDisconnectError:)]) {
+        __weak typeof(self)weakSelf = self;
+        dispatch_async(self.delegateQueue, ^{
+            __strong typeof(weakSelf)strongSelf = weakSelf;
+            [self.delegate socketManager:strongSelf didDisconnectError:error];
+        });
+    }
 }
 
 /**
@@ -210,15 +219,13 @@ const long CPASocketWriteTag = 110;
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
-    [self.timeoutTimer invalidate];
     [self handleSocketConnected];
     [self.socket readDataWithTimeout:CPASocketReadTimeout tag:CPASocketDidConnectReadTag];
-    
-    __weak typeof(self)weakSelf = self;
-    dispatch_async(self.delegateQueue, ^{
-        __strong typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf.delegate socketManagerDidOpenSocket:strongSelf];
-    });
+}
+
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+{
+    [self handleSocketDisconnectedWithError:err];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag

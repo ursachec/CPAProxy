@@ -8,10 +8,10 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   CPAProxy:
-    :path: ./CPAProxy.podspec
+    :path: "./CPAProxy.podspec"
 
 SPEC CHECKSUMS:
   CocoaAsyncSocket: 94c582a5bef4bb0f51b6ebf3e1b561d9091a68ba
   CPAProxy: 2f0d2ef592b28e0686b5a100ad663bdd3e51900b
 
-COCOAPODS: 0.36.0
+COCOAPODS: 0.36.4

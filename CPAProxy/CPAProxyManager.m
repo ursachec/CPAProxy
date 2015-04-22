@@ -19,8 +19,9 @@ NSString * const CPAProxyDidFinishSetupNotification = @"com.cpaproxy.setup.finis
 
 NSString * const CPAErrorDomain = @"CPAErrorDomain";
 
-static const NSTimeInterval CPAConnectToTorSocketDelay = 0.5;
+static const NSTimeInterval CPAConnectToTorSocketDelay = 0.1; //Amount of time to wait before attempting to connect again
 static const NSTimeInterval CPATimeoutDelay = 60 * 3; // Sometimes Tor takes a long time to bootstrap
+static const NSUInteger CPAMaxNumberControlConnectionAttempts = 5; //Max number of retries before firing an error
 
 const NSInteger CPABootstrapProgressPercentageDone = 100;
 
@@ -59,6 +60,9 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 @property (nonatomic, readwrite) CPAStatus status;
 @property (nonatomic, readwrite) CPAControlPortStatus controlPortStatus;
 @property (nonatomic, readwrite) NSInteger bootstrapProgress;
+
+@property (nonatomic) NSUInteger controlPortConnectionAttempts;
+
 @end
 
 @implementation CPAProxyManager
@@ -148,7 +152,12 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     // This is a pretty ungly hack but it will have to do for the moment.
     // Wait for a constant amount of time after starting the main Tor client before opening a socket
     // and send an authentication message.
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(CPAConnectToTorSocketDelay * NSEC_PER_SEC)), self.workQueue, ^{
+    [self tryConnectingControlPortAfterDelay:CPAConnectToTorSocketDelay];
+}
+
+- (void)tryConnectingControlPortAfterDelay:(NSTimeInterval)delay
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), self.workQueue, ^{
         [self connectSocket];
     });
 }
@@ -158,8 +167,11 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     if (self.controlPortStatus != CPAControlPortStatusConnecting) {
         return;
     }
-        
-    [self.socketManager connectToHost:self.configuration.socksHost port:self.configuration.controlPort error:nil];
+    NSError *error = nil;
+    [self.socketManager connectToHost:self.configuration.socksHost port:self.configuration.controlPort error:&error];
+    if (error) {
+        NSLog(@"Error");
+    }
 }
 
 - (void) resetTimeoutTimer {
@@ -196,6 +208,7 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 
 - (void)socketManagerDidOpenSocket:(CPASocketManager *)manager
 {
+    self.controlPortConnectionAttempts = 0;
     if(self.controlPortStatus == CPAStatusConnecting) {
         [self cpa_sendAuthenticateWithCompletion:^(NSString *responseString, NSError *error) {
             [self handleInitialAuthenticateResponse:responseString];
@@ -204,13 +217,19 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     }
 }
 
-- (void)socketManagerDidFailToOpenSocket:(CPASocketManager *)manager
+- (void)socketManager:(CPASocketManager *)manager didDisconnectError:(NSError *)error
 {
     self.controlPortStatus = CPAControlPortStatusClosed;
+    self.controlPortConnectionAttempts += 1;
+    if(self.controlPortConnectionAttempts < CPAMaxNumberControlConnectionAttempts) {
+        [self tryConnectingControlPortAfterDelay:CPAConnectToTorSocketDelay];
+    } else {
+        NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: @"Failed to connect to control port socket" };
+        NSError *err = [[NSError alloc] initWithDomain:CPAErrorDomain code:CPAErrorSocketOpenFailed userInfo:userInfo];
+        [self failWithError:err];
+    }
     
-    NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: @"Failed to connect to socket" };
-    NSError *error = [[NSError alloc] initWithDomain:CPAErrorDomain code:CPAErrorSocketOpenFailed userInfo:userInfo];
-    [self failWithError:error];
+    
 }
 
 #pragma mark - Handle Tor control responses

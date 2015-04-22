@@ -52,7 +52,7 @@
     // Expecta blocks the main queue and the tests will fail
     dispatch_queue_t callbackQueue = dispatch_queue_create("socks callback queue", 0);
 
-    __block NSString *expectedSocksPortResponse = [NSString stringWithFormat:@"250 SocksPort=localhost:%lu IsolateDestAddr IsolateDestPort", self.proxyManager.SOCKSPort];
+    __block NSString *expectedSocksPortResponse = [NSString stringWithFormat:@"250 SocksPort=localhost:%lu IsolateDestAddr IsolateDestPort", (unsigned long)self.proxyManager.SOCKSPort];
     __block NSString *expectedHUPResponse = @"250 OK";
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"startTorExpectation"];
