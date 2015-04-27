@@ -93,11 +93,12 @@ extern const NSTimeInterval CPASocketTimeoutDelay;
 - (void)socketManagerDidOpenSocket:(CPASocketManager *)manager;
 
 /**
- This method is called when a `CASocketManager` has failed to connect to a socket after calling `-connectToHost:port:`.
+ This method is called when a `CASocketManager` has failed to connect to a socket after calling `-connectToHost:port:` or may have
+ disconnect because of Tor. Recommended to try to recconnect
  
   @see -connectToHost:port:
  */
-- (void)socketManagerDidFailToOpenSocket:(CPASocketManager *)manager;
+- (void)socketManager:(CPASocketManager *)manager didDisconnectError:(NSError *)error;
 
 /**
  This method is called when data has been read from the socket as a response to -writeString:encoding: or asyncrounous responses
