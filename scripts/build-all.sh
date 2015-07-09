@@ -40,7 +40,7 @@ fi
 
 # Versions
 export MIN_IOS_VERSION="7.0"
-export OPENSSL_VERSION="1.0.2c"
+export OPENSSL_VERSION="1.0.2d"
 export LIBEVENT_VERSION="2.0.22-stable"
 export TOR_VERSION="0.2.6.9"
 
