@@ -40,7 +40,7 @@ pushd "openssl-${OPENSSL_VERSION}"
 	fi
 
 	make
-	make install
+	make install_sw
 
 	cp "${ROOTDIR}/lib/libcrypto.a" "${ARCH_BUILT_DIR}"
 	cp "${ROOTDIR}/lib/libssl.a" "${ARCH_BUILT_DIR}"
