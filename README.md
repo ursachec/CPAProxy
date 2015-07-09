@@ -89,7 +89,7 @@ After you have been notified that a CPAProxyManager setup has been completed, yo
 
 ## System Requirements
 
-CPAProxy supports iOS 7.0+ and the architectures __armv7__, __armv7s__, __arm64__, __i386__, __x86_64__.
+CPAProxy supports iOS 7.0+ and the architectures __armv7__, __arm64__, __i386__, __x86_64__.
 
 ## Installation
 

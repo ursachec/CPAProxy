@@ -2,7 +2,7 @@
 
 # User variables
 # VARIABLE : valid options
-# ARCHS : i386 x86_64 armv7 armv7s arm64
+# ARCHS : i386 x86_64 armv7 arm64
 # LIBRARIES: openssl libevent tor
 # USE_BUILD_LOG: true false
 
@@ -27,7 +27,7 @@ fi
 if [ -n "${ARCHS}" ]; then
   echo "Building user-defined architectures: ${ARCHS}"
 else
-  ARCHS="i386 x86_64 armv7 armv7s arm64"
+  ARCHS="i386 x86_64 armv7 arm64"
   echo "Building architectures: ${ARCHS}"
 fi
 
