@@ -1,4 +1,5 @@
 language: objective-c
+osx_image: xcode6.4
 
 install:
   - export ARCHS="i386"   # Only build dependencies for i386 to speed things up

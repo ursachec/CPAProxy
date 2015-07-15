@@ -23,7 +23,7 @@ static const NSTimeInterval CPAConnectToTorSocketDelay = 0.1; //Amount of time t
 static const NSTimeInterval CPATimeoutDelay = 60 * 3; // Sometimes Tor takes a long time to bootstrap
 static const NSUInteger CPAMaxNumberControlConnectionAttempts = 5; //Max number of retries before firing an error
 
-const NSInteger CPABootstrapProgressPercentageDone = 100;
+static const NSInteger CPABootstrapProgressPercentageDone = 100;
 
 typedef NS_ENUM(NSUInteger, CPAErrors) {
     CPAErrorTorrcOrGeoipPathNotSet = 0,

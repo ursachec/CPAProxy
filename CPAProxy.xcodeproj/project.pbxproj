@@ -143,7 +143,7 @@
 		542FFE451800C9B5003B83B7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastTestingUpgradeCheck = 0610;
+				LastTestingUpgradeCheck = 0640;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = CPAProxy;
 				TargetAttributes = {
