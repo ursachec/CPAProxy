@@ -3,7 +3,7 @@
 # User variables
 # VARIABLE : valid options
 # ARCHS : i386 x86_64 armv7 arm64
-# LIBRARIES: openssl libevent tor
+# LIBRARIES: zlib openssl libevent tor
 # USE_BUILD_LOG: true false
 
 
@@ -34,7 +34,7 @@ fi
 if [ -n "${LIBRARIES}" ]; then
   echo "Building user-defined libraries: ${LIBRARIES}"
 else
-  LIBRARIES="openssl libevent tor"
+  LIBRARIES="zlib openssl libevent tor"
   echo "Building libraries: ${LIBRARIES}"
 fi
 
