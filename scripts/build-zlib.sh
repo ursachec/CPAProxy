@@ -14,23 +14,22 @@ tar zxf "${ARCHIVE_NAME}.tar.gz"
 
 pushd "${ARCHIVE_NAME}"
 
-    CC="${CLANG}"
-    LDFLAGS="-L${ARCH_BUILT_DIR} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION}"
-    CFLAGS=" -arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
-    CPPFLAGS=" -arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
-
+    CFLAGS=" -arch ${ARCH} -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR}"
     if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ];
         then
-           CFLAGS="${CFLAGS} -O3 -mios-simulator-version-min=${MIN_IOS_VERSION} -Wno-error-implicit-function-declaration"
+           CFLAGS="${CFLAGS} -mios-simulator-version-min=${SDK} -Wno-error-implicit-function-declaration"
         else
-           CFLAGS="${CFLAGS} -O3  -mios-version-min=${MIN_IOS_VERSION}"
+           CFLAGS="${CFLAGS} -mios-version-min=${SDK}"
         fi
 
-    export CC="${CLANG}"
-    export LDFLAGS="${LDFLAGS}"
-    export CFLAGS="${CFLAGS}"
-    export CPPLAGS="${CPPFLAGS}"
-   
+    export CC=${CLANG}
+    export CXX=${CXX}
+    export CFLAGS=${CFLAGS}
+    export CC_BASENAME=clang
+    export CXX_BASENAME=clang++ 
+    
+    echo ${SDK}
+
     ./configure --prefix="${ROOTDIR}"
 
 

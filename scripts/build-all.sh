@@ -105,6 +105,7 @@ do
     export ARCH="${ARCH}"
     export SDK_PATH=$(xcrun -sdk ${PLATFORM_SDK} --show-sdk-path)
     export CLANG=$(xcrun -sdk ${PLATFORM_SDK} -find clang)
+    export CXX=$(xcrun -sdk ${PLATFORM_SDK} -find clang++)
 
     # Build the platform dependencies
     if [ "${USE_BUILD_LOG}" == "true" ]; then
