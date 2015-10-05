@@ -3,7 +3,7 @@
 # User variables
 # VARIABLE : valid options
 # ARCHS : i386 x86_64 armv7 arm64
-# LIBRARIES: openssl libevent tor
+# LIBRARIES: zlib openssl libevent tor
 # USE_BUILD_LOG: true false
 
 
@@ -34,7 +34,7 @@ fi
 if [ -n "${LIBRARIES}" ]; then
   echo "Building user-defined libraries: ${LIBRARIES}"
 else
-  LIBRARIES="openssl libevent tor"
+  LIBRARIES="zlib openssl libevent tor"
   echo "Building libraries: ${LIBRARIES}"
 fi
 
@@ -105,6 +105,7 @@ do
     export ARCH="${ARCH}"
     export SDK_PATH=$(xcrun -sdk ${PLATFORM_SDK} --show-sdk-path)
     export CLANG=$(xcrun -sdk ${PLATFORM_SDK} -find clang)
+    export CXX=$(xcrun -sdk ${PLATFORM_SDK} -find clang++)
 
     # Build the platform dependencies
     if [ "${USE_BUILD_LOG}" == "true" ]; then
