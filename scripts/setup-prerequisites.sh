@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Copy required libz for Tor
-cp "${SDK_PATH}/usr/lib/libz.dylib" "${ARCH_BUILT_DIR}/libz.a"
-cp "${SDK_PATH}/usr/include/zlib.h" "${ARCH_BUILT_HEADERS_DIR}/zlib.h"
+#cp "${SDK_PATH}/usr/lib/libz.dylib" "${ARCH_BUILT_DIR}/libz.a"
+#cp "${SDK_PATH}/usr/include/zlib.h" "${ARCH_BUILT_HEADERS_DIR}/zlib.h"
 
 # Copy ptrace.h for the Tor build process
 SDK_PATH_SIM=$(xcrun -sdk macosx --show-sdk-path)

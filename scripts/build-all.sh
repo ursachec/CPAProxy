@@ -39,10 +39,10 @@ else
 fi
 
 # Versions
-export MIN_IOS_VERSION="7.0"
-export OPENSSL_VERSION="1.0.2d"
+export MIN_IOS_VERSION="8.0"
+export OPENSSL_VERSION="1.0.2e"
 export LIBEVENT_VERSION="2.0.22-stable"
-export TOR_VERSION="0.2.6.10"
+export TOR_VERSION="0.2.7.5"
 
 BUILT_ARCHS=()
 DEVELOPER=`xcode-select --print-path`

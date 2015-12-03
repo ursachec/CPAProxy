@@ -26,11 +26,10 @@ pushd "tor-${TOR_VERSION}"
         EXTRA_CONFIG="--host=arm-apple-darwin"
     fi
 
-	./configure --enable-static-openssl --enable-static-libevent --enable-static-zlib ${EXTRA_CONFIG} \
+	./configure --enable-static-openssl --enable-static-libevent ${EXTRA_CONFIG} \
 	--prefix="${ROOTDIR}" \
 	--with-openssl-dir="${ARCH_BUILT_DIR}" \
 	--with-libevent-dir="${ARCH_BUILT_DIR}" \
-	--with-zlib-dir="${ARCH_BUILT_DIR}" \
 	--disable-asciidoc --disable-transparent --disable-tool-name-check \
 	CC="${CLANG}" \
 	LDFLAGS="${LDFLAGS}" \
