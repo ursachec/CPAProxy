@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name            = "CPAProxy"
-  s.version         = "1.0.0"
+  s.version         = "1.1.0"
   s.summary         = "CPAProxy is a thin Objective-C wrapper around Tor."
   s.author          = "Claudiu-Vlad Ursache <claudiu.vlad.ursache@gmail.com>"
 
@@ -17,7 +17,8 @@ Pod::Spec.new do |s|
   s.source_files = "CPAProxy/*.{h,m}", "CPAProxyDependencies/tor_cpaproxy.h"
   s.vendored_libraries  = "CPAProxyDependencies/*.a"
   s.resource_bundles = {"CPAProxy" => ["CPAProxyDependencies/geoip", "CPAProxyDependencies/geoip6", "CPAProxyDependencies/torrc"]}
-  s.library     = 'crypto', 'curve25519_donna', 'event_core', 'event_extra', 'event_openssl',
-                  'event_pthreads', 'event', 'or-crypto', 'or-event', 'or', 'ssl', 'tor', 'z'
+  s.libraries   = 'crypto', 'curve25519_donna', 'event_core', 'event_extra', 'event_openssl',
+                  'event_pthreads', 'event', 'or-crypto', 'or-event', 'or', 'ssl', 'tor', 'z',
+                  'or-trunnel', 'ed25519_donna', 'ed25519_ref10'
   s.requires_arc = true
 end

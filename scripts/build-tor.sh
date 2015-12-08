@@ -44,7 +44,9 @@ pushd "tor-${TOR_VERSION}"
 	cp "src/common/libor.a" "${ARCH_BUILT_DIR}"
 	cp "src/common/libcurve25519_donna.a" "${ARCH_BUILT_DIR}"
 	cp "src/or/libtor.a" "${ARCH_BUILT_DIR}"
-
+	cp "src/trunnel/libor-trunnel.a" "${ARCH_BUILT_DIR}"
+	cp "src/ext/ed25519/donna/libed25519_donna.a" "${ARCH_BUILT_DIR}"
+	cp "src/ext/ed25519/ref10/libed25519_ref10.a" "${ARCH_BUILT_DIR}"
 
 	# Copy the micro-revision.i file that defines the Tor version
 	cp "micro-revision.i" "${ARCH_BUILT_HEADERS_DIR}/"
