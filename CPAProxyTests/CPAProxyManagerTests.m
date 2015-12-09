@@ -58,9 +58,9 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"startTorExpectation"];
     
     [self.proxyManager setupWithCompletion:^(NSString *socksHost, NSUInteger socksPort, NSError *error) {
+        XCTAssertNil(error, @"Error setting up");
         XCTAssertTrue([socksHost length] > 0, @"No SOCKS host string");
         XCTAssertTrue(socksPort > 0, @"NO SOCKS port");
-        XCTAssertNil(error, @"Error setting up");
         if (!error) {
             // Test SOCKS port configuration
             [self.proxyManager cpa_getConfigurationVariable:@"SOCKSPort" completionBlock:^(NSString *responseString, NSError *error) {
