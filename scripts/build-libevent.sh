@@ -4,7 +4,7 @@ set -e
 ARCHIVE_NAME="libevent-${LIBEVENT_VERSION}"
 
 if [ ! -e "${ARCHIVE_NAME}.tar.gz" ]; then
-	curl -LO "https://downloads.sourceforge.net/project/levent/libevent/libevent-2.0/${ARCHIVE_NAME}.tar.gz"  --retry 5
+   curl -LO "https://sourceforge.net/projects/levent/files/release-2.0.22-stable/${ARCHIVE_NAME}.tar.gz"  --retry 5
 fi
 
 # Extract source
