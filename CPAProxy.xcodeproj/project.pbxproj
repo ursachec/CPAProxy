@@ -14,7 +14,6 @@
 		5418E35E1802B65D00C293E4 /* CPAProxyTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */; };
 		5418E3681802BB4400C293E4 /* CPAProxyManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */; };
 		5418E36A1802BCD000C293E4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 542FFEA11800CA65003B83B7 /* libz.dylib */; };
-		5418E36C1802BDF600C293E4 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5418E36B1802BDF600C293E4 /* SenTestingKit.framework */; };
 		A2439C680413C8B914A98417 /* libPods-CPAProxyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867D6E00FEEF6865A18D25AC /* libPods-CPAProxyTests.a */; };
 /* End PBXBuildFile section */
 
@@ -27,7 +26,6 @@
 		5418E35C1802B65D00C293E4 /* CPAProxyTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAProxyTestCase.h; sourceTree = "<group>"; };
 		5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAProxyTestCase.m; sourceTree = "<group>"; };
 		5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAProxyManagerTests.m; sourceTree = "<group>"; };
-		5418E36B1802BDF600C293E4 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		542FFE501800C9B5003B83B7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		542FFE5E1800C9B5003B83B7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		542FFE611800C9B5003B83B7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -41,7 +39,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5418E36C1802BDF600C293E4 /* SenTestingKit.framework in Frameworks */,
 				5418E36A1802BCD000C293E4 /* libz.dylib in Frameworks */,
 				5418E2F51802ACF700C293E4 /* XCTest.framework in Frameworks */,
 				5418E2F71802ACF700C293E4 /* UIKit.framework in Frameworks */,
@@ -95,7 +92,6 @@
 		542FFE4F1800C9B5003B83B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5418E36B1802BDF600C293E4 /* SenTestingKit.framework */,
 				542FFEA11800CA65003B83B7 /* libz.dylib */,
 				542FFE501800C9B5003B83B7 /* Foundation.framework */,
 				542FFE5E1800C9B5003B83B7 /* XCTest.framework */,
