@@ -19,9 +19,9 @@ NSString * const CPAProxyDidFinishSetupNotification = @"com.cpaproxy.setup.finis
 
 NSString * const CPAErrorDomain = @"CPAErrorDomain";
 
-static const NSTimeInterval CPAConnectToTorSocketDelay = 0.1; //Amount of time to wait before attempting to connect again
+static const NSTimeInterval CPAConnectToTorSocketDelay = 0.2; //Amount of time to wait before attempting to connect again
 static const NSTimeInterval CPATimeoutDelay = 60 * 3; // Sometimes Tor takes a long time to bootstrap
-static const NSUInteger CPAMaxNumberControlConnectionAttempts = 5; //Max number of retries before firing an error
+static const NSUInteger CPAMaxNumberControlConnectionAttempts = 10; //Max number of retries before firing an error
 
 static const NSInteger CPABootstrapProgressPercentageDone = 100;
 
@@ -223,6 +223,7 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
     self.controlPortStatus = CPAControlPortStatusClosed;
     self.controlPortConnectionAttempts += 1;
     if(self.controlPortConnectionAttempts < CPAMaxNumberControlConnectionAttempts) {
+        self.controlPortStatus = CPAControlPortStatusConnecting;
         [self tryConnectingControlPortAfterDelay:CPAConnectToTorSocketDelay];
     } else {
         NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey: @"Failed to connect to control port socket" };
