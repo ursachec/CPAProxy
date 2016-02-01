@@ -3,7 +3,14 @@ set -e
 
 # Download source
 if [ ! -e "openssl-${OPENSSL_VERSION}.tar.gz" ]; then
-  curl -O "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"  --retry 5
+	STATUSCODE="$(curl -o /dev/null --silent --head --write-out '%{http_code}\n' "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz")"
+	if [[ $STATUSCODE == "404" ]] 
+		then
+			curl -O "https://www.openssl.org/source/old/${OPENSSL_VERSION//[!0-9.]/}/openssl-${OPENSSL_VERSION}.tar.gz"  --retry 5
+		else
+			curl -O "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"  --retry 5
+	fi
+
 fi
 
 # Extract source
