@@ -8,10 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "CPAProxyTestCase.h"
-#import "CPAConfiguration.h"
-#import "CPAProxyManager.h"
-#import "CPAProxyManager+TorCommands.h"
-#import "CPAThread.h"
+@import CPAProxy;
 
 @interface CPAProxyManagerTests : CPAProxyTestCase
 @property (nonatomic, strong, readwrite) CPAProxyManager *proxyManager;

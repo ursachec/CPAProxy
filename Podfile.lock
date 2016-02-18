@@ -1,5 +1,11 @@
 PODS:
-  - CocoaAsyncSocket (7.4.2)
+  - CocoaAsyncSocket (7.4.3):
+    - CocoaAsyncSocket/All (= 7.4.3)
+  - CocoaAsyncSocket/All (7.4.3):
+    - CocoaAsyncSocket/GCD
+    - CocoaAsyncSocket/RunLoop
+  - CocoaAsyncSocket/GCD (7.4.3)
+  - CocoaAsyncSocket/RunLoop (7.4.3)
   - CPAProxy (1.1.0):
     - CocoaAsyncSocket
 
@@ -11,7 +17,7 @@ EXTERNAL SOURCES:
     :path: "./CPAProxy.podspec"
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: f5783bdedd232d91b89769bc4b5a1580aed518ad
+  CocoaAsyncSocket: a18c75dca4b08723628a0bacca6e94803d90be91
   CPAProxy: cfd27b25328d6517b1f8570c4f0045838353e888
 
 COCOAPODS: 0.39.0

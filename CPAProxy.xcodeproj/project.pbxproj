@@ -14,10 +14,11 @@
 		5418E35E1802B65D00C293E4 /* CPAProxyTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */; };
 		5418E3681802BB4400C293E4 /* CPAProxyManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */; };
 		5418E36A1802BCD000C293E4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 542FFEA11800CA65003B83B7 /* libz.dylib */; };
-		A2439C680413C8B914A98417 /* libPods-CPAProxyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 867D6E00FEEF6865A18D25AC /* libPods-CPAProxyTests.a */; };
+		9AEF29AB0FDAF9C491ED573F /* Pods_CPAProxyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CB36F3178840124556A51B /* Pods_CPAProxyTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16CB36F3178840124556A51B /* Pods_CPAProxyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPAProxyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB2B34B81E314359FF1B0B7 /* Pods-CPAProxyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5418E2F41802ACF700C293E4 /* CPAProxyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPAProxyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5418E2FA1802ACF700C293E4 /* CPAProxyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CPAProxyTests-Info.plist"; sourceTree = "<group>"; };
@@ -30,7 +31,6 @@
 		542FFE5E1800C9B5003B83B7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		542FFE611800C9B5003B83B7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		542FFEA11800CA65003B83B7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		867D6E00FEEF6865A18D25AC /* libPods-CPAProxyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CPAProxyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F125A121F75E29F98CB286B3 /* Pods-CPAProxyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -43,7 +43,7 @@
 				5418E2F51802ACF700C293E4 /* XCTest.framework in Frameworks */,
 				5418E2F71802ACF700C293E4 /* UIKit.framework in Frameworks */,
 				5418E2F61802ACF700C293E4 /* Foundation.framework in Frameworks */,
-				A2439C680413C8B914A98417 /* libPods-CPAProxyTests.a in Frameworks */,
+				9AEF29AB0FDAF9C491ED573F /* Pods_CPAProxyTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,7 +96,7 @@
 				542FFE501800C9B5003B83B7 /* Foundation.framework */,
 				542FFE5E1800C9B5003B83B7 /* XCTest.framework */,
 				542FFE611800C9B5003B83B7 /* UIKit.framework */,
-				867D6E00FEEF6865A18D25AC /* libPods-CPAProxyTests.a */,
+				16CB36F3178840124556A51B /* Pods_CPAProxyTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -141,7 +141,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0640;
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = CPAProxy;
 				TargetAttributes = {
 					5418E2F31802ACF700C293E4 = {
@@ -291,6 +291,7 @@
 					XCTest,
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cpaproxy.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -321,6 +322,7 @@
 					XCTest,
 					"-ObjC",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cpaproxy.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -343,6 +345,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -357,7 +360,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -388,7 +391,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
