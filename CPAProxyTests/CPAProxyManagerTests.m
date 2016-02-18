@@ -119,7 +119,7 @@ static CPAProxyManager *sharedProxyManager = nil;
     
     config = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:directory];
     XCTAssertTrue([config.torDataDirectoryPath length] > 0, @"No Tor data directory path");
-    XCTAssertTrue([config.torDataDirectoryPath isEqualToString:directory],@"Tor data directory path incorrect");
+    XCTAssertTrue([config.torDataDirectoryPath isEqualToString:directory],@"Tor data directory path incorrect %@, expected %@", config.torDataDirectoryPath, directory);
     
     config = [CPAConfiguration configurationWithTorrcPath:self.torrcPath geoipPath:self.geoipPath torDataDirectoryPath:nil];
     XCTAssertTrue([config.torDataDirectoryPath length] > 0,@"NO tor Data directory Path");
