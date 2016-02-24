@@ -7,6 +7,7 @@
 //
 
 #import "CPAProxyTestCase.h"
+@import CPAProxy;
 
 @interface CPAProxyTestCase ()
 @property(nonatomic, copy, readwrite) NSString *torrcPath;
@@ -18,7 +19,7 @@
 - (void)setUp
 {
     [super setUp];
-    NSURL *cpaProxyBundleURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"CPAProxy" withExtension:@"bundle"];
+    NSURL *cpaProxyBundleURL = [[NSBundle bundleForClass:[CPAProxyManager class]] URLForResource:@"CPAProxy" withExtension:@"bundle"];
     XCTAssertNotNil(cpaProxyBundleURL, @"cpaProxyBundleURL should not be nil!");
     NSBundle *cpaProxyBundle = [NSBundle bundleWithURL:cpaProxyBundleURL];
     self.torrcPath = [cpaProxyBundle pathForResource:@"torrc" ofType:nil];
