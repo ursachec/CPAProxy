@@ -39,6 +39,7 @@ pushd "openssl-${OPENSSL_VERSION}"
 		sed -ie "s!^CFLAG=!CFLAG=-isysroot ${CROSS_TOP}/SDKs/${CROSS_SDK} !" "Makefile"
 	fi
 
+	make depend
 	make
 	make install_sw
 

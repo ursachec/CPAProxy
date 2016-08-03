@@ -18,7 +18,7 @@
 #include <CPAProxy/CPAProxy.h>
 
 // Get resource paths for the torrc and geoip files from the main bundle
-NSURL *cpaProxyBundleURL = [[NSBundle mainBundle] URLForResource:@"CPAProxy" withExtension:@"bundle"];
+NSURL *cpaProxyBundleURL = [[NSBundle bundleForClass:[CPAProxyManager class]] URLForResource:@"CPAProxy" withExtension:@"bundle"];
 NSBundle *cpaProxyBundle = [NSBundle bundleWithURL:cpaProxyBundleURL];
 NSString *torrcPath = [cpaProxyBundle pathForResource:@"torrc" ofType:nil];
 NSString *geoipPath = [cpaProxyBundle pathForResource:@"geoip" ofType:nil];
