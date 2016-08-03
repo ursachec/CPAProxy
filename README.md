@@ -18,7 +18,7 @@
 #include <CPAProxy/CPAProxy.h>
 
 // Get resource paths for the torrc and geoip files from the main bundle
-NSURL *cpaProxyBundleURL = [[NSBundle mainBundle] URLForResource:@"CPAProxy" withExtension:@"bundle"];
+NSURL *cpaProxyBundleURL = [[NSBundle bundleForClass:[CPAProxyManager class]] URLForResource:@"CPAProxy" withExtension:@"bundle"];
 NSBundle *cpaProxyBundle = [NSBundle bundleWithURL:cpaProxyBundleURL];
 NSString *torrcPath = [cpaProxyBundle pathForResource:@"torrc" ofType:nil];
 NSString *geoipPath = [cpaProxyBundle pathForResource:@"geoip" ofType:nil];
@@ -101,9 +101,9 @@ The dependencies OpenSSL, libevent, and Tor should be built automatically via `b
 
 ### Dependency Versions
 
-* **[Tor][tor]**: 0.2.7.6
+* **[Tor][tor]**: 0.2.8.6
 * **[libevent][libevent]**: 2.0.22-stable
-* **[OpenSSL][openssl]**: 1.0.2f
+* **[OpenSSL][openssl]**: 1.0.2h
 
 [tor]: https://www.torproject.org/
 [libevent]: http://libevent.org/
