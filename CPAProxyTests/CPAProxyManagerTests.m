@@ -22,6 +22,7 @@ static NSString * const kIPTestDomain = @"wtfismyip.com";
 
 @property (nonatomic, strong) NSMutableArray <NSString*> *ipAddresses;
 @property (nonatomic, strong) XCTestExpectation *socksIsolationExepectation;
+@property (nonatomic, strong) GCDAsyncProxySocket *socket1, *socket2;
 @end
 
 @implementation CPAProxyManagerTests
@@ -103,13 +104,13 @@ static CPAProxyManager *sharedProxyManager = nil;
 }
 
 - (void) testSendingHUP {
-    dispatch_queue_t callbackQueue = dispatch_queue_create("socks callback queue", 0);
+    dispatch_queue_t callbackQueue = dispatch_queue_create("HUP callback queue", 0);
     __block NSString *expectedHUPResponse = @"250 OK";
     
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Test SOCKS Port config"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Test Sending HUP"];
     
     [self.proxyManager cpa_sendSignal:@"HUP" completionBlock:^(NSString *responseString, NSError *error) {
-        XCTAssertNil(error, @"Error sedning HUP");
+        XCTAssertNil(error, @"Error sending HUP");
         XCTAssertTrue([responseString isEqualToString:expectedHUPResponse], @"Error HUP response string");
         [expectation fulfill];
     } completionQueue:callbackQueue];
@@ -141,20 +142,20 @@ static CPAProxyManager *sharedProxyManager = nil;
 
 - (void) testTorSOCKSIsolation {
     self.ipAddresses = [NSMutableArray array];
-    GCDAsyncProxySocket *socket1 = [[GCDAsyncProxySocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-    [socket1 setProxyHost:self.configuration.socksHost port:self.configuration.socksPort version:GCDAsyncSocketSOCKSVersion5];
-    [socket1 setProxyUsername:[[NSUUID UUID] UUIDString] password:[[NSUUID UUID] UUIDString]];
+    self.socket1 = [[GCDAsyncProxySocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [self.socket1 setProxyHost:self.configuration.socksHost port:self.configuration.socksPort version:GCDAsyncSocketSOCKSVersion5];
+    [self.socket1 setProxyUsername:[[NSUUID UUID] UUIDString] password:[[NSUUID UUID] UUIDString]];
     
-    GCDAsyncProxySocket *socket2 = [[GCDAsyncProxySocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-    [socket2 setProxyHost:self.configuration.socksHost port:self.configuration.socksPort version:GCDAsyncSocketSOCKSVersion5];
-    [socket2 setProxyUsername:[[NSUUID UUID] UUIDString] password:[[NSUUID UUID] UUIDString]];
+    self.socket2 = [[GCDAsyncProxySocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [self.socket2 setProxyHost:self.configuration.socksHost port:self.configuration.socksPort version:GCDAsyncSocketSOCKSVersion5];
+    [self.socket2 setProxyUsername:[[NSUUID UUID] UUIDString] password:[[NSUUID UUID] UUIDString]];
     
     uint16_t port = 443;
     NSError *error = nil;
     
-    [socket1 connectToHost:kIPTestDomain onPort:port error:&error];
+    [self.socket1 connectToHost:kIPTestDomain onPort:port error:&error];
     XCTAssertNil(error);
-    [socket2 connectToHost:kIPTestDomain onPort:port error:&error];
+    [self.socket2 connectToHost:kIPTestDomain onPort:port error:&error];
     XCTAssertNil(error);
     
     self.socksIsolationExepectation = [self expectationWithDescription:@"SOCKS Auth Isolation"];
@@ -164,10 +165,20 @@ static CPAProxyManager *sharedProxyManager = nil;
 }
 
 - (void) socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port {
-    [sock startTLS:nil];
+    // Connecting gives SSL errors, so we do a manual trust verification.
+    NSMutableDictionary *settings = [[NSMutableDictionary alloc] init];
+    [settings setObject: kIPTestDomain forKey:(NSString *)kCFStreamSSLPeerName];
+    [settings setObject:@(YES) forKey:GCDAsyncSocketManuallyEvaluateTrust];
+    [sock startTLS:settings];
     NSString * getRequest = @"GET /text HTTP/1.0\r\n\r\n";
     [sock writeData:[getRequest dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:1234];
     [sock readDataWithTimeout:-1 tag:1234];
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didReceiveTrust:(SecTrustRef)trust completionHandler:(void (^)(BOOL shouldTrustPeer))completionHandler {
+    if (completionHandler) {
+        completionHandler(YES);
+    }
 }
 
 - (void) socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
@@ -177,6 +188,8 @@ static CPAProxyManager *sharedProxyManager = nil;
     NSString *ip = lines[lines.count - 2];
     
     NSLog(@"ip: %@", ip);
+    
+    [sock disconnect];
     
     [self.ipAddresses addObject:ip];
     
@@ -190,6 +203,19 @@ static CPAProxyManager *sharedProxyManager = nil;
 
 - (void) socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err {
     NSLog(@"socketDidDisconnect %@", err);
+    if (err.code == 4) { // Sometimes the socket connects but cannot read data and keeps failing, I suspect the IP is rejected by the server
+        NSError *error = nil;
+        GCDAsyncProxySocket *socket = [[GCDAsyncProxySocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+        [socket setProxyHost:self.configuration.socksHost port:self.configuration.socksPort version:GCDAsyncSocketSOCKSVersion5];
+        [socket setProxyUsername:[[NSUUID UUID] UUIDString] password:[[NSUUID UUID] UUIDString]];
+        if ([sock isEqual:self.socket1]) {
+            self.socket1 = socket;
+        } else {
+            self.socket2 = socket;
+        }
+        [socket connectToHost:kIPTestDomain onPort:443 error:&error];
+        XCTAssertNil(error);
+    }
 }
 
 
