@@ -15,13 +15,14 @@ pushd "tor-${TOR_VERSION}"
 	# Apply patches
 	patch -p3 < "${TOPDIR}/patches/tor-nsenviron.diff"
 	patch -p3 < "${TOPDIR}/patches/tor-ptrace.diff"
+	patch -p3 < "${TOPDIR}/patches/tor-configure.diff" configure
 
 	LDFLAGS="-L${ARCH_BUILT_DIR} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION}"
 	CFLAGS="-arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
 	CPPFLAGS="-arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
 
 	if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ]; then
-        EXTRA_CONFIG=""
+		EXTRA_CONFIG="--host=${ARCH}-apple-darwin"
     else
         EXTRA_CONFIG="--host=arm-apple-darwin"
     fi
