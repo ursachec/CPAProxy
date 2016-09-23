@@ -22,7 +22,7 @@
 + (CPAResponseType)responseTypeForResponse:(NSString *)response
 {
     NSInteger statusCode = [self statusCodeForResponse:response];
-    if (!statusCode == 0) {
+    if (!(statusCode == 0)) {
         int digits =  (int) log10(statusCode);
         NSInteger signifcantDigit = statusCode / pow(10, digits);
         

@@ -1,0 +1,11 @@
+--- configure.orig	2016-09-21 13:24:02.000000000 +0200
++++ configure	2016-09-21 13:24:22.000000000 +0200
+@@ -13164,7 +13164,7 @@
+ fi
+ 
+ 
+-for ac_func in gettimeofday vasprintf fcntl clock_gettime strtok_r strsep
++for ac_func in gettimeofday vasprintf fcntl strtok_r strsep
+ do :
+   as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
+ ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"
