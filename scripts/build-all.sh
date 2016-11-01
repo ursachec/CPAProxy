@@ -5,20 +5,31 @@
 # ARCHS : i386 x86_64 armv7 arm64
 # LIBRARIES: openssl libevent tor
 # USE_BUILD_LOG: true false
+# PLATFORM_TARGET: iOS macOS
 
 
 set -e
 
+if [  "${PLATFORM_TARGET}" == "" ]; then
+  echo "No platform target set, using iOS."
+  export PLATFORM_TARGET="iOS"
+fi
+echo "Using platform target: $PLATFORM_TARGET."
+
 SDK=$1
 if [ "${SDK}" == "" ]
 then
-  AVAIL_SDKS=`xcodebuild -showsdks | grep "iphoneos"`
+  SDK_PREFIX="iphoneos"
+  if [ "$PLATFORM_TARGET" == "macOS" ]; then
+    SDK_PREFIX="macosx"
+  fi
+  AVAIL_SDKS=`xcodebuild -showsdks | grep "$SDK_PREFIX"`
   FIRST_SDK=`echo "$AVAIL_SDKS" | head -n1`
   if [ "$AVAIL_SDKS" == "$FIRST_SDK" ]; then
     SDK=`echo "$FIRST_SDK" | cut -d\  -f2`
-    echo "No iOS SDK specified. Using the only one available: $SDK"
+    echo "No SDK specified. Using the only one available: $PLATFORM_TARGET $SDK"
   else
-    echo "Please specify an iOS SDK version number from the following possibilities:"
+    echo "Please specify an $PLATFORM_TARGET SDK version number from the following possibilities:"
     echo "$AVAIL_SDKS"
     exit 1
   fi
@@ -27,7 +38,11 @@ fi
 if [ -n "${ARCHS}" ]; then
   echo "Building user-defined architectures: ${ARCHS}"
 else
-  ARCHS="i386 x86_64 armv7 arm64"
+	if [ "$PLATFORM_TARGET" == "iOS" ]; then
+  	ARCHS="i386 x86_64 armv7 arm64"
+  else
+  	ARCHS="i386 x86_64"
+  fi
   echo "Building architectures: ${ARCHS}"
 fi
 
@@ -40,6 +55,7 @@ fi
 
 # Versions
 export MIN_IOS_VERSION="8.0"
+export MIN_OSX_VERSION="10.10"
 export OPENSSL_VERSION="1.0.2j"
 export LIBEVENT_VERSION="2.0.22-stable"
 export TOR_VERSION="0.2.8.9"
@@ -60,11 +76,11 @@ if [ ! -d "${BUILD_DIR}" ]; then
 fi
 
 # Combine build results of different archs into one
-export FINAL_BUILT_DIR="${TOPDIR}/../CPAProxyDependencies"
+export FINAL_BUILT_DIR="${TOPDIR}/../CPAProxyDependencies-${PLATFORM_TARGET}"
 if [ ! -d "${FINAL_BUILT_DIR}" ]; then
   mkdir -p "${FINAL_BUILT_DIR}"
 else
-  echo "Final product directory CPAProxyDependencies found, skipping build..."
+  echo "Final product directory CPAProxyDependencies-${PLATFORM_TARGET} found, skipping build..."
   exit 0
 fi
 
@@ -74,13 +90,21 @@ for ARCH in ${ARCHS}
 do
   for LIBRARY in ${LIBRARIES}
   do
-    if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ]; then
-        PLATFORM="iPhoneSimulator"
-        PLATFORM_SDK="iphonesimulator${SDK}"
-    else
-        PLATFORM="iPhoneOS"
-        PLATFORM_SDK="iphoneos${SDK}"
-    fi
+  	if [ "$PLATFORM_TARGET" == "iOS" ]; then
+			if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ]; then
+	        PLATFORM="iPhoneSimulator"
+	        PLATFORM_SDK="iphonesimulator${SDK}"
+	    else
+	        PLATFORM="iPhoneOS"
+	        PLATFORM_SDK="iphoneos${SDK}"
+	    fi
+	   	export PLATFORM_VERSION_MIN="-miphoneos-version-min=${MIN_IOS_VERSION}"
+  	else
+  		PLATFORM="MacOSX"
+	    PLATFORM_SDK="macosx${SDK}"
+	    export PLATFORM_VERSION_MIN="-mmacosx-version-min=${MIN_OSX_VERSION}"
+  	fi
+    
     ROOTDIR="${BUILD_DIR}/${PLATFORM}-${SDK}-${ARCH}"
     rm -rf "${ROOTDIR}"
     mkdir -p "${ROOTDIR}"
