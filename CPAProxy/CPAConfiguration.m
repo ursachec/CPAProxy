@@ -7,12 +7,11 @@
 #import "CPAConfiguration.h"
 
 @interface CPAConfiguration ()
-@property (nonatomic, readwrite) NSUInteger controlPort;
-@property (nonatomic, readwrite) NSUInteger socksPort;
 @property (nonatomic, copy, readwrite) NSString *torDataDirectoryPath;
 @end
 
 @implementation CPAConfiguration
+@synthesize socksPort = _socksPort;
 
 + (instancetype)configurationWithTorrcPath:(NSString *)torrcPath
                                  geoipPath:(NSString *)geoipPath
@@ -36,9 +35,6 @@
 {
     self = [super init];
     if(!self) return nil;
-    
-    self.socksPort = [self randomSOCKSPort];
-    self.controlPort = self.socksPort + 1;
     
     self.torrcPath = torrcPath;
     self.geoipPath = geoipPath;
@@ -132,7 +128,23 @@
     return @"127.0.0.1";
 }
 
-- (NSInteger)randomSOCKSPort 
+- (uint16_t)socksPort {
+    if (_socksPort) {
+        return _socksPort;
+    }
+    if (_useDefaultSocksPort) {
+        _socksPort = 9050;
+    } else {
+        _socksPort = [self randomSOCKSPort];
+    }
+    return _socksPort;
+}
+
+- (uint16_t)controlPort {
+    return self.socksPort + 1;
+}
+
+- (uint16_t)randomSOCKSPort
 {
     NSInteger port = (arc4random() % 1000) + 60000;
     return port;
