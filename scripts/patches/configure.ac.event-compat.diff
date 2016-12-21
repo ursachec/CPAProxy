@@ -1,0 +1,12 @@
+--- configure.ac.orig	2016-12-20 16:41:29.000000000 +0200
++++ configure.ac	2016-12-20 16:41:42.000000000 +0200
+@@ -504,7 +504,8 @@
+ #endif
+ #include <sys/time.h>
+ #include <sys/types.h>
+-#include <event2/event.h>], [
++#include <event2/event.h>
++#include <event2/event_compat.h>], [
+ #ifdef _WIN32
+ #include <winsock2.h>
+ #endif
