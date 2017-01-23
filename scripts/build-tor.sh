@@ -15,8 +15,6 @@ pushd "tor-${TOR_VERSION}"
 	# Apply patches
 	patch -p3 < "${TOPDIR}/patches/tor-nsenviron.diff"
 	patch -p3 < "${TOPDIR}/patches/tor-ptrace.diff"
-	patch -p3 < "${TOPDIR}/patches/configure.ac.event-compat.diff" configure.ac
-	autoconf
 
 	LDFLAGS="-L${ARCH_BUILT_DIR} -fPIE -miphoneos-version-min=${MIN_IOS_VERSION}"
 	CFLAGS="-arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} -miphoneos-version-min=${MIN_IOS_VERSION}"
