@@ -294,6 +294,9 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
             __weak typeof(self)weakSelf = self;
             dispatch_async(self.callbackQueue, ^{
                 __strong typeof(weakSelf)strongSelf = weakSelf;
+                if (!strongSelf) {
+                    return;
+                }
                 strongSelf.completionBlock(socksHost, socksPort, nil);
                 strongSelf.completionBlock = nil;
                 strongSelf.progressBlock = nil;
