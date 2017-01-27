@@ -17,6 +17,8 @@ profile
 *.xccheckout
 
 CPAProxyDependencies/
+CPAProxyDependencies-iOS/
+CPAProxyDependencies-macOS/
 Pods/
 scripts/build/
 scripts/built/
