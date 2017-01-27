@@ -8,6 +8,7 @@ Pod::Spec.new do |s|
   s.license         = { :type => 'MIT', :file => 'LICENSE.md' }
   s.source          = { :git => "https://github.com/ursachec/CPAProxy.git", :branch => "master"}
   s.prepare_command = <<-CMD
+    export PLATFORM_TARGET="iOS"
     bash ./scripts/build-all.sh
     export PLATFORM_TARGET="macOS"
     bash ./scripts/build-all.sh

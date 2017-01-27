@@ -1,0 +1,381 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B6A9641F80B01072CD2041AA /* Pods_CPAProxyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77641D27FE06448B8612D790 /* Pods_CPAProxyTests.framework */; };
+		D9A0C8CB1E3B14E800F9CA90 /* CPAProxyTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */; };
+		D9A0C8CC1E3B14E800F9CA90 /* CPAProxyManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		04F3DE121B52738B15387AAB /* Pods-CPAProxyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5418E2FA1802ACF700C293E4 /* CPAProxyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CPAProxyTests-Info.plist"; path = "../Shared/CPAProxyTests-Info.plist"; sourceTree = SOURCE_ROOT; };
+		5418E2FC1802ACF700C293E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5418E35C1802B65D00C293E4 /* CPAProxyTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAProxyTestCase.h; path = ../Shared/CPAProxyTestCase.h; sourceTree = SOURCE_ROOT; };
+		5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAProxyTestCase.m; path = ../Shared/CPAProxyTestCase.m; sourceTree = SOURCE_ROOT; };
+		5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAProxyManagerTests.m; path = ../Shared/CPAProxyManagerTests.m; sourceTree = SOURCE_ROOT; };
+		542FFE501800C9B5003B83B7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		542FFE5E1800C9B5003B83B7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		542FFE611800C9B5003B83B7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		542FFEA11800CA65003B83B7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		77641D27FE06448B8612D790 /* Pods_CPAProxyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPAProxyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2CB9D142C8E89229EB6CBB2 /* Pods-CPAProxyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.release.xcconfig"; sourceTree = "<group>"; };
+		D9A0C8C31E3B14A500F9CA90 /* CPAProxyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPAProxyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D9A0C8C01E3B14A500F9CA90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6A9641F80B01072CD2041AA /* Pods_CPAProxyTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5418E2F81802ACF700C293E4 /* CPAProxyTests */ = {
+			isa = PBXGroup;
+			children = (
+				5418E35C1802B65D00C293E4 /* CPAProxyTestCase.h */,
+				5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */,
+				5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */,
+				5418E2F91802ACF700C293E4 /* Supporting Files */,
+			);
+			path = CPAProxyTests;
+			sourceTree = "<group>";
+		};
+		5418E2F91802ACF700C293E4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5418E2FA1802ACF700C293E4 /* CPAProxyTests-Info.plist */,
+				5418E2FB1802ACF700C293E4 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		542FFE441800C9B5003B83B7 = {
+			isa = PBXGroup;
+			children = (
+				5418E2F81802ACF700C293E4 /* CPAProxyTests */,
+				542FFE4F1800C9B5003B83B7 /* Frameworks */,
+				542FFE4E1800C9B5003B83B7 /* Products */,
+				E863822BB87F31375693E604 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		542FFE4E1800C9B5003B83B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9A0C8C31E3B14A500F9CA90 /* CPAProxyTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		542FFE4F1800C9B5003B83B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				542FFEA11800CA65003B83B7 /* libz.dylib */,
+				542FFE501800C9B5003B83B7 /* Foundation.framework */,
+				542FFE5E1800C9B5003B83B7 /* XCTest.framework */,
+				542FFE611800C9B5003B83B7 /* UIKit.framework */,
+				77641D27FE06448B8612D790 /* Pods_CPAProxyTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E863822BB87F31375693E604 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				04F3DE121B52738B15387AAB /* Pods-CPAProxyTests.debug.xcconfig */,
+				C2CB9D142C8E89229EB6CBB2 /* Pods-CPAProxyTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D9A0C8C21E3B14A500F9CA90 /* CPAProxyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9A0C8C81E3B14A500F9CA90 /* Build configuration list for PBXNativeTarget "CPAProxyTests" */;
+			buildPhases = (
+				FA4A19E77F19B8292B919139 /* [CP] Check Pods Manifest.lock */,
+				D9A0C8BF1E3B14A500F9CA90 /* Sources */,
+				D9A0C8C01E3B14A500F9CA90 /* Frameworks */,
+				D9A0C8C11E3B14A500F9CA90 /* Resources */,
+				2D6E1EB7F2E2EF17153A116B /* [CP] Embed Pods Frameworks */,
+				8913534A70F653B76342FF04 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CPAProxyTests;
+			productName = CPAProxyTests;
+			productReference = D9A0C8C31E3B14A500F9CA90 /* CPAProxyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		542FFE451800C9B5003B83B7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastTestingUpgradeCheck = 0640;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = CPAProxy;
+				TargetAttributes = {
+					D9A0C8C21E3B14A500F9CA90 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 542FFE481800C9B5003B83B7 /* Build configuration list for PBXProject "CPAProxy" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 542FFE441800C9B5003B83B7;
+			productRefGroup = 542FFE4E1800C9B5003B83B7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D9A0C8C21E3B14A500F9CA90 /* CPAProxyTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D9A0C8C11E3B14A500F9CA90 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2D6E1EB7F2E2EF17153A116B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8913534A70F653B76342FF04 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA4A19E77F19B8292B919139 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D9A0C8BF1E3B14A500F9CA90 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9A0C8CB1E3B14E800F9CA90 /* CPAProxyTestCase.m in Sources */,
+				D9A0C8CC1E3B14E800F9CA90 /* CPAProxyManagerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5418E2FB1802ACF700C293E4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5418E2FC1802ACF700C293E4 /* en */,
+			);
+			name = InfoPlist.strings;
+			path = ../Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		542FFE6E1800C9B5003B83B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		542FFE6F1800C9B5003B83B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D9A0C8C91E3B14A500F9CA90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04F3DE121B52738B15387AAB /* Pods-CPAProxyTests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "../Shared/CPAProxyTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D9A0C8CA1E3B14A500F9CA90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2CB9D142C8E89229EB6CBB2 /* Pods-CPAProxyTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "../Shared/CPAProxyTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		542FFE481800C9B5003B83B7 /* Build configuration list for PBXProject "CPAProxy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				542FFE6E1800C9B5003B83B7 /* Debug */,
+				542FFE6F1800C9B5003B83B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9A0C8C81E3B14A500F9CA90 /* Build configuration list for PBXNativeTarget "CPAProxyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9A0C8C91E3B14A500F9CA90 /* Debug */,
+				D9A0C8CA1E3B14A500F9CA90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 542FFE451800C9B5003B83B7 /* Project object */;
+}

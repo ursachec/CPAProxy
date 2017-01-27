@@ -1,0 +1,8 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target :CPAProxyTests do
+    platform :osx, '10.10'
+    pod 'CPAProxy', :path => '../../CPAProxy.podspec'
+    pod 'ProxyKit', '~> 1.1.0'
+end
