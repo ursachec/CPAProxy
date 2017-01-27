@@ -56,9 +56,9 @@ fi
 # Versions
 export MIN_IOS_VERSION="8.0"
 export MIN_OSX_VERSION="10.10"
-export OPENSSL_VERSION="1.0.2j"
+export OPENSSL_VERSION="1.0.2k"
 export LIBEVENT_VERSION="2.0.22-stable"
-export TOR_VERSION="0.2.8.9"
+export TOR_VERSION="0.2.9.9"
 
 BUILT_ARCHS=()
 DEVELOPER=`xcode-select --print-path`
@@ -155,7 +155,7 @@ cd ../
 # Combine binaries of different architectures results
 BINS=(libcrypto.a libssl.a)
 BINS+=(libevent_core.a libevent_pthreads.a libevent_extra.a libevent_openssl.a libevent.a)
-BINS+=(libcurve25519_donna.a libor-crypto.a libtor.a libor-event.a libor.a libor-trunnel.a libed25519_donna.a libed25519_ref10.a libkeccak-tiny.a)
+BINS+=(libcurve25519_donna.a libor-crypto.a libtor.a libor-event.a libor.a libor-trunnel.a libed25519_donna.a libed25519_ref10.a libor-ctime.a libkeccak-tiny.a)
 
 NUMBER_OF_BUILT_ARCHS=${#BUILT_ARCHS[@]}
 
