@@ -40,7 +40,10 @@
 /**
  The port for the Tor SOCKS proxy.
  */
-@property (nonatomic, readonly) NSUInteger socksPort;
+@property (nonatomic, readonly) uint16_t socksPort;
+
+/** If set, socksPort will be 9050 */
+@property (nonatomic) BOOL useDefaultSocksPort;
 
 /**
  The hostname for the Tor SOCKS proxy.
@@ -50,7 +53,7 @@
 /**
  The control port used by a Tor client.
  */
-@property (nonatomic, readonly) NSUInteger controlPort;
+@property (nonatomic, readonly) uint16_t controlPort;
 
 /**
  Returns the control auth cookie saved by the Tor client on startup. If the Tor client has not been started, this will be nil.

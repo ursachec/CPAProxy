@@ -1,0 +1,44 @@
+PODS:
+  - CocoaAsyncSocket (7.5.1):
+    - CocoaAsyncSocket/GCD (= 7.5.1)
+  - CocoaAsyncSocket/GCD (7.5.1)
+  - CocoaLumberjack (2.4.0):
+    - CocoaLumberjack/Default (= 2.4.0)
+    - CocoaLumberjack/Extensions (= 2.4.0)
+  - CocoaLumberjack/Core (2.4.0)
+  - CocoaLumberjack/Default (2.4.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.4.0):
+    - CocoaLumberjack/Default
+  - CPAProxy (1.2.0):
+    - CocoaAsyncSocket
+  - ProxyKit (1.1.0):
+    - ProxyKit/standard (= 1.1.0)
+  - ProxyKit/Client (1.1.0):
+    - ProxyKit/common
+  - ProxyKit/common (1.1.0):
+    - CocoaAsyncSocket (~> 7.4)
+    - CocoaLumberjack (~> 2.2)
+  - ProxyKit/Server (1.1.0):
+    - ProxyKit/common
+  - ProxyKit/standard (1.1.0):
+    - ProxyKit/Client
+    - ProxyKit/Server
+
+DEPENDENCIES:
+  - CPAProxy (from `../../CPAProxy.podspec`)
+  - ProxyKit (~> 1.1.0)
+
+EXTERNAL SOURCES:
+  CPAProxy:
+    :path: "../../CPAProxy.podspec"
+
+SPEC CHECKSUMS:
+  CocoaAsyncSocket: e0a7e93b2ffa411592ff87e58524fbbc9b95b4fa
+  CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
+  CPAProxy: 0b9903e278c7f1ecbe6f9a5bdc5d916e9a84222d
+  ProxyKit: 1f35adc913debc7ca6748c02487361dabaaea532
+
+PODFILE CHECKSUM: 978d91aff2a47d7c1f93ea85110b0454f92842f2
+
+COCOAPODS: 1.2.0.rc.1

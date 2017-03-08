@@ -15,8 +15,11 @@ xcuserdata
 profile
 *.moved-aside
 *.xccheckout
+*.orig
 
 CPAProxyDependencies/
+CPAProxyDependencies-iOS/
+CPAProxyDependencies-macOS/
 Pods/
 scripts/build/
 scripts/built/
