@@ -12,10 +12,9 @@ The [CocoaPods](http://cocoapods.org) podspec hasn't been submitted yet, but you
 
 The dependencies OpenSSL, libevent, and Tor should be built automatically via `build-all.sh` located in the scripts directory.
 
-
 ### Dependency Versions
 
-* **[Tor][tor]**: 0.2.9.9
+* **[Tor][tor]**: 0.3.0.4-rc
 * **[libevent][libevent]**: 2.0.22-stable
 * **[OpenSSL][openssl]**: 1.0.2k
 
