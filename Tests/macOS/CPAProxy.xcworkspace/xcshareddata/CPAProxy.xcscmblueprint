@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "98D05BCBC40AE5315578EEE7C186D3063CCA59C3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "98D05BCBC40AE5315578EEE7C186D3063CCA59C3" : 9223372036854775807,
+    "C696CE78E1789B6AD09688A4404A09357ED1A3F3" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BE356D28-84BD-4B7A-B5E1-23460A9AAD65",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "98D05BCBC40AE5315578EEE7C186D3063CCA59C3" : "CPAProxy\/",
+    "C696CE78E1789B6AD09688A4404A09357ED1A3F3" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CPAProxy",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Tests\/macOS\/CPAProxy.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:ursachec\/CPAProxy.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "98D05BCBC40AE5315578EEE7C186D3063CCA59C3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:chrisballinger\/ChatSecure-Mac.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C696CE78E1789B6AD09688A4404A09357ED1A3F3"
+    }
+  ]
+}

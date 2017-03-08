@@ -7,43 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5418E2F51802ACF700C293E4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542FFE5E1800C9B5003B83B7 /* XCTest.framework */; };
-		5418E2F61802ACF700C293E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542FFE501800C9B5003B83B7 /* Foundation.framework */; };
-		5418E2F71802ACF700C293E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542FFE611800C9B5003B83B7 /* UIKit.framework */; };
-		5418E2FD1802ACF700C293E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5418E2FB1802ACF700C293E4 /* InfoPlist.strings */; };
-		5418E35E1802B65D00C293E4 /* CPAProxyTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */; };
-		5418E3681802BB4400C293E4 /* CPAProxyManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */; };
-		5418E36A1802BCD000C293E4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 542FFEA11800CA65003B83B7 /* libz.dylib */; };
-		9AEF29AB0FDAF9C491ED573F /* Pods_CPAProxyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CB36F3178840124556A51B /* Pods_CPAProxyTests.framework */; };
+		6D636131DA5DF35BD49AD669 /* Pods_CPAProxyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77641D27FE06448B8612D790 /* Pods_CPAProxyTests.framework */; };
+		D9A0C8D91E3B167800F9CA90 /* CPAProxyTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */; };
+		D9A0C8DA1E3B167800F9CA90 /* CPAProxyManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		16CB36F3178840124556A51B /* Pods_CPAProxyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPAProxyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EB2B34B81E314359FF1B0B7 /* Pods-CPAProxyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5418E2F41802ACF700C293E4 /* CPAProxyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPAProxyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5418E2FA1802ACF700C293E4 /* CPAProxyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CPAProxyTests-Info.plist"; sourceTree = "<group>"; };
+		04F3DE121B52738B15387AAB /* Pods-CPAProxyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5418E2FA1802ACF700C293E4 /* CPAProxyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CPAProxyTests-Info.plist"; path = "../Shared/CPAProxyTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5418E2FC1802ACF700C293E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5418E3001802ACF700C293E4 /* CPAProxyTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CPAProxyTests-Prefix.pch"; sourceTree = "<group>"; };
-		5418E35C1802B65D00C293E4 /* CPAProxyTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAProxyTestCase.h; sourceTree = "<group>"; };
-		5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAProxyTestCase.m; sourceTree = "<group>"; };
-		5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAProxyManagerTests.m; sourceTree = "<group>"; };
+		5418E35C1802B65D00C293E4 /* CPAProxyTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPAProxyTestCase.h; path = ../Shared/CPAProxyTestCase.h; sourceTree = SOURCE_ROOT; };
+		5418E35D1802B65D00C293E4 /* CPAProxyTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAProxyTestCase.m; path = ../Shared/CPAProxyTestCase.m; sourceTree = SOURCE_ROOT; };
+		5418E3671802BB4400C293E4 /* CPAProxyManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAProxyManagerTests.m; path = ../Shared/CPAProxyManagerTests.m; sourceTree = SOURCE_ROOT; };
 		542FFE501800C9B5003B83B7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		542FFE5E1800C9B5003B83B7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		542FFE611800C9B5003B83B7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		542FFEA11800CA65003B83B7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		F125A121F75E29F98CB286B3 /* Pods-CPAProxyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.release.xcconfig"; sourceTree = "<group>"; };
+		77641D27FE06448B8612D790 /* Pods_CPAProxyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CPAProxyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2CB9D142C8E89229EB6CBB2 /* Pods-CPAProxyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests.release.xcconfig"; sourceTree = "<group>"; };
+		D9A0C8D11E3B166900F9CA90 /* CPAProxyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPAProxyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5418E2F11802ACF700C293E4 /* Frameworks */ = {
+		D9A0C8CE1E3B166900F9CA90 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5418E36A1802BCD000C293E4 /* libz.dylib in Frameworks */,
-				5418E2F51802ACF700C293E4 /* XCTest.framework in Frameworks */,
-				5418E2F71802ACF700C293E4 /* UIKit.framework in Frameworks */,
-				5418E2F61802ACF700C293E4 /* Foundation.framework in Frameworks */,
-				9AEF29AB0FDAF9C491ED573F /* Pods_CPAProxyTests.framework in Frameworks */,
+				6D636131DA5DF35BD49AD669 /* Pods_CPAProxyTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +56,6 @@
 			children = (
 				5418E2FA1802ACF700C293E4 /* CPAProxyTests-Info.plist */,
 				5418E2FB1802ACF700C293E4 /* InfoPlist.strings */,
-				5418E3001802ACF700C293E4 /* CPAProxyTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -77,14 +66,14 @@
 				5418E2F81802ACF700C293E4 /* CPAProxyTests */,
 				542FFE4F1800C9B5003B83B7 /* Frameworks */,
 				542FFE4E1800C9B5003B83B7 /* Products */,
-				D779F35CDCEE03F62D4D8988 /* Pods */,
+				E863822BB87F31375693E604 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		542FFE4E1800C9B5003B83B7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5418E2F41802ACF700C293E4 /* CPAProxyTests.xctest */,
+				D9A0C8D11E3B166900F9CA90 /* CPAProxyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,16 +85,16 @@
 				542FFE501800C9B5003B83B7 /* Foundation.framework */,
 				542FFE5E1800C9B5003B83B7 /* XCTest.framework */,
 				542FFE611800C9B5003B83B7 /* UIKit.framework */,
-				16CB36F3178840124556A51B /* Pods_CPAProxyTests.framework */,
+				77641D27FE06448B8612D790 /* Pods_CPAProxyTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D779F35CDCEE03F62D4D8988 /* Pods */ = {
+		E863822BB87F31375693E604 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2EB2B34B81E314359FF1B0B7 /* Pods-CPAProxyTests.debug.xcconfig */,
-				F125A121F75E29F98CB286B3 /* Pods-CPAProxyTests.release.xcconfig */,
+				04F3DE121B52738B15387AAB /* Pods-CPAProxyTests.debug.xcconfig */,
+				C2CB9D142C8E89229EB6CBB2 /* Pods-CPAProxyTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -113,17 +102,16 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5418E2F31802ACF700C293E4 /* CPAProxyTests */ = {
+		D9A0C8D01E3B166900F9CA90 /* CPAProxyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5418E3031802ACF700C293E4 /* Build configuration list for PBXNativeTarget "CPAProxyTests" */;
+			buildConfigurationList = D9A0C8D61E3B166900F9CA90 /* Build configuration list for PBXNativeTarget "CPAProxyTests" */;
 			buildPhases = (
-				E953ECC189BB3C30D30253A3 /* Check Pods Manifest.lock */,
-				5418E2F01802ACF700C293E4 /* Sources */,
-				5418E2F11802ACF700C293E4 /* Frameworks */,
-				5418E2F21802ACF700C293E4 /* Resources */,
-				5418E3571802B12500C293E4 /* ShellScript */,
-				1E84B383E92801B67AFA0650 /* Copy Pods Resources */,
-				EA56D9EDEDF19925A169B0BF /* Embed Pods Frameworks */,
+				D2280F98F23D95187D3AD484 /* [CP] Check Pods Manifest.lock */,
+				D9A0C8CD1E3B166900F9CA90 /* Sources */,
+				D9A0C8CE1E3B166900F9CA90 /* Frameworks */,
+				D9A0C8CF1E3B166900F9CA90 /* Resources */,
+				F6DA91E7C06424BAE5A27C65 /* [CP] Embed Pods Frameworks */,
+				52DF928945678AFA17509EEB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,7 +119,7 @@
 			);
 			name = CPAProxyTests;
 			productName = CPAProxyTests;
-			productReference = 5418E2F41802ACF700C293E4 /* CPAProxyTests.xctest */;
+			productReference = D9A0C8D11E3B166900F9CA90 /* CPAProxyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -141,11 +129,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0640;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = CPAProxy;
 				TargetAttributes = {
-					5418E2F31802ACF700C293E4 = {
-						TestTargetID = 542FFE4C1800C9B5003B83B7;
+					D9A0C8D01E3B166900F9CA90 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -161,31 +150,30 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5418E2F31802ACF700C293E4 /* CPAProxyTests */,
+				D9A0C8D01E3B166900F9CA90 /* CPAProxyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		5418E2F21802ACF700C293E4 /* Resources */ = {
+		D9A0C8CF1E3B166900F9CA90 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5418E2FD1802ACF700C293E4 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1E84B383E92801B67AFA0650 /* Copy Pods Resources */ = {
+		52DF928945678AFA17509EEB /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,42 +181,29 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CPAProxyTests/Pods-CPAProxyTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5418E3571802B12500C293E4 /* ShellScript */ = {
+		D2280F98F23D95187D3AD484 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\necho \"HELLO!\"\necho \"$(SOURCE_ROOT)/../External/specta/src\"";
-		};
-		E953ECC189BB3C30D30253A3 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		EA56D9EDEDF19925A169B0BF /* Embed Pods Frameworks */ = {
+		F6DA91E7C06424BAE5A27C65 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,12 +214,12 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		5418E2F01802ACF700C293E4 /* Sources */ = {
+		D9A0C8CD1E3B166900F9CA90 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5418E35E1802B65D00C293E4 /* CPAProxyTestCase.m in Sources */,
-				5418E3681802BB4400C293E4 /* CPAProxyManagerTests.m in Sources */,
+				D9A0C8D91E3B167800F9CA90 /* CPAProxyTestCase.m in Sources */,
+				D9A0C8DA1E3B167800F9CA90 /* CPAProxyManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,77 +232,12 @@
 				5418E2FC1802ACF700C293E4 /* en */,
 			);
 			name = InfoPlist.strings;
+			path = ../Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		5418E3041802ACF700C293E4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EB2B34B81E314359FF1B0B7 /* Pods-CPAProxyTests.debug.xcconfig */;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CPAProxyTests/CPAProxyTests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"CPAProxy/\"",
-					"\"External/expecta/src\"/**",
-					"\"External/specta/src\"/**",
-				);
-				INFOPLIST_FILE = "CPAProxyTests/CPAProxyTests-Info.plist";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-framework",
-					XCTest,
-					"-ObjC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cpaproxy.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		5418E3051802ACF700C293E4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F125A121F75E29F98CB286B3 /* Pods-CPAProxyTests.release.xcconfig */;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CPAProxyTests/CPAProxyTests-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"CPAProxy/\"",
-					"\"External/expecta/src\"/**",
-					"\"External/specta/src\"/**",
-				);
-				INFOPLIST_FILE = "CPAProxyTests/CPAProxyTests-Info.plist";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-framework",
-					XCTest,
-					"-ObjC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cpaproxy.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 		542FFE6E1800C9B5003B83B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -341,13 +251,18 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -379,12 +294,17 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -397,23 +317,64 @@
 			};
 			name = Release;
 		};
+		D9A0C8D71E3B166900F9CA90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04F3DE121B52738B15387AAB /* Pods-CPAProxyTests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "../Shared/CPAProxyTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D9A0C8D81E3B166900F9CA90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C2CB9D142C8E89229EB6CBB2 /* Pods-CPAProxyTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "../Shared/CPAProxyTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5418E3031802ACF700C293E4 /* Build configuration list for PBXNativeTarget "CPAProxyTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5418E3041802ACF700C293E4 /* Debug */,
-				5418E3051802ACF700C293E4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		542FFE481800C9B5003B83B7 /* Build configuration list for PBXProject "CPAProxy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				542FFE6E1800C9B5003B83B7 /* Debug */,
 				542FFE6F1800C9B5003B83B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9A0C8D61E3B166900F9CA90 /* Build configuration list for PBXNativeTarget "CPAProxyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9A0C8D71E3B166900F9CA90 /* Debug */,
+				D9A0C8D81E3B166900F9CA90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

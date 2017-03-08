@@ -2,12 +2,25 @@
 
 [![Build Status](https://travis-ci.org/ursachec/CPAProxy.svg?branch=master)](https://travis-ci.org/ursachec/CPAProxy)
 
-[CPAProxy](https://github.com/ursachec/CPAProxy) is an Objective-C library that eases the use of Tor on iOS. It provides APIs to setup and communicate with a Tor client running on a separate thread of an application's main process.
+[CPAProxy](https://github.com/ursachec/CPAProxy) is an Objective-C library that eases the use of Tor on iOS. It provides APIs to setup and communicate with a Tor client running on a separate thread of an application's main process. Another similar project is iCepa's [Tor.framework](https://github.com/iCepa/Tor.framework).
 
-## How to get started
+## Installation
 
-- Download CPAProxy
-- Read this documentation
+The [CocoaPods](http://cocoapods.org) podspec hasn't been submitted yet, but you can still use `CPAProxy.podspec` in the meantime. Just put this line in your `Podfile`:
+
+    pod 'CPAProxy', :git => 'https://github.com/ursachec/CPAProxy.git'
+
+The dependencies OpenSSL, libevent, and Tor should be built automatically via `build-all.sh` located in the scripts directory.
+
+### Dependency Versions
+
+* **[Tor][tor]**: 0.3.0.4-rc
+* **[libevent][libevent]**: 2.0.22-stable
+* **[OpenSSL][openssl]**: 1.0.2k
+
+[tor]: https://www.torproject.org/
+[libevent]: http://libevent.org/
+[openssl]: https://www.openssl.org/
 
 ## Usage
 
@@ -89,25 +102,7 @@ After you have been notified that a CPAProxyManager setup has been completed, yo
 
 ## System Requirements
 
-CPAProxy supports iOS 8.0+ and the architectures __armv7__, __arm64__, __i386__, __x86_64__.
-
-## Installation
-
-The [Cocoapods](http://cocoapods.org) podspec hasn't been submitted yet, but you can still use `CPAProxy.podspec` in the meantime. Just put this line in your `Podfile`:
-
-    pod 'CPAProxy', :git => 'https://github.com/ursachec/CPAProxy.git'
-
-The dependencies OpenSSL, libevent, and Tor should be built automatically via `build-all.sh` located in the scripts directory.
-
-### Dependency Versions
-
-* **[Tor][tor]**: 0.2.9.10
-* **[libevent][libevent]**: 2.0.22-stable
-* **[OpenSSL][openssl]**: 1.0.2k
-
-[tor]: https://www.torproject.org/
-[libevent]: http://libevent.org/
-[openssl]: https://www.openssl.org/
+CPAProxy supports iOS 8.0+, macOS 10.10+ and the architectures __armv7__, __arm64__, __i386__, __x86_64__.
 
 ## Caveats
 

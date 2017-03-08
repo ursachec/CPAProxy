@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5418E2F31802ACF700C293E4"
+               BlueprintIdentifier = "D9A0C8D01E3B166900F9CA90"
                BuildableName = "CPAProxyTests.xctest"
                BlueprintName = "CPAProxyTests"
                ReferencedContainer = "container:CPAProxy.xcodeproj">
@@ -32,22 +32,13 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5418E2F31802ACF700C293E4"
+               BlueprintIdentifier = "D9A0C8D01E3B166900F9CA90"
                BuildableName = "CPAProxyTests.xctest"
                BlueprintName = "CPAProxyTests"
                ReferencedContainer = "container:CPAProxy.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5418E2F31802ACF700C293E4"
-            BuildableName = "CPAProxyTests.xctest"
-            BlueprintName = "CPAProxyTests"
-            ReferencedContainer = "container:CPAProxy.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,7 +55,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5418E2F31802ACF700C293E4"
+            BlueprintIdentifier = "D9A0C8D01E3B166900F9CA90"
             BuildableName = "CPAProxyTests.xctest"
             BlueprintName = "CPAProxyTests"
             ReferencedContainer = "container:CPAProxy.xcodeproj">
@@ -82,7 +73,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5418E2F31802ACF700C293E4"
+            BlueprintIdentifier = "D9A0C8D01E3B166900F9CA90"
             BuildableName = "CPAProxyTests.xctest"
             BlueprintName = "CPAProxyTests"
             ReferencedContainer = "container:CPAProxy.xcodeproj">
