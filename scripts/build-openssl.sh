@@ -27,7 +27,7 @@ pushd "openssl-${OPENSSL_VERSION}"
 		if [ "${ARCH}" == "arm64" ]; then
 			EXTRA_CONFIG="iphoneos-cross enable-ec_nistp_64_gcc_128"
 		else
-			EXTRA_CONFIG="iphoneos-cross -Wno-ignored-optimization-argument"
+			EXTRA_CONFIG="iphoneos-cross"
 		fi
 	fi
 
