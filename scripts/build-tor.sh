@@ -3,7 +3,7 @@ set -e
 
 # Download source
 if [ ! -e "tor-${TOR_VERSION}.tar.gz" ]; then
-  curl -O "https://dist.torproject.org/tor-${TOR_VERSION}.tar.gz" --retry 5
+  curl -O -L "https://dist.torproject.org/tor-${TOR_VERSION}.tar.gz" --retry 5
 fi
 
 # Extract source
@@ -14,7 +14,7 @@ pushd "tor-${TOR_VERSION}"
 
 	# Apply patches
 	patch -p3 < "${TOPDIR}/patches/tor-nsenviron.diff"
-	patch -p3 < "${TOPDIR}/patches/tor-ptrace.diff"
+#	patch -p3 < "${TOPDIR}/patches/tor-ptrace.diff"
 
 	LDFLAGS="-L${ARCH_BUILT_DIR} -fPIE ${PLATFORM_VERSION_MIN}"
 	CFLAGS="-arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} ${PLATFORM_VERSION_MIN}"

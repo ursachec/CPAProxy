@@ -1,7 +1,7 @@
 --- build/src/tor-0.2.6.2-alpha/src/common/compat.c.orig	2014-12-30 09:06:12.000000000 -0500
 +++ build/src/tor-0.2.6.2-alpha/src/common/compat.c	2015-02-09 23:54:12.000000000 -0500
-@@ -2173,28 +2173,28 @@
- #endif
+@@ -2399,28 +2399,28 @@
+ #endif /* defined(_WIN32) */
  }
  
 -#ifndef HAVE__NSGETENVIRON
@@ -11,8 +11,8 @@
  #ifndef RUNNING_DOXYGEN
  extern char **environ;
  #endif
- #endif
--#endif
+ #endif /* !defined(HAVE_EXTERN_ENVIRON_DECLARED) */
+-#endif /* !defined(HAVE__NSGETENVIRON) */
 +//#endif
  
  /** Return the current environment. This is a portable replacement for
@@ -26,11 +26,11 @@
     * when we do a mostly-static build on OSX 10.7, the resulting binary won't
     * work on OSX 10.6. */
 -  return *_NSGetEnviron();
--#else
+-#else /* !(defined(HAVE__NSGETENVIRON)) */
 +//  return *_NSGetEnviron();
 +//#else
    return environ;
--#endif
+-#endif /* defined(HAVE__NSGETENVIRON) */
 +//#endif
  }
  

@@ -3,7 +3,7 @@ set -e
 
 # Download source
 if [ ! -e "openssl-${OPENSSL_VERSION}.tar.gz" ]; then
-  curl -O "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"  --retry 5
+  curl -OL "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"  --retry 5
 fi
 
 # Extract source
