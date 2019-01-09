@@ -1,0 +1,48 @@
+From a83650852d3cd00c9916cae74d755ae55a6b506d Mon Sep 17 00:00:00 2001
+From: Nick Mathewson <nickm@torproject.org>
+Date: Wed, 14 Feb 2018 10:45:57 -0500
+Subject: Add another NULL-pointer fix for protover.c.
+
+This one can only be exploited if you can generate a correctly
+signed consensus, so it's not as bad as 25074.
+
+Fixes bug 25251; also tracked as TROVE-2018-004.
+---
+ changes/trove-2018-004 | 8 ++++++++
+ src/or/protover.c      | 5 +++++
+ 2 files changed, 13 insertions(+)
+ create mode 100644 changes/trove-2018-004
+
+diff --git a/changes/trove-2018-004 b/changes/trove-2018-004
+new file mode 100644
+index 0000000..37e0a89
+--- /dev/null
++++ b/changes/trove-2018-004
+@@ -0,0 +1,8 @@
++  o Minor bugfixes (denial-of-service):
++    - Fix a possible crash on malformed consensus. If a consensus had
++      contained an unparseable protocol line, it could have made clients
++      and relays crash with a null-pointer exception. To exploit this
++      issue, however, an attacker would need to be able to subvert the
++      directory-authority system. Fixes bug 25251; bugfix on
++      0.2.9.4-alpha. Also tracked as TROVE-2018-004.
++
+diff --git a/src/or/protover.c b/src/or/protover.c
+index a750774..e63036f 100644
+--- a/src/or/protover.c
++++ b/src/or/protover.c
+@@ -624,6 +624,11 @@ protover_all_supported(const char *s, char **missing_out)
+   }
+ 
+   smartlist_t *entries = parse_protocol_list(s);
++  if (BUG(entries == NULL)) {
++    log_warn(LD_NET, "Received an unparseable protocol list %s"
++             " from the consensus", escaped(s));
++    return 1;
++  }
+ 
+   missing = smartlist_new();
+ 
+-- 
+cgit v1.1
+
