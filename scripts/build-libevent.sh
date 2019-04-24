@@ -13,7 +13,7 @@ tar zxf "${ARCHIVE_NAME}.tar.gz"
 
 pushd "${ARCHIVE_NAME}"
 
-   patch -p3 < "${TOPDIR}/patches/libevent-configure.diff" configure
+   #patch -p3 < "${TOPDIR}/patches/libevent-configure.diff" configure
 
    CC="${CLANG}"
 
@@ -29,14 +29,14 @@ pushd "${ARCHIVE_NAME}"
 		EXTRA_CONFIG="--host=arm-apple-darwin"
 	fi
 
-   ./configure --disable-shared --enable-static --disable-debug-mode ${EXTRA_CONFIG} \
+   ./configure --disable-clock-gettime --disable-shared --enable-static --disable-debug-mode ${EXTRA_CONFIG} \
    --prefix="${ROOTDIR}" \
    CC="${CLANG} " \
    LDFLAGS="${LDFLAGS}" \
    CFLAGS="${CFLAGS}" \
    CPPLAGS="${CPPFLAGS}"
 
-   make
+   make -j $(sysctl -n hw.ncpu)
    make install
 
    # Copy the build results        

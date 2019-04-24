@@ -38,7 +38,7 @@ pushd "tor-${TOR_VERSION}"
 	CFLAGS="${CFLAGS}" \
 	CPPFLAGS="${CPPFLAGS}"
 
-	make
+	make -j $(sysctl -n hw.ncpu)
 
 	# Copy the build results
 	cp "src/common/libor-crypto.a" "${ARCH_BUILT_DIR}"
