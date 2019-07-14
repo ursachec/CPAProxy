@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-ARCHIVE_NAME="libevent-${LIBEVENT_VERSION}"
+ARCHIVE_NAME="xz-${LZMA_VERSION}"
 
 if [ ! -e "${ARCHIVE_NAME}.tar.gz" ]; then
-	curl -LO "https://github.com/libevent/libevent/releases/download/release-${LIBEVENT_VERSION}/${ARCHIVE_NAME}.tar.gz"  --retry 5
+	curl -LO "https://tukaani.org/xz/${ARCHIVE_NAME}.tar.gz"  --retry 5
 fi
 
 # Extract source
@@ -26,22 +26,20 @@ pushd "${ARCHIVE_NAME}"
 		EXTRA_CONFIG="--host=arm-apple-darwin"
 	fi
 
-   ./configure --disable-clock-gettime --disable-shared --enable-static --disable-debug-mode ${EXTRA_CONFIG} \
+   ./configure --disable-shared --enable-static --disable-doc --disable-scripts \
+    --disable-xz --disable-xzdec --disable-lzmadec --disable-lzmainfo --disable-lzma-links ${EXTRA_CONFIG} \
    --prefix="${ROOTDIR}" \
    CC="${CLANG} " \
    LDFLAGS="${LDFLAGS}" \
    CFLAGS="${CFLAGS}" \
-   CPPLAGS="${CPPFLAGS}"
+   CPPLAGS="${CPPFLAGS}" \
+   cross_compiling="yes" ac_cv_func_clock_gettime="no"
 
    make -j $(sysctl -n hw.ncpu)
    make install
 
    # Copy the build results        
-   cp "${ROOTDIR}/lib/libevent.a" "${ARCH_BUILT_DIR}"
-   cp "${ROOTDIR}/lib/libevent_core.a" "${ARCH_BUILT_DIR}"
-   cp "${ROOTDIR}/lib/libevent_extra.a" "${ARCH_BUILT_DIR}"
-   cp "${ROOTDIR}/lib/libevent_openssl.a" "${ARCH_BUILT_DIR}"
-   cp "${ROOTDIR}/lib/libevent_pthreads.a" "${ARCH_BUILT_DIR}"
+   cp "${ROOTDIR}/lib/liblzma.a" "${ARCH_BUILT_DIR}"
    cp -R ${ROOTDIR}/include/* "${ARCH_BUILT_HEADERS_DIR}"
 
 popd

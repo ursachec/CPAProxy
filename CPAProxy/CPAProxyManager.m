@@ -34,7 +34,7 @@ typedef NS_ENUM(NSUInteger, CPAErrors) {
 
 // Function definitions to get version numbers of dependencies to avoid including headers
 /** Returns OpenSSL version */
-extern const char *SSLeay_version(int type);
+extern const char *OpenSSL_version(int type);
 /** Returns Libevent version */
 extern const char *event_get_version(void);
 /** Returns Tor version */
@@ -367,7 +367,7 @@ typedef NS_ENUM(NSUInteger, CPAControlPortStatus) {
 
 + (NSString *) opensslVersion
 {
-    return [NSString stringWithUTF8String:SSLeay_version(0)];
+    return [NSString stringWithUTF8String:OpenSSL_version(0)];
 }
 
 + (NSString *) libeventVersion
