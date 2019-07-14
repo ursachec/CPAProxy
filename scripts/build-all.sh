@@ -3,7 +3,7 @@
 # User variables
 # VARIABLE : valid options
 # ARCHS : i386 x86_64 armv7 arm64
-# LIBRARIES: openssl libevent tor
+# LIBRARIES: openssl libevent lzma tor
 # USE_BUILD_LOG: true false
 # PLATFORM_TARGET: iOS macOS
 
@@ -49,7 +49,7 @@ fi
 if [ -n "${LIBRARIES}" ]; then
   echo "Building user-defined libraries: ${LIBRARIES}"
 else
-  LIBRARIES="openssl libevent tor"
+  LIBRARIES="openssl libevent lzma tor"
   echo "Building libraries: ${LIBRARIES}"
 fi
 
@@ -57,8 +57,9 @@ fi
 export MIN_IOS_VERSION="8.0"
 export MIN_OSX_VERSION="10.10"
 export OPENSSL_VERSION="1.1.1c"
+export LZMA_VERSION="5.2.4"
 export LIBEVENT_VERSION="2.1.10-stable"
-export TOR_VERSION="0.3.0.13"
+export TOR_VERSION="0.4.0.5"
 
 BUILT_ARCHS=()
 DEVELOPER=`xcode-select --print-path`
@@ -153,9 +154,19 @@ done
 cd ../
 
 # Combine binaries of different architectures results
+
+# OpenSSL
 BINS=(libcrypto.a libssl.a)
+# libevent
 BINS+=(libevent_core.a libevent_pthreads.a libevent_extra.a libevent_openssl.a libevent.a)
-BINS+=(libcurve25519_donna.a libor-crypto.a libtor.a libor-event.a libor.a libor-trunnel.a libed25519_donna.a libed25519_ref10.a libor-ctime.a libkeccak-tiny.a)
+# Tor
+BINS+=(libed25519_ref10.a libed25519_donna.a libkeccak-tiny.a libtor-err.a libtor-ctime.a libtor-compress.a)
+BINS+=(libtor-container.a libtor-crypt-ops.a libtor-encoding.a libtor-evloop.a libtor-fdio.a libtor-fs.a libcurve25519_donna.a)
+BINS+=(libtor-intmath.a libtor-lock.a libtor-log.a libtor-math.a libtor-memarea.a libtor-meminfo.a libtor-malloc.a libtor-net.a)
+BINS+=(libtor-osinfo.a libtor-process.a libtor-sandbox.a libtor-string.a libtor-smartlist-core.a libtor-term.a libtor-thread.a)
+BINS+=(libtor-time.a libtor-tls.a libtor-trace.a libtor-wallclock.a libor-trunnel.a libtor-app.a libtor-geoip.a libtor-buf.a libtor-version.a)
+# LZMA
+BINS+=(liblzma.a)
 
 NUMBER_OF_BUILT_ARCHS=${#BUILT_ARCHS[@]}
 
