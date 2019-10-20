@@ -13,6 +13,7 @@ FOUNDATION_EXPORT double CPAProxyVersionNumber;
 //! Project version string for CPAProxy.
 FOUNDATION_EXPORT const unsigned char CPAProxyVersionString[];
 
+#import "CPAProxyCommand.h"
 #import "CPAProxyManager.h"
 #import "CPAProxyManager+TorCommands.h"
 #import "CPAThread.h"

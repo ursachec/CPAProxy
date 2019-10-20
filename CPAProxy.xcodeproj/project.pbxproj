@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		61A2DF54472334F1A773FFA4 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		AA4D1F845A9202FFBD319EB1 /* libPods-CPAProxy (iOS).a in Frameworks */ = {isa = PBXBuildFile; fileRef = B48E36C6E41BFC086F670398 /* libPods-CPAProxy (iOS).a */; };
 		B43E127917015D0DF353ECC0 /* libPods-CPAProxy (macOS).a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F2692FE2BE1E055EA8A35C /* libPods-CPAProxy (macOS).a */; };
 		D91D7707235CF5FF007D2A54 /* CPAProxyResponseParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B7C235CEEB0002B213A /* CPAProxyResponseParser.h */; };
@@ -16,7 +15,7 @@
 		D91D770A235CF5FF007D2A54 /* CPAProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B65235CEE08002B213A /* CPAProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D91D770B235CF5FF007D2A54 /* CPASocketManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B73235CEEB0002B213A /* CPASocketManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D91D770C235CF5FF007D2A54 /* CPAProxyManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B7E235CEEB0002B213A /* CPAProxyManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D91D770D235CF5FF007D2A54 /* CPAProxyCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B76235CEEB0002B213A /* CPAProxyCommand.h */; };
+		D91D770D235CF5FF007D2A54 /* CPAProxyCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B76235CEEB0002B213A /* CPAProxyCommand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D91D770E235CF5FF007D2A54 /* CPAProxyTorCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B71235CEEB0002B213A /* CPAProxyTorCommands.h */; };
 		D91D770F235CF5FF007D2A54 /* CPAProxyTorCommandConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B6E235CEEAF002B213A /* CPAProxyTorCommandConstants.h */; };
 		D91D7710235CF5FF007D2A54 /* GCDAsyncSocket+CPAProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52BA4235CF393002B213A /* GCDAsyncSocket+CPAProxy.h */; };
@@ -34,9 +33,16 @@
 		D91D771D235CF5FF007D2A54 /* CPAProxyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B77235CEEB0002B213A /* CPAProxyManager.m */; };
 		D91D771F235CF5FF007D2A54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52B9F235CF225002B213A /* Foundation.framework */; };
 		D91D7720235CF5FF007D2A54 /* libcpaproxy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52B98235CEF6A002B213A /* libcpaproxy.xcframework */; };
-		D91D7723235CF5FF007D2A54 /* torrc in Resources */ = {isa = PBXBuildFile; fileRef = D9C52B97235CEF6A002B213A /* torrc */; };
-		D91D7724235CF5FF007D2A54 /* geoip6 in Resources */ = {isa = PBXBuildFile; fileRef = D9C52B95235CEF6A002B213A /* geoip6 */; };
-		D91D7725235CF5FF007D2A54 /* geoip in Resources */ = {isa = PBXBuildFile; fileRef = D9C52B96235CEF6A002B213A /* geoip */; };
+		D954B31D235CFC6700B1E68F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D954B31C235CFC6700B1E68F /* libz.tbd */; };
+		D954B31E235CFC7500B1E68F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D954B31C235CFC6700B1E68F /* libz.tbd */; };
+		D97947C0235CFFCA000D86AE /* geoip in Resources */ = {isa = PBXBuildFile; fileRef = D97947BD235CFFCA000D86AE /* geoip */; };
+		D97947C1235CFFCA000D86AE /* torrc in Resources */ = {isa = PBXBuildFile; fileRef = D97947BE235CFFCA000D86AE /* torrc */; };
+		D97947C2235CFFCA000D86AE /* geoip6 in Resources */ = {isa = PBXBuildFile; fileRef = D97947BF235CFFCA000D86AE /* geoip6 */; };
+		D97947C7235D0005000D86AE /* geoip6 in Resources */ = {isa = PBXBuildFile; fileRef = D97947BF235CFFCA000D86AE /* geoip6 */; };
+		D97947C8235D0005000D86AE /* geoip in Resources */ = {isa = PBXBuildFile; fileRef = D97947BD235CFFCA000D86AE /* geoip */; };
+		D97947C9235D0005000D86AE /* torrc in Resources */ = {isa = PBXBuildFile; fileRef = D97947BE235CFFCA000D86AE /* torrc */; };
+		D97947D3235D012C000D86AE /* CPAProxy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D97947CD235D0005000D86AE /* CPAProxy.bundle */; };
+		D97947D4235D0135000D86AE /* CPAProxy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D97947B6235CFF4B000D86AE /* CPAProxy.bundle */; };
 		D9C52B67235CEE08002B213A /* CPAProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B65235CEE08002B213A /* CPAProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9C52B7F235CEEB0002B213A /* CPAProxyResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B6B235CEEAF002B213A /* CPAProxyResponseParser.m */; };
 		D9C52B80235CEEB0002B213A /* CPAThread.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B6C235CEEAF002B213A /* CPAThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -48,7 +54,7 @@
 		D9C52B86235CEEB0002B213A /* CPASocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B72235CEEB0002B213A /* CPASocketManager.m */; };
 		D9C52B87235CEEB0002B213A /* CPASocketManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B73235CEEB0002B213A /* CPASocketManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9C52B89235CEEB0002B213A /* CPAProxyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B75235CEEB0002B213A /* CPAProxyCommand.m */; };
-		D9C52B8A235CEEB0002B213A /* CPAProxyCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B76235CEEB0002B213A /* CPAProxyCommand.h */; };
+		D9C52B8A235CEEB0002B213A /* CPAProxyCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B76235CEEB0002B213A /* CPAProxyCommand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9C52B8B235CEEB0002B213A /* CPAProxyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B77235CEEB0002B213A /* CPAProxyManager.m */; };
 		D9C52B8C235CEEB0002B213A /* CPAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B78235CEEB0002B213A /* CPAConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9C52B8E235CEEB0002B213A /* CPAThread.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B7A235CEEB0002B213A /* CPAThread.m */; };
@@ -57,14 +63,28 @@
 		D9C52B91235CEEB0002B213A /* CPAConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B7D235CEEB0002B213A /* CPAConfiguration.m */; };
 		D9C52B92235CEEB0002B213A /* CPAProxyManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B7E235CEEB0002B213A /* CPAProxyManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9C52B99235CEF6A002B213A /* tor_cpaproxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B94235CEF6A002B213A /* tor_cpaproxy.h */; };
-		D9C52B9A235CEF6A002B213A /* geoip6 in Resources */ = {isa = PBXBuildFile; fileRef = D9C52B95235CEF6A002B213A /* geoip6 */; };
-		D9C52B9B235CEF6A002B213A /* geoip in Resources */ = {isa = PBXBuildFile; fileRef = D9C52B96235CEF6A002B213A /* geoip */; };
-		D9C52B9C235CEF6A002B213A /* torrc in Resources */ = {isa = PBXBuildFile; fileRef = D9C52B97235CEF6A002B213A /* torrc */; };
 		D9C52B9D235CEF6A002B213A /* libcpaproxy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52B98235CEF6A002B213A /* libcpaproxy.xcframework */; };
 		D9C52BA0235CF225002B213A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52B9F235CF225002B213A /* Foundation.framework */; };
 		D9C52BA5235CF393002B213A /* GCDAsyncSocket+CPAProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52BA3235CF393002B213A /* GCDAsyncSocket+CPAProxy.m */; };
 		D9C52BA6235CF393002B213A /* GCDAsyncSocket+CPAProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52BA4235CF393002B213A /* GCDAsyncSocket+CPAProxy.h */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D97947CF235D00FF000D86AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9C52B57235CED62002B213A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D97947C3235D0005000D86AE;
+			remoteInfo = "CPAProxy.bundle (iOS)";
+		};
+		D97947D1235D0106000D86AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D9C52B57235CED62002B213A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D97947B5235CFF4B000D86AE;
+			remoteInfo = "CPAProxy.bundle (macOS)";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3FA1E4D3C515D1FD13AB86FD /* Pods-CPAProxy (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxy (iOS).debug.xcconfig"; path = "Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS).debug.xcconfig"; sourceTree = "<group>"; };
@@ -73,6 +93,13 @@
 		BEEA5D1DF0CB8937C5F73DC4 /* Pods-CPAProxy (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxy (iOS).release.xcconfig"; path = "Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS).release.xcconfig"; sourceTree = "<group>"; };
 		C3F2692FE2BE1E055EA8A35C /* libPods-CPAProxy (macOS).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CPAProxy (macOS).a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91D772A235CF5FF007D2A54 /* CPAProxy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CPAProxy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D954B31C235CFC6700B1E68F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D97947B6235CFF4B000D86AE /* CPAProxy.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPAProxy.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		D97947B8235CFF4B000D86AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D97947BD235CFFCA000D86AE /* geoip */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = geoip; sourceTree = "<group>"; };
+		D97947BE235CFFCA000D86AE /* torrc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = torrc; sourceTree = "<group>"; };
+		D97947BF235CFFCA000D86AE /* geoip6 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = geoip6; sourceTree = "<group>"; };
+		D97947CD235D0005000D86AE /* CPAProxy.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPAProxy.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9C52B62235CEE08002B213A /* CPAProxy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CPAProxy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9C52B65235CEE08002B213A /* CPAProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPAProxy.h; sourceTree = "<group>"; };
 		D9C52B66235CEE08002B213A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -95,9 +122,6 @@
 		D9C52B7D235CEEB0002B213A /* CPAConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPAConfiguration.m; sourceTree = "<group>"; };
 		D9C52B7E235CEEB0002B213A /* CPAProxyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPAProxyManager.h; sourceTree = "<group>"; };
 		D9C52B94235CEF6A002B213A /* tor_cpaproxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tor_cpaproxy.h; sourceTree = "<group>"; };
-		D9C52B95235CEF6A002B213A /* geoip6 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = geoip6; sourceTree = "<group>"; };
-		D9C52B96235CEF6A002B213A /* geoip */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = geoip; sourceTree = "<group>"; };
-		D9C52B97235CEF6A002B213A /* torrc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = torrc; sourceTree = "<group>"; };
 		D9C52B98235CEF6A002B213A /* libcpaproxy.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = libcpaproxy.xcframework; sourceTree = "<group>"; };
 		D9C52B9F235CF225002B213A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D9C52BA1235CF22B002B213A /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
@@ -111,9 +135,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D954B31D235CFC6700B1E68F /* libz.tbd in Frameworks */,
 				D91D771F235CF5FF007D2A54 /* Foundation.framework in Frameworks */,
 				D91D7720235CF5FF007D2A54 /* libcpaproxy.xcframework in Frameworks */,
 				AA4D1F845A9202FFBD319EB1 /* libPods-CPAProxy (iOS).a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D97947B3235CFF4B000D86AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D97947C5235D0005000D86AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,9 +160,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D954B31E235CFC7500B1E68F /* libz.tbd in Frameworks */,
 				D9C52BA0235CF225002B213A /* Foundation.framework in Frameworks */,
 				D9C52B9D235CEF6A002B213A /* libcpaproxy.xcframework in Frameworks */,
-				61A2DF54472334F1A773FFA4 /* (null) in Frameworks */,
 				B43E127917015D0DF353ECC0 /* libPods-CPAProxy (macOS).a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,11 +181,20 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D97947B7235CFF4B000D86AE /* CPAProxy */ = {
+			isa = PBXGroup;
+			children = (
+				D97947B8235CFF4B000D86AE /* Info.plist */,
+			);
+			path = CPAProxy;
+			sourceTree = "<group>";
+		};
 		D9C52B56235CED62002B213A = {
 			isa = PBXGroup;
 			children = (
 				D9C52B93235CEF6A002B213A /* CPAProxyDependencies */,
 				D9C52B64235CEE08002B213A /* CPAProxy */,
+				D97947B7235CFF4B000D86AE /* CPAProxy */,
 				D9C52B63235CEE08002B213A /* Products */,
 				D9C52B9E235CF225002B213A /* Frameworks */,
 				8F1C670FB13E75343151143B /* Pods */,
@@ -158,6 +206,8 @@
 			children = (
 				D9C52B62235CEE08002B213A /* CPAProxy.framework */,
 				D91D772A235CF5FF007D2A54 /* CPAProxy.framework */,
+				D97947B6235CFF4B000D86AE /* CPAProxy.bundle */,
+				D97947CD235D0005000D86AE /* CPAProxy.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -194,10 +244,10 @@
 		D9C52B93235CEF6A002B213A /* CPAProxyDependencies */ = {
 			isa = PBXGroup;
 			children = (
+				D97947BD235CFFCA000D86AE /* geoip */,
+				D97947BF235CFFCA000D86AE /* geoip6 */,
+				D97947BE235CFFCA000D86AE /* torrc */,
 				D9C52B94235CEF6A002B213A /* tor_cpaproxy.h */,
-				D9C52B95235CEF6A002B213A /* geoip6 */,
-				D9C52B96235CEF6A002B213A /* geoip */,
-				D9C52B97235CEF6A002B213A /* torrc */,
 				D9C52B98235CEF6A002B213A /* libcpaproxy.xcframework */,
 			);
 			path = CPAProxyDependencies;
@@ -206,6 +256,7 @@
 		D9C52B9E235CF225002B213A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D954B31C235CFC6700B1E68F /* libz.tbd */,
 				D9C52BA1235CF22B002B213A /* Network.framework */,
 				D9C52B9F235CF225002B213A /* Foundation.framework */,
 				B48E36C6E41BFC086F670398 /* libPods-CPAProxy (iOS).a */,
@@ -267,16 +318,50 @@
 				D91D7713235CF5FF007D2A54 /* Sources */,
 				D91D771E235CF5FF007D2A54 /* Frameworks */,
 				D91D7722235CF5FF007D2A54 /* Resources */,
-				D91D7726235CF5FF007D2A54 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D97947D0235D00FF000D86AE /* PBXTargetDependency */,
 			);
 			name = "CPAProxy (iOS)";
 			productName = CPAProxy;
 			productReference = D91D772A235CF5FF007D2A54 /* CPAProxy.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		D97947B5235CFF4B000D86AE /* CPAProxy.bundle (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D97947BB235CFF4B000D86AE /* Build configuration list for PBXNativeTarget "CPAProxy.bundle (macOS)" */;
+			buildPhases = (
+				D97947B2235CFF4B000D86AE /* Sources */,
+				D97947B3235CFF4B000D86AE /* Frameworks */,
+				D97947B4235CFF4B000D86AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CPAProxy.bundle (macOS)";
+			productName = CPAProxy;
+			productReference = D97947B6235CFF4B000D86AE /* CPAProxy.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		D97947C3235D0005000D86AE /* CPAProxy.bundle (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D97947CA235D0005000D86AE /* Build configuration list for PBXNativeTarget "CPAProxy.bundle (iOS)" */;
+			buildPhases = (
+				D97947C4235D0005000D86AE /* Sources */,
+				D97947C5235D0005000D86AE /* Frameworks */,
+				D97947C6235D0005000D86AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CPAProxy.bundle (iOS)";
+			productName = CPAProxy;
+			productReference = D97947CD235D0005000D86AE /* CPAProxy.bundle */;
+			productType = "com.apple.product-type.bundle";
 		};
 		D9C52B61235CEE08002B213A /* CPAProxy (macOS) */ = {
 			isa = PBXNativeTarget;
@@ -287,11 +372,11 @@
 				D9C52B5E235CEE08002B213A /* Sources */,
 				D9C52B5F235CEE08002B213A /* Frameworks */,
 				D9C52B60235CEE08002B213A /* Resources */,
-				5F584A4855422D6625E37978 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D97947D2235D0106000D86AE /* PBXTargetDependency */,
 			);
 			name = "CPAProxy (macOS)";
 			productName = CPAProxy;
@@ -306,6 +391,9 @@
 			attributes = {
 				LastUpgradeCheck = 1110;
 				TargetAttributes = {
+					D97947B5235CFF4B000D86AE = {
+						CreatedOnToolsVersion = 11.1;
+					};
 					D9C52B61235CEE08002B213A = {
 						CreatedOnToolsVersion = 11.1;
 					};
@@ -326,6 +414,8 @@
 			targets = (
 				D9C52B61235CEE08002B213A /* CPAProxy (macOS) */,
 				D91D7704235CF5FF007D2A54 /* CPAProxy (iOS) */,
+				D97947B5235CFF4B000D86AE /* CPAProxy.bundle (macOS) */,
+				D97947C3235D0005000D86AE /* CPAProxy.bundle (iOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -335,9 +425,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D91D7723235CF5FF007D2A54 /* torrc in Resources */,
-				D91D7724235CF5FF007D2A54 /* geoip6 in Resources */,
-				D91D7725235CF5FF007D2A54 /* geoip in Resources */,
+				D97947D3235D012C000D86AE /* CPAProxy.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D97947B4235CFF4B000D86AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D97947C2235CFFCA000D86AE /* geoip6 in Resources */,
+				D97947C0235CFFCA000D86AE /* geoip in Resources */,
+				D97947C1235CFFCA000D86AE /* torrc in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D97947C6235D0005000D86AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D97947C7235D0005000D86AE /* geoip6 in Resources */,
+				D97947C8235D0005000D86AE /* geoip in Resources */,
+				D97947C9235D0005000D86AE /* torrc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,32 +453,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9C52B9C235CEF6A002B213A /* torrc in Resources */,
-				D9C52B9A235CEF6A002B213A /* geoip6 in Resources */,
-				D9C52B9B235CEF6A002B213A /* geoip in Resources */,
+				D97947D4235D0135000D86AE /* CPAProxy.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5F584A4855422D6625E37978 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (macOS)/Pods-CPAProxy (macOS)-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (macOS)/Pods-CPAProxy (macOS)-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (macOS)/Pods-CPAProxy (macOS)-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6051EE954232D06DED65A755 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -415,23 +504,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D91D7726235CF5FF007D2A54 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS)-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS)-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS)-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -449,6 +521,20 @@
 				D91D771B235CF5FF007D2A54 /* CPAProxyTorCommandConstants.m in Sources */,
 				D91D771C235CF5FF007D2A54 /* CPAProxyManager+TorCommands.m in Sources */,
 				D91D771D235CF5FF007D2A54 /* CPAProxyManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D97947B2235CFF4B000D86AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D97947C4235D0005000D86AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +556,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D97947D0235D00FF000D86AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D97947C3235D0005000D86AE /* CPAProxy.bundle (iOS) */;
+			targetProxy = D97947CF235D00FF000D86AE /* PBXContainerItemProxy */;
+		};
+		D97947D2235D0106000D86AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D97947B5235CFF4B000D86AE /* CPAProxy.bundle (macOS) */;
+			targetProxy = D97947D1235D0106000D86AE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D91D7728235CF5FF007D2A54 /* Debug */ = {
@@ -534,13 +633,12 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = CPAProxy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -610,13 +708,12 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = CPAProxy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
@@ -626,6 +723,256 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D97947B9235CFF4B000D86AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = CPAProxy/BundleInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		D97947BA235CFF4B000D86AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = CPAProxy/BundleInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		D97947CB235D0005000D86AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = CPAProxy/BundleInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		D97947CC235D0005000D86AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = CPAProxy/BundleInfo.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
@@ -708,8 +1055,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -783,8 +1129,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
@@ -804,6 +1149,24 @@
 			buildConfigurations = (
 				D91D7728235CF5FF007D2A54 /* Debug */,
 				D91D7729235CF5FF007D2A54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D97947BB235CFF4B000D86AE /* Build configuration list for PBXNativeTarget "CPAProxy.bundle (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D97947B9235CFF4B000D86AE /* Debug */,
+				D97947BA235CFF4B000D86AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D97947CA235D0005000D86AE /* Build configuration list for PBXNativeTarget "CPAProxy.bundle (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D97947CB235D0005000D86AE /* Debug */,
+				D97947CC235D0005000D86AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

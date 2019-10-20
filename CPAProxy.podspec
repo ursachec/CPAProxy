@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name            = "CPAProxy"
-  s.version         = "1.2.0"
+  s.version         = "2.0.0"
   s.summary         = "CPAProxy is a thin Objective-C wrapper around Tor."
   s.author          = "Claudiu-Vlad Ursache <claudiu.vlad.ursache@gmail.com>"
 
@@ -15,10 +15,8 @@ Pod::Spec.new do |s|
   s.module_name = 'CPAProxyPod'
 
   s.ios.deployment_target = "8.0"
-  s.ios.resource_bundles = {"CPAProxy" => ["CPAProxyDependencies/geoip", "CPAProxyDependencies/geoip6", "CPAProxyDependencies/torrc"]}
 
   s.osx.deployment_target = "10.10"
-  s.osx.resource_bundles = {"CPAProxy" => ["CPAProxyDependencies/geoip", "CPAProxyDependencies/geoip6", "CPAProxyDependencies/torrc"]}
 
   s.requires_arc = true
 end
