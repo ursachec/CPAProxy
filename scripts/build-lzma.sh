@@ -15,9 +15,9 @@ pushd "${ARCHIVE_NAME}"
 
    CC="${CLANG}"
    
-   LDFLAGS="-L${ARCH_BUILT_DIR} -fPIE ${PLATFORM_VERSION_MIN}"
-   CFLAGS=" -arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} ${PLATFORM_VERSION_MIN}"
-   CPPFLAGS=" -arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} ${PLATFORM_VERSION_MIN}"
+   LDFLAGS="-L${ARCH_BUILT_LIBS_DIR} -fPIE ${PLATFORM_VERSION_MIN} -fembed-bitcode"
+   CFLAGS=" -arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} ${PLATFORM_VERSION_MIN} -fembed-bitcode"
+   CPPFLAGS=" -arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} ${PLATFORM_VERSION_MIN} -fembed-bitcode"
 
    if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ];
    	then
@@ -39,7 +39,7 @@ pushd "${ARCHIVE_NAME}"
    make install
 
    # Copy the build results        
-   cp "${ROOTDIR}/lib/liblzma.a" "${ARCH_BUILT_DIR}"
+   cp "${ROOTDIR}/lib/liblzma.a" "${ARCH_BUILT_LIBS_DIR}"
    cp -R ${ROOTDIR}/include/* "${ARCH_BUILT_HEADERS_DIR}"
 
 popd

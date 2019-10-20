@@ -30,7 +30,7 @@ pushd "openssl-${OPENSSL_VERSION}"
 		fi
 	fi
 
-	export CC="${CLANG} -arch ${ARCH} -fPIE ${PLATFORM_VERSION_MIN}"
+	export CC="${CLANG} -arch ${ARCH} -fPIE ${PLATFORM_VERSION_MIN} -fembed-bitcode"
 	export CROSS_TOP="${DEVELOPER}/Platforms/${PLATFORM}.platform/Developer"
 	export CROSS_SDK="${PLATFORM}${SDK}.sdk"
 
@@ -45,10 +45,10 @@ pushd "openssl-${OPENSSL_VERSION}"
 	make -j $(sysctl -n hw.ncpu)
 	make install_sw
 
-	cp "${ROOTDIR}/lib/libcrypto.a" "${ARCH_BUILT_DIR}"
-	cp "${ROOTDIR}/lib/libssl.a" "${ARCH_BUILT_DIR}"
+	cp "${ROOTDIR}/lib/libcrypto.a" "${ARCH_BUILT_LIBS_DIR}"
+	cp "${ROOTDIR}/lib/libssl.a" "${ARCH_BUILT_LIBS_DIR}"
+#    	cp -R ${ROOTDIR}/include/* "${ARCH_BUILT_HEADERS_DIR}"
 	cp -R "${ROOTDIR}/include/openssl" "${ARCH_BUILT_HEADERS_DIR}"
-
 popd
 
 # Clean up

@@ -12,9 +12,9 @@ tar zxf "tor-${TOR_VERSION}.tar.gz"
 
 pushd "tor-${TOR_VERSION}"
 
-	LDFLAGS="-L${ARCH_BUILT_DIR} -fPIE ${PLATFORM_VERSION_MIN}"
-	CFLAGS="-arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} ${PLATFORM_VERSION_MIN}"
-	CPPFLAGS="-arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} ${PLATFORM_VERSION_MIN}"
+	LDFLAGS="-L${ARCH_BUILT_LIBS_DIR} -fPIE ${PLATFORM_VERSION_MIN} -fembed-bitcode"
+	CFLAGS="-arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} ${PLATFORM_VERSION_MIN} -fembed-bitcode"
+	CPPFLAGS="-arch ${ARCH} -fPIE -isysroot ${SDK_PATH} -I${ARCH_BUILT_HEADERS_DIR} ${PLATFORM_VERSION_MIN} -fembed-bitcode"
 
 	if [ "${ARCH}" == "i386" ] || [ "${ARCH}" == "x86_64" ]; then
 		EXTRA_CONFIG="--host=${ARCH}-apple-darwin"
@@ -41,7 +41,7 @@ pushd "tor-${TOR_VERSION}"
 	# Copy the build results
 	for LIBRARY in src/lib/*.a src/core/*.a src/ext/ed25519/donna/*.a src/ext/ed25519/ref10/*.a src/trunnel/*.a src/ext/keccak-tiny/*.a;
     do
-        cp $LIBRARY "${ARCH_BUILT_DIR}"
+        cp $LIBRARY "${ARCH_BUILT_LIBS_DIR}"
     done
 
 	# Copy the micro-revision.i file that defines the Tor version
