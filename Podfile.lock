@@ -1,0 +1,23 @@
+PODS:
+  - CocoaAsyncSocket (7.6.3)
+  - CPAProxy (1.2.0):
+    - CocoaAsyncSocket
+
+DEPENDENCIES:
+  - CPAProxy (from `./CPAProxy.podspec`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - CocoaAsyncSocket
+
+EXTERNAL SOURCES:
+  CPAProxy:
+    :path: "./CPAProxy.podspec"
+
+SPEC CHECKSUMS:
+  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
+  CPAProxy: a55b75df8754d20d1cec45337302f9f95e35fde9
+
+PODFILE CHECKSUM: 0562525ac598a874d30dc1ff6e85ab8e8c9f93ba
+
+COCOAPODS: 1.8.4

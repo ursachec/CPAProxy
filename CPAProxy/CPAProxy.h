@@ -1,18 +1,20 @@
-//  CPAProxy.h
 //
-//  Copyright (c) 2013 Claudiu-Vlad Ursache.
-//  See LICENCE for licensing information
+//  CPAProxy.h
+//  CPAProxy
+//
+//  Created by Chris Ballinger on 10/20/19.
 //
 
 #import <Foundation/Foundation.h>
 
-#ifndef _CEPPA_
-#define _CEPPA_
+//! Project version number for CPAProxy.
+FOUNDATION_EXPORT double CPAProxyVersionNumber;
+
+//! Project version string for CPAProxy.
+FOUNDATION_EXPORT const unsigned char CPAProxyVersionString[];
 
 #import "CPAProxyManager.h"
 #import "CPAProxyManager+TorCommands.h"
 #import "CPAThread.h"
 #import "CPASocketManager.h"
 #import "CPAConfiguration.h"
-
-#endif

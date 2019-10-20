@@ -16,9 +16,9 @@
 /**
  Creates and returns a `CPAConfiguration` with the specified torrc and geoip paths.
  
- @param Path to a torrc file.
- @param Path to a geoip file.
- @param Path to directory to be used as teh tor data directory if set to nil then a directory is created in the system temporary directory
+ @param torrcPath to a torrc file.
+ @param geoipPath to a geoip file.
+ @param torDataDirectoryPath to directory to be used as teh tor data directory if set to nil then a directory is created in the system temporary directory
  @return A newly initialized `CPAConfiguration`.
  */
 + (instancetype)configurationWithTorrcPath:(NSString *)torrcPath
@@ -30,7 +30,7 @@
  
  @param torrcPath Path to a torrc file.
  @param geoipPath Path to a geoip file.
- @param Path to directory to be used as teh tor data directory if set to nil then a directory is created in the system temporary directory
+ @param torDataDirectoryPath to directory to be used as teh tor data directory if set to nil then a directory is created in the system temporary directory
  @return A newly initialized `CPAConfiguration`.
  */
 - (instancetype)initWithTorrcPath:(NSString *)torrcPath

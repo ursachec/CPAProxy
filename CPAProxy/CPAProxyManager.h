@@ -84,8 +84,8 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
 /**
  Starts running the `CPAThread` wrapping a Tor client, sends authentication and `get bootstrap info` messages to the control port and runs the success block with the SOCKS proxy's host and port on success. If anything goes wrong, the failure block is called with an NSError with `CPAErrorDomain`.
  
- @param success The success block containing the hostname and port of the usable Tor SOCKS proxy.
- @param failure The failure block containing an error describing what went wrong.
+ @param completion The completion block containing the hostname and port of the usable Tor SOCKS proxy.
+ @param progress The progress block
  */
 - (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
                    progress:(CPABootstrapProgressBlock)progress;
@@ -93,8 +93,8 @@ typedef NS_ENUM(NSUInteger, CPAStatus) {
 /**
  Starts running the `CPAThread` wrapping a Tor client, sends authentication and `get bootstrap info` messages to the control port and runs the success block with the SOCKS proxy's host and port on success. If anything goes wrong, the failure block is called with an NSError with `CPAErrorDomain`.
  
- @param success The success block containing the hostname and port of the usable Tor SOCKS proxy.
- @param failure The failure block containing an error describing what went wrong.
+ @param completion The completion block containing the hostname and port of the usable Tor SOCKS proxy.
+ @param progress The progress block
  @param callbackQueue The Queue on which the blocks will be called on, defaults to main queue
  */
 - (void)setupWithCompletion:(CPABootstrapCompletionBlock)completion
