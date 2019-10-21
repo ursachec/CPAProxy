@@ -582,7 +582,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -658,7 +658,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1002,7 +1002,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1077,7 +1077,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
