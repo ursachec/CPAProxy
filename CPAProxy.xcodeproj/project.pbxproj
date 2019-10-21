@@ -37,8 +37,6 @@
 		D97947C7235D0005000D86AE /* geoip6 in Resources */ = {isa = PBXBuildFile; fileRef = D97947BF235CFFCA000D86AE /* geoip6 */; };
 		D97947C8235D0005000D86AE /* geoip in Resources */ = {isa = PBXBuildFile; fileRef = D97947BD235CFFCA000D86AE /* geoip */; };
 		D97947C9235D0005000D86AE /* torrc in Resources */ = {isa = PBXBuildFile; fileRef = D97947BE235CFFCA000D86AE /* torrc */; };
-		D97947D3235D012C000D86AE /* CPAProxy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D97947CD235D0005000D86AE /* CPAProxy.bundle */; };
-		D97947D4235D0135000D86AE /* CPAProxy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D97947B6235CFF4B000D86AE /* CPAProxy.bundle */; };
 		D9B7EF03235D493D00AD1EEA /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52BA1235CF22B002B213A /* Network.framework */; };
 		D9B7EF04235D494200AD1EEA /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52BA1235CF22B002B213A /* Network.framework */; };
 		D9B7EF06235D496600AD1EEA /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B7EF05235D496600AD1EEA /* Socket.swift */; };
@@ -66,23 +64,6 @@
 		D9C52B9D235CEF6A002B213A /* libcpaproxy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52B98235CEF6A002B213A /* libcpaproxy.xcframework */; };
 		D9C52BA0235CF225002B213A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52B9F235CF225002B213A /* Foundation.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		D97947CF235D00FF000D86AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9C52B57235CED62002B213A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D97947C3235D0005000D86AE;
-			remoteInfo = "CPAProxy.bundle (iOS)";
-		};
-		D97947D1235D0106000D86AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9C52B57235CED62002B213A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D97947B5235CFF4B000D86AE;
-			remoteInfo = "CPAProxy.bundle (macOS)";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		D91D772A235CF5FF007D2A54 /* CPAProxy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CPAProxy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -303,7 +284,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D97947D0235D00FF000D86AE /* PBXTargetDependency */,
 			);
 			name = "CPAProxy (iOS)";
 			productName = CPAProxy;
@@ -356,7 +336,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D97947D2235D0106000D86AE /* PBXTargetDependency */,
 			);
 			name = "CPAProxy (macOS)";
 			productName = CPAProxy;
@@ -409,7 +388,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D97947D3235D012C000D86AE /* CPAProxy.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +415,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D97947D4235D0135000D86AE /* CPAProxy.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,19 +470,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		D97947D0235D00FF000D86AE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D97947C3235D0005000D86AE /* CPAProxy.bundle (iOS) */;
-			targetProxy = D97947CF235D00FF000D86AE /* PBXContainerItemProxy */;
-		};
-		D97947D2235D0106000D86AE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D97947B5235CFF4B000D86AE /* CPAProxy.bundle (macOS) */;
-			targetProxy = D97947D1235D0106000D86AE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D91D7728235CF5FF007D2A54 /* Debug */ = {
