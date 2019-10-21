@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA4D1F845A9202FFBD319EB1 /* libPods-CPAProxy (iOS).a in Frameworks */ = {isa = PBXBuildFile; fileRef = B48E36C6E41BFC086F670398 /* libPods-CPAProxy (iOS).a */; };
-		B43E127917015D0DF353ECC0 /* libPods-CPAProxy (macOS).a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F2692FE2BE1E055EA8A35C /* libPods-CPAProxy (macOS).a */; };
 		D91D7707235CF5FF007D2A54 /* CPAProxyResponseParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B7C235CEEB0002B213A /* CPAProxyResponseParser.h */; };
 		D91D7708235CF5FF007D2A54 /* CPAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B78235CEEB0002B213A /* CPAConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D91D7709235CF5FF007D2A54 /* CPAProxyManager+TorCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B6D235CEEAF002B213A /* CPAProxyManager+TorCommands.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -18,7 +16,6 @@
 		D91D770D235CF5FF007D2A54 /* CPAProxyCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B76235CEEB0002B213A /* CPAProxyCommand.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D91D770E235CF5FF007D2A54 /* CPAProxyTorCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B71235CEEB0002B213A /* CPAProxyTorCommands.h */; };
 		D91D770F235CF5FF007D2A54 /* CPAProxyTorCommandConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B6E235CEEAF002B213A /* CPAProxyTorCommandConstants.h */; };
-		D91D7710235CF5FF007D2A54 /* GCDAsyncSocket+CPAProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52BA4235CF393002B213A /* GCDAsyncSocket+CPAProxy.h */; };
 		D91D7711235CF5FF007D2A54 /* tor_cpaproxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B94235CEF6A002B213A /* tor_cpaproxy.h */; };
 		D91D7712235CF5FF007D2A54 /* CPAThread.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B6C235CEEAF002B213A /* CPAThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D91D7714235CF5FF007D2A54 /* CPAProxyResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B6B235CEEAF002B213A /* CPAProxyResponseParser.m */; };
@@ -27,7 +24,6 @@
 		D91D7717235CF5FF007D2A54 /* CPAProxyCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B75235CEEB0002B213A /* CPAProxyCommand.m */; };
 		D91D7718235CF5FF007D2A54 /* CPAThread.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B7A235CEEB0002B213A /* CPAThread.m */; };
 		D91D7719235CF5FF007D2A54 /* CPASocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B72235CEEB0002B213A /* CPASocketManager.m */; };
-		D91D771A235CF5FF007D2A54 /* GCDAsyncSocket+CPAProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52BA3235CF393002B213A /* GCDAsyncSocket+CPAProxy.m */; };
 		D91D771B235CF5FF007D2A54 /* CPAProxyTorCommandConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B70235CEEB0002B213A /* CPAProxyTorCommandConstants.m */; };
 		D91D771C235CF5FF007D2A54 /* CPAProxyManager+TorCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B6F235CEEB0002B213A /* CPAProxyManager+TorCommands.m */; };
 		D91D771D235CF5FF007D2A54 /* CPAProxyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B77235CEEB0002B213A /* CPAProxyManager.m */; };
@@ -43,6 +39,10 @@
 		D97947C9235D0005000D86AE /* torrc in Resources */ = {isa = PBXBuildFile; fileRef = D97947BE235CFFCA000D86AE /* torrc */; };
 		D97947D3235D012C000D86AE /* CPAProxy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D97947CD235D0005000D86AE /* CPAProxy.bundle */; };
 		D97947D4235D0135000D86AE /* CPAProxy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D97947B6235CFF4B000D86AE /* CPAProxy.bundle */; };
+		D9B7EF03235D493D00AD1EEA /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52BA1235CF22B002B213A /* Network.framework */; };
+		D9B7EF04235D494200AD1EEA /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52BA1235CF22B002B213A /* Network.framework */; };
+		D9B7EF06235D496600AD1EEA /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B7EF05235D496600AD1EEA /* Socket.swift */; };
+		D9B7EF07235D496600AD1EEA /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B7EF05235D496600AD1EEA /* Socket.swift */; };
 		D9C52B67235CEE08002B213A /* CPAProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B65235CEE08002B213A /* CPAProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9C52B7F235CEEB0002B213A /* CPAProxyResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52B6B235CEEAF002B213A /* CPAProxyResponseParser.m */; };
 		D9C52B80235CEEB0002B213A /* CPAThread.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B6C235CEEAF002B213A /* CPAThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -65,8 +65,6 @@
 		D9C52B99235CEF6A002B213A /* tor_cpaproxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B94235CEF6A002B213A /* tor_cpaproxy.h */; };
 		D9C52B9D235CEF6A002B213A /* libcpaproxy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52B98235CEF6A002B213A /* libcpaproxy.xcframework */; };
 		D9C52BA0235CF225002B213A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C52B9F235CF225002B213A /* Foundation.framework */; };
-		D9C52BA5235CF393002B213A /* GCDAsyncSocket+CPAProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = D9C52BA3235CF393002B213A /* GCDAsyncSocket+CPAProxy.m */; };
-		D9C52BA6235CF393002B213A /* GCDAsyncSocket+CPAProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52BA4235CF393002B213A /* GCDAsyncSocket+CPAProxy.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,11 +85,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3FA1E4D3C515D1FD13AB86FD /* Pods-CPAProxy (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxy (iOS).debug.xcconfig"; path = "Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS).debug.xcconfig"; sourceTree = "<group>"; };
-		40D91A003C4E211882D06A55 /* Pods-CPAProxy (macOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxy (macOS).release.xcconfig"; path = "Target Support Files/Pods-CPAProxy (macOS)/Pods-CPAProxy (macOS).release.xcconfig"; sourceTree = "<group>"; };
-		B48E36C6E41BFC086F670398 /* libPods-CPAProxy (iOS).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CPAProxy (iOS).a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BEEA5D1DF0CB8937C5F73DC4 /* Pods-CPAProxy (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxy (iOS).release.xcconfig"; path = "Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS).release.xcconfig"; sourceTree = "<group>"; };
-		C3F2692FE2BE1E055EA8A35C /* libPods-CPAProxy (macOS).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CPAProxy (macOS).a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91D772A235CF5FF007D2A54 /* CPAProxy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CPAProxy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D954B31C235CFC6700B1E68F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D97947B6235CFF4B000D86AE /* CPAProxy.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPAProxy.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +93,7 @@
 		D97947BE235CFFCA000D86AE /* torrc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = torrc; sourceTree = "<group>"; };
 		D97947BF235CFFCA000D86AE /* geoip6 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = geoip6; sourceTree = "<group>"; };
 		D97947CD235D0005000D86AE /* CPAProxy.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPAProxy.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9B7EF05235D496600AD1EEA /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		D9C52B62235CEE08002B213A /* CPAProxy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CPAProxy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9C52B65235CEE08002B213A /* CPAProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPAProxy.h; sourceTree = "<group>"; };
 		D9C52B66235CEE08002B213A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -125,9 +119,6 @@
 		D9C52B98235CEF6A002B213A /* libcpaproxy.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = libcpaproxy.xcframework; sourceTree = "<group>"; };
 		D9C52B9F235CF225002B213A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D9C52BA1235CF22B002B213A /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
-		D9C52BA3235CF393002B213A /* GCDAsyncSocket+CPAProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GCDAsyncSocket+CPAProxy.m"; sourceTree = "<group>"; };
-		D9C52BA4235CF393002B213A /* GCDAsyncSocket+CPAProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GCDAsyncSocket+CPAProxy.h"; sourceTree = "<group>"; };
-		E2BBD1406DEC33D14F72951A /* Pods-CPAProxy (macOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxy (macOS).debug.xcconfig"; path = "Target Support Files/Pods-CPAProxy (macOS)/Pods-CPAProxy (macOS).debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +129,7 @@
 				D954B31D235CFC6700B1E68F /* libz.tbd in Frameworks */,
 				D91D771F235CF5FF007D2A54 /* Foundation.framework in Frameworks */,
 				D91D7720235CF5FF007D2A54 /* libcpaproxy.xcframework in Frameworks */,
-				AA4D1F845A9202FFBD319EB1 /* libPods-CPAProxy (iOS).a in Frameworks */,
+				D9B7EF04235D494200AD1EEA /* Network.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +154,7 @@
 				D954B31E235CFC7500B1E68F /* libz.tbd in Frameworks */,
 				D9C52BA0235CF225002B213A /* Foundation.framework in Frameworks */,
 				D9C52B9D235CEF6A002B213A /* libcpaproxy.xcframework in Frameworks */,
-				B43E127917015D0DF353ECC0 /* libPods-CPAProxy (macOS).a in Frameworks */,
+				D9B7EF03235D493D00AD1EEA /* Network.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,10 +164,6 @@
 		8F1C670FB13E75343151143B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E2BBD1406DEC33D14F72951A /* Pods-CPAProxy (macOS).debug.xcconfig */,
-				40D91A003C4E211882D06A55 /* Pods-CPAProxy (macOS).release.xcconfig */,
-				3FA1E4D3C515D1FD13AB86FD /* Pods-CPAProxy (iOS).debug.xcconfig */,
-				BEEA5D1DF0CB8937C5F73DC4 /* Pods-CPAProxy (iOS).release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -215,8 +202,7 @@
 		D9C52B64235CEE08002B213A /* CPAProxy */ = {
 			isa = PBXGroup;
 			children = (
-				D9C52BA4235CF393002B213A /* GCDAsyncSocket+CPAProxy.h */,
-				D9C52BA3235CF393002B213A /* GCDAsyncSocket+CPAProxy.m */,
+				D9B7EF05235D496600AD1EEA /* Socket.swift */,
 				D9C52B78235CEEB0002B213A /* CPAConfiguration.h */,
 				D9C52B7D235CEEB0002B213A /* CPAConfiguration.m */,
 				D9C52B76235CEEB0002B213A /* CPAProxyCommand.h */,
@@ -259,8 +245,6 @@
 				D954B31C235CFC6700B1E68F /* libz.tbd */,
 				D9C52BA1235CF22B002B213A /* Network.framework */,
 				D9C52B9F235CF225002B213A /* Foundation.framework */,
-				B48E36C6E41BFC086F670398 /* libPods-CPAProxy (iOS).a */,
-				C3F2692FE2BE1E055EA8A35C /* libPods-CPAProxy (macOS).a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -281,7 +265,6 @@
 				D91D770D235CF5FF007D2A54 /* CPAProxyCommand.h in Headers */,
 				D91D770E235CF5FF007D2A54 /* CPAProxyTorCommands.h in Headers */,
 				D91D770F235CF5FF007D2A54 /* CPAProxyTorCommandConstants.h in Headers */,
-				D91D7710235CF5FF007D2A54 /* GCDAsyncSocket+CPAProxy.h in Headers */,
 				D91D7711235CF5FF007D2A54 /* tor_cpaproxy.h in Headers */,
 				D91D7712235CF5FF007D2A54 /* CPAThread.h in Headers */,
 			);
@@ -300,7 +283,6 @@
 				D9C52B8A235CEEB0002B213A /* CPAProxyCommand.h in Headers */,
 				D9C52B85235CEEB0002B213A /* CPAProxyTorCommands.h in Headers */,
 				D9C52B82235CEEB0002B213A /* CPAProxyTorCommandConstants.h in Headers */,
-				D9C52BA6235CF393002B213A /* GCDAsyncSocket+CPAProxy.h in Headers */,
 				D9C52B99235CEF6A002B213A /* tor_cpaproxy.h in Headers */,
 				D9C52B80235CEEB0002B213A /* CPAThread.h in Headers */,
 			);
@@ -313,7 +295,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D91D7727235CF5FF007D2A54 /* Build configuration list for PBXNativeTarget "CPAProxy (iOS)" */;
 			buildPhases = (
-				D91D7705235CF5FF007D2A54 /* [CP] Check Pods Manifest.lock */,
 				D91D7706235CF5FF007D2A54 /* Headers */,
 				D91D7713235CF5FF007D2A54 /* Sources */,
 				D91D771E235CF5FF007D2A54 /* Frameworks */,
@@ -367,7 +348,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D9C52B6A235CEE08002B213A /* Build configuration list for PBXNativeTarget "CPAProxy (macOS)" */;
 			buildPhases = (
-				6051EE954232D06DED65A755 /* [CP] Check Pods Manifest.lock */,
 				D9C52B5D235CEE08002B213A /* Headers */,
 				D9C52B5E235CEE08002B213A /* Sources */,
 				D9C52B5F235CEE08002B213A /* Frameworks */,
@@ -391,11 +371,15 @@
 			attributes = {
 				LastUpgradeCheck = 1110;
 				TargetAttributes = {
+					D91D7704235CF5FF007D2A54 = {
+						LastSwiftMigration = 1110;
+					};
 					D97947B5235CFF4B000D86AE = {
 						CreatedOnToolsVersion = 11.1;
 					};
 					D9C52B61235CEE08002B213A = {
 						CreatedOnToolsVersion = 11.1;
+						LastSwiftMigration = 1110;
 					};
 				};
 			};
@@ -459,53 +443,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		6051EE954232D06DED65A755 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CPAProxy (macOS)-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D91D7705235CF5FF007D2A54 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CPAProxy (iOS)-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		D91D7713235CF5FF007D2A54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -517,7 +454,7 @@
 				D91D7717235CF5FF007D2A54 /* CPAProxyCommand.m in Sources */,
 				D91D7718235CF5FF007D2A54 /* CPAThread.m in Sources */,
 				D91D7719235CF5FF007D2A54 /* CPASocketManager.m in Sources */,
-				D91D771A235CF5FF007D2A54 /* GCDAsyncSocket+CPAProxy.m in Sources */,
+				D9B7EF07235D496600AD1EEA /* Socket.swift in Sources */,
 				D91D771B235CF5FF007D2A54 /* CPAProxyTorCommandConstants.m in Sources */,
 				D91D771C235CF5FF007D2A54 /* CPAProxyManager+TorCommands.m in Sources */,
 				D91D771D235CF5FF007D2A54 /* CPAProxyManager.m in Sources */,
@@ -548,7 +485,7 @@
 				D9C52B89235CEEB0002B213A /* CPAProxyCommand.m in Sources */,
 				D9C52B8E235CEEB0002B213A /* CPAThread.m in Sources */,
 				D9C52B86235CEEB0002B213A /* CPASocketManager.m in Sources */,
-				D9C52BA5235CF393002B213A /* GCDAsyncSocket+CPAProxy.m in Sources */,
+				D9B7EF06235D496600AD1EEA /* Socket.swift in Sources */,
 				D9C52B84235CEEB0002B213A /* CPAProxyTorCommandConstants.m in Sources */,
 				D9C52B83235CEEB0002B213A /* CPAProxyManager+TorCommands.m in Sources */,
 				D9C52B8B235CEEB0002B213A /* CPAProxyManager.m in Sources */,
@@ -573,7 +510,6 @@
 /* Begin XCBuildConfiguration section */
 		D91D7728235CF5FF007D2A54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3FA1E4D3C515D1FD13AB86FD /* Pods-CPAProxy (iOS).debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -639,6 +575,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -646,6 +583,8 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -654,7 +593,6 @@
 		};
 		D91D7729235CF5FF007D2A54 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEEA5D1DF0CB8937C5F73DC4 /* Pods-CPAProxy (iOS).release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -714,12 +652,14 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -990,7 +930,6 @@
 		};
 		D9C52B68235CEE08002B213A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E2BBD1406DEC33D14F72951A /* Pods-CPAProxy (macOS).debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -1055,7 +994,8 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1063,6 +1003,8 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1070,7 +1012,6 @@
 		};
 		D9C52B69235CEE08002B213A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 40D91A003C4E211882D06A55 /* Pods-CPAProxy (macOS).release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -1129,13 +1070,15 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.chatsecure.CPAProxy;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

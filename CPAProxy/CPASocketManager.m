@@ -6,10 +6,15 @@
 
 #import "CPASocketManager.h"
 
-#import "GCDAsyncSocket+CPAProxy.h"
 #import "CPAProxyCommand.h"
 #import "CPAProxyTorCommandConstants.h"
 #import "CPAProxyResponseParser.h"
+
+#if __has_include("CPAProxy-Swift.h")
+#import "CPAProxy-Swift.h"
+#else
+#import <CPAProxy/CPAProxy-Swift.h>
+#endif
 
 const NSTimeInterval CPASocketTimeoutDelay = 3;
 const NSTimeInterval CPASocketReadTimeout = -1;
@@ -18,11 +23,11 @@ const long CPASocketDidReadReadTag = 102;
 const long CPASocketDidWriteReadTag = 102;
 const long CPASocketWriteTag = 110;
 
-@interface CPASocketManager () <GCDAsyncSocketDelegate>
+@interface CPASocketManager () <CPASocketDelegate>
 
 @property (nonatomic, weak, readwrite) id<CPASocketManagerDelegate> delegate;
 @property (nonatomic, readwrite) BOOL isConnected;
-@property (nonatomic, strong, readwrite) GCDAsyncSocket *socket;
+@property (nonatomic, strong, readwrite) CPASocket *socket;
 @property (nonatomic, strong) NSMutableArray *waitingCommands;
 @property (nonatomic) dispatch_queue_t socketQueue;
 @property (nonatomic) dispatch_queue_t delegateQueue;
@@ -62,8 +67,8 @@ const long CPASocketWriteTag = 110;
         self.workQueue = dispatch_queue_create([workLabel UTF8String], DISPATCH_QUEUE_SERIAL);
         
         self.waitingCommands = [NSMutableArray new];
-        
-        self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self
+                
+        self.socket = [[CPASocket alloc] initWithDelegate:self
                                                  delegateQueue:dispatch_queue_create([@"GCDAsyncSocket-delegate" UTF8String], NULL)
                                                    socketQueue:socketQueue];
         self.delegate = delegate;
@@ -105,7 +110,7 @@ const long CPASocketWriteTag = 110;
 
  #pragma - mark Public Methods
 
-- (void)connectToHost:(NSString *)host port:(NSUInteger)port error:(NSError **)error;
+- (void)connectToHost:(NSString *)host port:(NSUInteger)port error:(NSError **)error
 {
     [self.socket connectToHost:host onPort:port error:error];
 }
@@ -120,7 +125,7 @@ const long CPASocketWriteTag = 110;
 
 - (void)writeString:(NSString *)string encoding:(NSStringEncoding)encoding
 {
-    [self.socket cpa_writeString:string withEncoding:encoding timeout:CPASocketTimeoutDelay tag:CPASocketWriteTag];
+    [self.socket cpa_writeString:string withTimeout:CPASocketTimeoutDelay tag:CPASocketWriteTag];
     [self.socket readDataWithTimeout:CPASocketReadTimeout tag:CPASocketDidWriteReadTag];
 }
 
@@ -217,18 +222,18 @@ const long CPASocketWriteTag = 110;
 
 #pragma - mark GCDAsyncSocketDelegate Methods
 
-- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
+- (void)socket:(CPASocket*)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
     [self handleSocketConnected];
     [self.socket readDataWithTimeout:CPASocketReadTimeout tag:CPASocketDidConnectReadTag];
 }
 
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+- (void)socketDidDisconnect:(CPASocket *)sock withError:(NSError *)err
 {
     [self handleSocketDisconnectedWithError:err];
 }
 
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+- (void)socket:(CPASocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
     dispatch_async(self.workQueue, ^{
         NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -236,5 +241,12 @@ const long CPASocketWriteTag = 110;
     });
     [self.socket readDataWithTimeout:CPASocketReadTimeout tag:CPASocketDidReadReadTag];
 }
+
+- (void) socket:(CPASocket *)socket didReceiveTrust:(SecTrustRef)trust completionHandler:(void (^)(BOOL shouldTrustPeer))completion {
+    // we are talking to localhost
+    completion(true);
+}
+
+- (void)socket:(CPASocket *)socket didWriteDataWithTag:(NSInteger)tag {}
 
 @end
