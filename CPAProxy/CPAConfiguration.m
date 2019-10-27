@@ -61,6 +61,9 @@
 
 - (BOOL)setupTorDirectoryWithPath:(NSString *)path
 {
+    if (!path) {
+        return NO;
+    }
     //Cannot be documents directory for back reasons
     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     if ([path isEqualToString:documentsDirectory]) {

@@ -62,7 +62,7 @@
  @param port The port to connect to.
  @param error optional error
  */
-- (void)connectToHost:(NSString *)host port:(NSUInteger)port error:(NSError **)error;
+- (BOOL)connectToHost:(NSString *)host port:(NSUInteger)port error:(NSError **)error;
 
 /**
  Writes a string to the already connected socket. If the socket hasn't been created and connected by calling `connectToHost:port:`, the method returns without doing anything.

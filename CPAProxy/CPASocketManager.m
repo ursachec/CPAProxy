@@ -110,9 +110,9 @@ const long CPASocketWriteTag = 110;
 
  #pragma - mark Public Methods
 
-- (void)connectToHost:(NSString *)host port:(NSUInteger)port error:(NSError **)error
+- (BOOL)connectToHost:(NSString *)host port:(NSUInteger)port error:(NSError **)error
 {
-    [self.socket connectToHost:host onPort:port error:error];
+    return [self.socket connectToHost:host onPort:port error:error];
 }
 
 - (void)sendCommand:(CPAProxyCommand *)command
