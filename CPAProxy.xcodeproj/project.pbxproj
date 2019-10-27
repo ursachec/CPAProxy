@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C64612F92F59C184484C5E04 /* libPods-CPAProxy (iOS).a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37C345B2F7DD26C09CE94C12 /* libPods-CPAProxy (iOS).a */; };
-		D09E5842CA32E7F39C6AAD9F /* libPods-CPAProxy (macOS).a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4056A3EB7A598D4F63D8D043 /* libPods-CPAProxy (macOS).a */; };
 		D91D7707235CF5FF007D2A54 /* CPAProxyResponseParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B7C235CEEB0002B213A /* CPAProxyResponseParser.h */; };
 		D91D7708235CF5FF007D2A54 /* CPAConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B78235CEEB0002B213A /* CPAConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D91D7709235CF5FF007D2A54 /* CPAProxyManager+TorCommands.h in Headers */ = {isa = PBXBuildFile; fileRef = D9C52B6D235CEEAF002B213A /* CPAProxyManager+TorCommands.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -68,12 +66,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1CD537735DE9E8DCC5551B46 /* Pods-CPAProxy (macOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxy (macOS).debug.xcconfig"; path = "Target Support Files/Pods-CPAProxy (macOS)/Pods-CPAProxy (macOS).debug.xcconfig"; sourceTree = "<group>"; };
-		33A0EB6EA910D485F9C74228 /* Pods-CPAProxy (macOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxy (macOS).release.xcconfig"; path = "Target Support Files/Pods-CPAProxy (macOS)/Pods-CPAProxy (macOS).release.xcconfig"; sourceTree = "<group>"; };
-		37C345B2F7DD26C09CE94C12 /* libPods-CPAProxy (iOS).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CPAProxy (iOS).a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4056A3EB7A598D4F63D8D043 /* libPods-CPAProxy (macOS).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CPAProxy (macOS).a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A74C5A415A8B549AC0B8F02 /* Pods-CPAProxy (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxy (iOS).debug.xcconfig"; path = "Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS).debug.xcconfig"; sourceTree = "<group>"; };
-		C30EB0263CBF3E13EA326BD5 /* Pods-CPAProxy (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CPAProxy (iOS).release.xcconfig"; path = "Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS).release.xcconfig"; sourceTree = "<group>"; };
 		D91D772A235CF5FF007D2A54 /* CPAProxy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CPAProxy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D954B31C235CFC6700B1E68F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D97947B6235CFF4B000D86AE /* CPAProxy.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CPAProxy.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,7 +111,6 @@
 				D91D771F235CF5FF007D2A54 /* Foundation.framework in Frameworks */,
 				D91D7720235CF5FF007D2A54 /* libcpaproxy.xcframework in Frameworks */,
 				D9B7EF04235D494200AD1EEA /* Network.framework in Frameworks */,
-				C64612F92F59C184484C5E04 /* libPods-CPAProxy (iOS).a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,7 +136,6 @@
 				D9C52BA0235CF225002B213A /* Foundation.framework in Frameworks */,
 				D9C52B9D235CEF6A002B213A /* libcpaproxy.xcframework in Frameworks */,
 				D9B7EF03235D493D00AD1EEA /* Network.framework in Frameworks */,
-				D09E5842CA32E7F39C6AAD9F /* libPods-CPAProxy (macOS).a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,10 +145,6 @@
 		8F1C670FB13E75343151143B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4A74C5A415A8B549AC0B8F02 /* Pods-CPAProxy (iOS).debug.xcconfig */,
-				C30EB0263CBF3E13EA326BD5 /* Pods-CPAProxy (iOS).release.xcconfig */,
-				1CD537735DE9E8DCC5551B46 /* Pods-CPAProxy (macOS).debug.xcconfig */,
-				33A0EB6EA910D485F9C74228 /* Pods-CPAProxy (macOS).release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -240,8 +226,6 @@
 				D954B31C235CFC6700B1E68F /* libz.tbd */,
 				D9C52BA1235CF22B002B213A /* Network.framework */,
 				D9C52B9F235CF225002B213A /* Foundation.framework */,
-				37C345B2F7DD26C09CE94C12 /* libPods-CPAProxy (iOS).a */,
-				4056A3EB7A598D4F63D8D043 /* libPods-CPAProxy (macOS).a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -292,12 +276,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D91D7727235CF5FF007D2A54 /* Build configuration list for PBXNativeTarget "CPAProxy (iOS)" */;
 			buildPhases = (
-				61916B86FAC659B856E712DD /* [CP] Check Pods Manifest.lock */,
 				D91D7706235CF5FF007D2A54 /* Headers */,
 				D91D7713235CF5FF007D2A54 /* Sources */,
 				D91D771E235CF5FF007D2A54 /* Frameworks */,
 				D91D7722235CF5FF007D2A54 /* Resources */,
-				7BB61AD568BE33DC2EB96B9D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -346,12 +328,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D9C52B6A235CEE08002B213A /* Build configuration list for PBXNativeTarget "CPAProxy (macOS)" */;
 			buildPhases = (
-				5DF29D6BC1E4A101F6CB8961 /* [CP] Check Pods Manifest.lock */,
 				D9C52B5D235CEE08002B213A /* Headers */,
 				D9C52B5E235CEE08002B213A /* Sources */,
 				D9C52B5F235CEE08002B213A /* Frameworks */,
 				D9C52B60235CEE08002B213A /* Resources */,
-				37B6AA1FA393E8D78A7E58F3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -440,87 +420,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		37B6AA1FA393E8D78A7E58F3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (macOS)/Pods-CPAProxy (macOS)-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (macOS)/Pods-CPAProxy (macOS)-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (macOS)/Pods-CPAProxy (macOS)-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5DF29D6BC1E4A101F6CB8961 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CPAProxy (macOS)-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		61916B86FAC659B856E712DD /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CPAProxy (iOS)-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7BB61AD568BE33DC2EB96B9D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS)-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS)-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CPAProxy (iOS)/Pods-CPAProxy (iOS)-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		D91D7713235CF5FF007D2A54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -575,7 +474,6 @@
 /* Begin XCBuildConfiguration section */
 		D91D7728235CF5FF007D2A54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A74C5A415A8B549AC0B8F02 /* Pods-CPAProxy (iOS).debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -659,7 +557,6 @@
 		};
 		D91D7729235CF5FF007D2A54 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C30EB0263CBF3E13EA326BD5 /* Pods-CPAProxy (iOS).release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -997,7 +894,6 @@
 		};
 		D9C52B68235CEE08002B213A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CD537735DE9E8DCC5551B46 /* Pods-CPAProxy (macOS).debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -1080,7 +976,6 @@
 		};
 		D9C52B69235CEE08002B213A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33A0EB6EA910D485F9C74228 /* Pods-CPAProxy (macOS).release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
