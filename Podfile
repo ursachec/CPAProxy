@@ -1,14 +1,14 @@
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://cdn.cocoapods.org/'
 
 use_modular_headers!
 
 target 'CPAProxy (macOS)' do
-	platform :osx, '10.10'
+	platform :osx, '10.14'
     pod 'CPAProxy', :path => './CPAProxy.podspec'
 end
 
 target 'CPAProxy (iOS)' do
-	platform :ios, '9.0'
+	platform :ios, '12.0'
     pod 'CPAProxy', :path => './CPAProxy.podspec'
 end
 
