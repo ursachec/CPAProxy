@@ -16,8 +16,10 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "12.0"
   s.osx.deployment_target = "10.14"
 
-  s.ios.resource_bundles = {"CPAProxy" => ["CPAProxyDependencies/geoip", "CPAProxyDependencies/geoip6", "CPAProxyDependencies/torrc"]}
-  s.osx.resource_bundles = {"CPAProxy" => ["CPAProxyDependencies/geoip", "CPAProxyDependencies/geoip6", "CPAProxyDependencies/torrc"]}
+  s.preserve_paths = 'LICENSE.md'
+
+  # s.ios.resource_bundles = {"CPAProxy" => ["CPAProxyDependencies/geoip", "CPAProxyDependencies/geoip6", "CPAProxyDependencies/torrc"]}
+  # s.osx.resource_bundles = {"CPAProxy" => ["CPAProxyDependencies/geoip", "CPAProxyDependencies/geoip6", "CPAProxyDependencies/torrc"]}
 
   s.requires_arc = true
 end
