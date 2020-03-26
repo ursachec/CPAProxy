@@ -56,22 +56,50 @@ public final class Socket: NSObject {
             throw SocketError.badConfig
         }
         
-        let options = NWProtocolTLS.Options()
-        sec_protocol_options_set_verify_block(options.securityProtocolOptions, { [weak self] (sec_protocol_metadata, sec_trust, sec_protocol_verify_complete) in
-            let trust = sec_trust_copy_ref(sec_trust).takeRetainedValue()
-            var error: CFError?
-            if let self = self, let delegate = self.delegate {
-                delegate.socket(self, didReceiveTrust: trust, completion: { (shouldTrustPeer) in
-                    sec_protocol_verify_complete(shouldTrustPeer)
-                })
-            } else if SecTrustEvaluateWithError(trust, &error) {
-                sec_protocol_verify_complete(true)
-            } else {
-                sec_protocol_verify_complete(false)
+//        let options = NWProtocolTLS.Options()
+//        sec_protocol_options_set_verify_block(options.securityProtocolOptions, { [weak self] (sec_protocol_metadata, sec_trust, sec_protocol_verify_complete) in
+//            let trust = sec_trust_copy_ref(sec_trust).takeRetainedValue()
+//            var error: CFError?
+//            if let self = self, let delegate = self.delegate {
+//                delegate.socket(self, didReceiveTrust: trust, completion: { (shouldTrustPeer) in
+//                    sec_protocol_verify_complete(shouldTrustPeer)
+//                })
+//            } else if SecTrustEvaluateWithError(trust, &error) {
+//                sec_protocol_verify_complete(true)
+//            } else {
+//                sec_protocol_verify_complete(false)
+//            }
+//
+//        }, socketQueue)
+        let connection = NWConnection(host: NWEndpoint.Host(host), port: port, using: .tcp)
+        self.connection = connection
+        connection.stateUpdateHandler = { newState in
+            switch newState {
+            case .ready:
+                print("\(connection) established")
+                
+                // When the connection is ready, start receiving messages.
+//                self.receiveNextMessage()
+                
+                // Notify your delegate that the connection is ready.
+                if let delegate = self.delegate {
+                    delegate.socket(self, didConnectTo: host, port: port.rawValue)
+                }
+            case .failed(let error):
+                print("\(connection) failed with \(error)")
+                
+                // Cancel the connection upon a failure.
+                connection.cancel()
+                
+                // Notify your delegate that the connection failed.
+                if let delegate = self.delegate {
+                    delegate.socketDidDisconnect(self, error: error)
+                }
+            default:
+                break
             }
-            
-        }, socketQueue)
-        connection = NWConnection(host: NWEndpoint.Host(host), port: port, using: NWParameters(tls: options))
+        }
+        connection.start(queue: socketQueue)
     }
     
     @objc(writeData:withTimeout:tag:)
